@@ -2,7 +2,7 @@
 
 int main(int argc, char const *argv[])
 {
-  printf("Halo Proyek 2");
-  printf("Edited By syahid");
+  printf("Halo Proyek 1");
+  printf("Edited By umem");
   return 0;
 }
