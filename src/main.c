@@ -2,8 +2,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
-static SDL_Window *window = NULL;
-static SDL_Renderer *renderer = NULL;
+#include "game.h"
 
 /* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
@@ -16,11 +15,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
     return SDL_APP_FAILURE;
   }
 
-  if (!SDL_CreateWindowAndRenderer("Contoh", 640, 480, 0, &window, &renderer))
-  {
-    SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
-    return SDL_APP_FAILURE;
-  }
+  create_game_instance();
 
   return SDL_APP_CONTINUE;
 }
