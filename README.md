@@ -1,4 +1,6 @@
-# C5-Proyek-2
+# Jump & Survive
+
+Kelompok : C5
 
 Jurusan : Teknik Komputer dan Informatika
 
@@ -16,16 +18,14 @@ Manager Proyek : Yudi Widhiyasana, S.Si., MT
 | 4  | Ikhsan Satriadi      | 241511080 |
 | 5  | Muhamad Syahid       | 241511081 |
 
-### Pembagian tugas Kelompok C5 :
+### Pembagian Roles
 
--Core dan Collision = Ikhsan Satriadi
+| Modul | Nama |
+| --- | --- |
+| Game Manager/Singleton & Integration | Ikhsan Satriadi |
+| Entity & Collision | Muhamad Syahid |
+| Stage/level | Hisyam Khaeru Umam |
+| Menu & Assets | Helga Athifa Hidayat |
+| Settings/Other Utility | Hanifidin Ibrahim |
+| Additional feature may be added... | |
 
--Logika Pemain = Muhamad Syahid
-
--Level & platform = Hisyam Khaeru Umam & Hanifidhin Ibrahim
-
--Input & UI = Helga Athifa Hidayat
-
--Integrasi & testing = Together
-
-NB = jika ada kesulitan bantu teman anggotanya 

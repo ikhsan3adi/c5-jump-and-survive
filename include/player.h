@@ -3,7 +3,7 @@
 
 #include <SDL3/SDL.h>
 typedef struct {
-    float x, y;
+    int x, y;
 } Transform;
 
 typedef struct {
