@@ -8,7 +8,21 @@ static SDL_Renderer *renderer = NULL;
 /* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
-  return SDL_APP_CONTINUE; /* carry on with the program! */
+  SDL_SetAppMetadata("Example", "1.0", "com.c5.example");
+
+  if (!SDL_Init(SDL_INIT_VIDEO))
+  {
+    SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
+    return SDL_APP_FAILURE;
+  }
+
+  if (!SDL_CreateWindowAndRenderer("Contoh", 640, 480, 0, &window, &renderer))
+  {
+    SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
+    return SDL_APP_FAILURE;
+  }
+
+  return SDL_APP_CONTINUE;
 }
 
 /* This function runs when a new event (mouse input, keypresses, etc) occurs. */
