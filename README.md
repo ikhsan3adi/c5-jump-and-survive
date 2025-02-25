@@ -1,5 +1,7 @@
 # Jump & Survive
 
+## Proyek 2: Pengembangan Aplikasi Berbasis Library
+
 Kelompok : C5
 
 Jurusan : Teknik Komputer dan Informatika
@@ -13,19 +15,22 @@ Manager Proyek : Yudi Widhiyasana, S.Si., MT
 | No | Nama                 | NIM       |
 | -- | -------------------- | --------- |
 | 1  | Hanifidin Ibrahim    | 241511076 |
-| 2  | Helga Athifa Hidayat | 241511077 |
-| 3  | Hisyam Khaeru Umam   | 241511078 |
-| 4  | Ikhsan Satriadi      | 241511080 |
-| 5  | Muhamad Syahid       | 241511081 |
+| 2. | Helga Athifa Hidayat | 241511077 |
+| 3. | Hisyam Khaeru Umam   | 241511078 |
+| 4. | Ikhsan Satriadi      | 241511080 |
+| 5. | Muhamad Syahid       | 241511081 |
 
 ### Pembagian Roles
 
-| Modul | Nama |
-| --- | --- |
-| Game Manager/Singleton & Integration | Ikhsan Satriadi |
-| Entity & Collision | Muhamad Syahid |
-| Stage/level | Hisyam Khaeru Umam |
-| Menu & Assets | Helga Athifa Hidayat |
-| Settings/Other Utility | Hanifidin Ibrahim |
-| Additional feature may be added... | |
+| Modul/Aspek                          | Nama                 |
+| ------------------------------------ | -------------------- |
+| Game Manager/Singleton & Integration | Ikhsan Satriadi      |
+| Entity & Collision                   | Muhamad Syahid       |
+| Stage/level                          | Hisyam Khaeru Umam   |
+| Menu & Assets                        | Helga Athifa Hidayat |
+| Settings/Other Utility               | Hanifidin Ibrahim    |
+| Additional feature may be added...   |                      |
 
+### Dokumentasi
+
+[Dokumentasi Jump &amp; Survive](https://ikhsan3adi.github.io/C5-Proyek-2/)
