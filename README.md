@@ -33,4 +33,4 @@ Manager Proyek : Yudi Widhiyasana, S.Si., MT
 
 ### Dokumentasi
 
-[Dokumentasi Jump &amp; Survive](https://ikhsan3adi.github.io/C5-Proyek-2/)
+[Dokumentasi Jump &amp; Survive](https://ikhsan3adi.github.io/c5-jump-and-survive/)
