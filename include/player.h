@@ -2,18 +2,21 @@
 #define PLAYER_H
 
 #include <SDL3/SDL.h>
-typedef struct {
+
+typedef struct
+{
     int x, y;
 } Transform;
 
-typedef struct {
+typedef struct
+{
     SDL_Color color;
 } RenderComponent;
 
-typedef struct {
+typedef struct
+{
     Transform transform;
     RenderComponent render;
 } Entity;
-
 
 #endif
