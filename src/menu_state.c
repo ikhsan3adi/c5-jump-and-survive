@@ -1,3 +1,4 @@
+
 #include <SDL3/SDL.h>
 
 #include "menu_state.h"
@@ -19,13 +20,7 @@ void menu_init()
 
 void menu_handle_input(SDL_Event *event)
 {
-    if (event->type == SDL_EVENT_QUIT)
-    {
-        SDL_Log("Received Quit Event. Exiting Game...");
-        change_game_state(NULL);
-        exit(0);
-    }
-    else if (event->type == SDL_EVENT_KEY_DOWN)
+    if (event->type == SDL_EVENT_KEY_DOWN)
     {
         if (event->key.key == SDLK_RETURN)
         {
@@ -39,14 +34,24 @@ void menu_update() {}
 
 void menu_render(SDL_Renderer *renderer)
 {
+    // atur background
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
     // Menampilkan teks menu menggunakan SDL_RenderDebugText
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    SDL_RenderDebugText(renderer, 235, 190, "JUMP & SURVIVE");
-    SDL_RenderDebugText(renderer, 215, 210, "Press ENTER to Start");
 
+    // atur warna
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+
+    SDL_SetRenderScale(renderer, 1.7f, 1.7f); // Perbesar text dengan set render scale
+    SDL_RenderDebugText(renderer, 120, 85, "JUMP & SURVIVE");
+
+    SDL_SetRenderScale(renderer, 1.5f, 1.5f); // Perbesar text dengan set render scale
+    SDL_RenderDebugText(renderer, 120, 150, "Press ENTER to Start");
+
+    SDL_SetRenderScale(renderer, 1.0f, 1.0f); // ubah render scale seperti semula
+
+    // tampilkan ke layar
     SDL_RenderPresent(renderer);
 }
 
