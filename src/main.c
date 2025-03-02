@@ -4,6 +4,7 @@
 
 #include "game.h"
 #include "game_state.h"
+#include "menu_state.h"
 
 /* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
@@ -12,7 +13,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 
   create_game_instance("Jump & Survive", 600, 480);
 
-  // change_game_state(&menu_state);
+  change_game_state(&menu_state);
 
   return SDL_APP_CONTINUE;
 }
