@@ -1,10 +1,12 @@
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
 
+#include "SDL_events.h"
+
 typedef struct GameState
 {
   void (*init)();
-  void (*handle_input)();
+  void (*handle_input)(SDL_Event *);
   void (*update)();
   void (*render)();
   void (*cleanup)();
