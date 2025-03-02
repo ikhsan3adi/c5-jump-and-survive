@@ -10,7 +10,7 @@ void initialize(const char *appname, const char *appversion, const char *appiden
   if (!SDL_Init(SDL_INIT_VIDEO))
   {
     SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
-    return SDL_APP_FAILURE;
+    exit(2);
   }
 }
 
