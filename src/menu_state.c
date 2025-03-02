@@ -30,7 +30,7 @@ void menu_handle_input(SDL_Event *event)
     }
 }
 
-void menu_update() {}
+void menu_update(double delta_time) {}
 
 void menu_render(SDL_Renderer *renderer)
 {
