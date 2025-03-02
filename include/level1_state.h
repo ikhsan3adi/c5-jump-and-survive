@@ -1,25 +1,14 @@
 #ifndef LEVEL1_STATE_H
 #define LEVEL1_STATE_H
 
-#include <SDL3/SDL.h>
+#include "game_state.h"
 
-// Struktur untuk menyimpan data level 1
-typedef struct {
-    SDL_Texture *background;
-    SDL_Rect player;
-    SDL_Rect platform[5];
-} Level1State;
+extern GameState level1_state;
 
-// Inisialisasi level 1
-void Level1_Init(Level1State *level, SDL_Renderer *renderer);
+void level1_init();
+void level1_handle_input(SDL_Event* event);
+void level1_update();
+void level1_render(SDL_Renderer *renderer);
+void level1_cleanup();
 
-// Update logika permainan di level 1
-void Level1_Update(Level1State *level, float deltaTime);
-
-// Render tampilan level 1
-void Level1_Render(Level1State *level, SDL_Renderer *renderer);
-
-// Membersihkan sumber daya yang digunakan di level 1
-void Level1_Cleanup(Level1State *level);
-
-#endif // LEVEL1_STATE_H
+#endif
