@@ -1,6 +1,7 @@
-#include "menu_state.h"
-#include "game.h"
 #include <SDL3/SDL.h>
+
+#include "menu_state.h"
+// #include "level1_state.h"
 
 // Definisi state menu
 GameState menu_state = {
@@ -8,7 +9,7 @@ GameState menu_state = {
     .handle_input = menu_handle_input,
     .update = menu_update,
     .render = menu_render,
-    .cleanup = menu_cleanup
+    .cleanup = menu_cleanup,
 };
 
 void menu_init()
@@ -22,38 +23,31 @@ void menu_handle_input(SDL_Event *event)
     {
         SDL_Log("Received Quit Event. Exiting Game...");
         change_game_state(NULL);
+        exit(0);
     }
     else if (event->type == SDL_EVENT_KEY_DOWN)
     {
-        if (event->key.keysym.sym == SDLK_RETURN)
+        if (event->key.key == SDLK_RETURN)
         {
             SDL_Log("Start Game Triggered!");
-            // change_state(&stage1_state); // Jika ada stage1_state
+            // change_state(&level1_state);  // pindah ke level1_state
         }
     }
 }
 
-void menu_update()
-{
-    // Hapus logging yang terlalu sering
-}
+void menu_update() {}
 
-void menu_render()
+void menu_render(SDL_Renderer *renderer)
 {
-    Game *game = get_game_instance();
-    SDL_SetRenderDrawColor(game->renderer, 0, 0, 0, 255);
-    SDL_RenderClear(game->renderer);
-
-    SDL_FRect play_button = {200.0f, 150.0f, 200.0f, 50.0f};
-    SDL_SetRenderDrawColor(game->renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(game->renderer, &play_button);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
 
     // Menampilkan teks menu menggunakan SDL_RenderDebugText
-    SDL_SetRenderDrawColor(game->renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    SDL_RenderDebugText(game->renderer, 250, 170, "JUMP & SURVIVE");
-    SDL_RenderDebugText(game->renderer, 260, 190, "Press ENTER to Start");
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    SDL_RenderDebugText(renderer, 235, 190, "JUMP & SURVIVE");
+    SDL_RenderDebugText(renderer, 215, 210, "Press ENTER to Start");
 
-    SDL_RenderPresent(game->renderer);
+    SDL_RenderPresent(renderer);
 }
 
 void menu_cleanup()
