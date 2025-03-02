@@ -1,7 +1,7 @@
 #ifndef GAME_STATE_H
 #define GAME_STATE_H
 
-#include "SDL_events.h"
+#include <SDL3/SDL.h>
 
 typedef struct GameState
 {
