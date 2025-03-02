@@ -9,8 +9,14 @@ typedef struct
   SDL_Renderer *renderer;
 } Game;
 
-void create_game_instance();
+// set metadata, initialize SDL
+void initialize(const char *appname, const char *appversion, const char *appidentifier);
 
+// create global Game singleton
+void create_game_instance(const char *title, int width, int height);
+
+// get `Game` singleton instance
+// `create_game_instance()` must be called first at least once
 Game *get_game_instance();
 
 #endif

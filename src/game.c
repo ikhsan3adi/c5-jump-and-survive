@@ -3,9 +3,20 @@
 // main game instance
 static Game game;
 
-void create_game_instance()
+void initialize(const char *appname, const char *appversion, const char *appidentifier)
 {
-  game.window = SDL_CreateWindow("Game C5 Proyek 2", 600, 480, SDL_WINDOW_OPENGL);
+  SDL_SetAppMetadata("Jump & Survive", "1.0", "com.c5.jump-and-survive");
+
+  if (!SDL_Init(SDL_INIT_VIDEO))
+  {
+    SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
+    return SDL_APP_FAILURE;
+  }
+}
+
+void create_game_instance(const char *title, int width, int height)
+{
+  game.window = SDL_CreateWindow(title, width, height, SDL_WINDOW_OPENGL);
   game.renderer = SDL_CreateRenderer(game.window, NULL);
 }
 
@@ -13,7 +24,7 @@ Game *get_game_instance()
 {
   if (!game.window)
   {
-    create_game_instance();
+    SDL_Log("Game instance has not been initialized!, call `create_game_instance` first.");
   }
   return &game;
 }
