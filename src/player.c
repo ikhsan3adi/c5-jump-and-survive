@@ -13,8 +13,10 @@ void handle_player_input(Entity *player, SDL_Event *event)
     if (event->key.key == SDLK_SPACE && player->physics.velocity_y == 0)
       player->physics.velocity_y = -5000; // Jump
   } 
-  else {
-    player->physics.velocity_x = 0;
+  else if (event->type == SDL_EVENT_KEY_UP) {
+    if (event->key.key == SDLK_RIGHT || event->key.key == SDLK_LEFT) {
+      player->physics.velocity_x = 0;
+    }
   }
 }
 
