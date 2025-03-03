@@ -5,11 +5,11 @@
 
 typedef struct
 {
-  float velocity_x; // Kecepatan horizontal
-  float velocity_y; // Kecepatan vertikal
-  float gravity;    // Gravitasi
-  float speed;      // Kecepatan
-  float friction;   // Gesekan
+  double velocity_x; // Kecepatan horizontal
+  double velocity_y; // Kecepatan vertikal
+  float gravity;     // Gravitasi
+  float speed;       // Kecepatan
+  float friction;    // Gesekan
 } Physics;
 
 void apply_gravity(Physics *physics, float delta_time);

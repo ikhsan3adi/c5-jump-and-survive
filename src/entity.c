@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "entity.h"
 
-Entity *create_entity(float x, float y, float w, float h, SDL_Color color)
+Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
 {
   Entity *e = (Entity *)malloc(sizeof(Entity));
 
@@ -32,16 +32,14 @@ void update_entity(Entity *entity, float delta_time, Entity *objects[], int obje
 void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], int object_count)
 {
   // Simpan posisi sebelum update
-  float old_x = entity->transform.x;
-  float old_y = entity->transform.y;
+  double old_x = entity->transform.x;
+  double old_y = entity->transform.y;
 
   // Perbarui posisi berdasarkan velocity
   entity->transform.x += entity->physics.velocity_x * delta_time;
 
   // Cek collision dari samping (kiri/kanan)
   Transform *collision = check_collision_all(&entity->transform, (Transform **)objects, object_count);
-
-  SDL_Log("Collision x : %d", (bool)collision);
 
   if (collision)
   {
@@ -52,8 +50,6 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   // Cek collision dari atas/bawah
   entity->transform.y += entity->physics.velocity_y * delta_time;
   collision = check_collision_all(&entity->transform, (Transform **)objects, object_count);
-
-  SDL_Log("Collision y : %d", (bool)collision);
 
   if (collision)
   {
