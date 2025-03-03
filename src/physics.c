@@ -1,9 +1,11 @@
 #include "physics.h"
 #include <stdlib.h>
 
+#define GRAVITY 9.8f
+
 void apply_gravity(Physics *physics, float delta_time)
 {
-  physics->velocity_y += 9.8f * physics->gravity * delta_time;
+  physics->velocity_y += GRAVITY * physics->gravity * delta_time;
 }
 
 int check_collision(Transform a, Transform b)

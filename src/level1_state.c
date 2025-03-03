@@ -16,9 +16,9 @@ GameState level1_state = {
 
 void level1_init() {}
 
-void level1_handle_input(SDL_Event* event) {}
+void level1_handle_input(SDL_Event *event) {}
 
-void level1_update() {}
+void level1_update(double delta_time) {}
 
 void level1_render(SDL_Renderer *renderer) {}
 
