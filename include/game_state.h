@@ -3,8 +3,6 @@
 
 #include <SDL3/SDL.h>
 
-#include "game.h"
-
 typedef struct GameState
 {
   void (*init)();
