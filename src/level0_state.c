@@ -8,6 +8,7 @@
 
 Entity *player;
 Entity *platform;
+Entity *obstacle;
 
 // Definisi state
 GameState level0_state = {
@@ -27,6 +28,9 @@ void level0_init()
 
   // Inisialisasi platform (tanah)
   platform = create_entity(0, 440, 600, 40, (SDL_Color){0, 255, 0, 255});
+
+  // Inisialisasi obstacle (rintangan)
+  obstacle = create_entity(450, 400, 40, 40, (SDL_Color){255, 255, 0, 255});
 }
 
 void level0_handle_input(SDL_Event *event)
@@ -36,8 +40,9 @@ void level0_handle_input(SDL_Event *event)
 
 void level0_update(double delta_time)
 {
-  Entity *objects[] = {platform};
-  update_entity(player, delta_time, objects, 1);
+  Entity *objects[] = {platform, obstacle};
+  int count = sizeof(objects) / sizeof(Entity *);
+  update_entity(player, delta_time, objects, count);
 }
 
 void level0_render(SDL_Renderer *renderer)
@@ -54,6 +59,11 @@ void level0_render(SDL_Renderer *renderer)
   SDL_SetRenderDrawColor(renderer, platform->render.color.r, platform->render.color.g, platform->render.color.b, 255);
   SDL_FRect platform_rect = {platform->transform.x, platform->transform.y, platform->transform.w, platform->transform.h};
   SDL_RenderFillRect(renderer, &platform_rect);
+
+  // Render obstacle
+  SDL_SetRenderDrawColor(renderer, obstacle->render.color.r, obstacle->render.color.g, obstacle->render.color.b, 255);
+  SDL_FRect obstacle_rect = {obstacle->transform.x, obstacle->transform.y, obstacle->transform.w, obstacle->transform.h};
+  SDL_RenderFillRect(renderer, &obstacle_rect);
 
   SDL_RenderPresent(renderer);
 }

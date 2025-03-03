@@ -15,7 +15,7 @@ Entity *create_entity(float x, float y, float w, float h, SDL_Color color)
   e->physics.velocity_x = 0;
   e->physics.velocity_y = 0;
   e->physics.gravity = 10000.0f;
-  e->physics.speed = 300.0f;
+  e->physics.speed = 500.0f;
   e->physics.friction = 1;
 
   return e;
@@ -37,7 +37,6 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
 
   // Perbarui posisi berdasarkan velocity
   entity->transform.x += entity->physics.velocity_x * delta_time;
-  entity->transform.y += entity->physics.velocity_y * delta_time;
 
   // Cek collision dari samping (kiri/kanan)
   Transform *collision = check_collision_all(&entity->transform, (Transform **)objects, object_count);
