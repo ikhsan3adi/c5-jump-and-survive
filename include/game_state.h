@@ -9,7 +9,7 @@ typedef struct GameState
 {
   void (*init)();
   void (*handle_input)(SDL_Event *);
-  void (*update)();
+  void (*update)(double delta_time);
   void (*render)(SDL_Renderer *);
   void (*cleanup)();
 } GameState;

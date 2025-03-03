@@ -10,7 +10,7 @@ extern GameState menu_state;
 // Deklarasi fungsi untuk lifecycle menu state
 void menu_init();
 void menu_handle_input(SDL_Event *);
-void menu_update();
+void menu_update(double);
 void menu_render(SDL_Renderer *);
 void menu_cleanup();
 

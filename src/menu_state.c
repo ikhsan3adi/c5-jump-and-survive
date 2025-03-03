@@ -2,7 +2,7 @@
 #include <SDL3/SDL.h>
 
 #include "menu_state.h"
-// #include "level1_state.h"
+#include "level0_state.h"
 
 // Definisi state menu
 GameState menu_state = {
@@ -25,12 +25,12 @@ void menu_handle_input(SDL_Event *event)
         if (event->key.key == SDLK_RETURN)
         {
             SDL_Log("Start Game Triggered!");
-            // change_state(&level1_state);  // pindah ke level1_state
+            change_game_state(&level0_state); // pindah ke level 0
         }
     }
 }
 
-void menu_update() {}
+void menu_update(double delta_time) {}
 
 void menu_render(SDL_Renderer *renderer)
 {
