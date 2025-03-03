@@ -21,7 +21,7 @@ void level0_init()
 
 void level0_handle_input(SDL_Event *event) {}
 
-void level0_update() {}
+void level0_update(double delta_time)
 
 void level0_render(SDL_Renderer *renderer)
 {

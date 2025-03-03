@@ -3,20 +3,27 @@
 
 #include <SDL3/SDL.h>
 
-typedef struct
-{
-    int x, y;
-} Transform;
+#include "physics.h"
+#include "transform.h"
 
 typedef struct
 {
     SDL_Color color;
-} RenderComponent;
+} EntityRenderComponent;
 
 typedef struct
 {
     Transform transform;
-    RenderComponent render;
+    EntityRenderComponent render;
+    Physics physics;
 } Entity;
+
+Entity *create_entity(float x, float y, float w, float h, SDL_Color color);
+
+void update_entity(Entity *entity, float delta_time, Entity *objects[], int object_count);
+
+void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], int object_count);
+
+void destroy_entity(Entity *entity);
 
 #endif
