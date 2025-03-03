@@ -30,7 +30,7 @@ void level0_init()
   platform = create_entity(0, 440, 600, 40, (SDL_Color){0, 255, 0, 255});
 
   // Inisialisasi obstacle (rintangan)
-  obstacle = create_entity(450, 400, 40, 40, (SDL_Color){255, 0, 0, 255});
+  obstacle = create_entity(450, 400, 40, 40, (SDL_Color){255, 255, 0, 255});
 }
 
 void level0_handle_input(SDL_Event *event)
@@ -40,7 +40,7 @@ void level0_handle_input(SDL_Event *event)
 
 void level0_update(double delta_time)
 {
-  Entity *objects[] = {platform,obstacle};
+  Entity *objects[] = {platform, obstacle};
   int count = sizeof(objects) / sizeof(Entity *);
   update_entity(player, delta_time, objects, count);
 }
