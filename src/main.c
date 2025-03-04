@@ -6,12 +6,16 @@
 #include "game_state.h"
 #include "menu_state.h"
 
+Uint64 last_time;
+
 /* This function runs once at startup. */
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
   initialize("Jump & Survive", "1.0", "com.c5.jump-and-survive");
 
   create_game_instance("Jump & Survive", 600, 480);
+
+  last_time = SDL_GetTicks();
 
   change_game_state(&menu_state);
 
@@ -36,12 +40,17 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
 /* This function runs once per frame, and is the heart of the program. */
 SDL_AppResult SDL_AppIterate(void *appstate)
 {
+  // membuat delta time (waktu antara frame saat ini denga frame sebelumnya)
+  Uint64 current_time = SDL_GetTicks();
+  double delta_time = ((current_time - last_time) * 1000 / (double)SDL_GetPerformanceFrequency());
+  last_time = current_time;
+
   Game *game = get_game_instance();
   SDL_Renderer *renderer = game->renderer;
 
   GameState *current_state = get_current_game_state();
 
-  current_state->update();
+  current_state->update(delta_time);
   current_state->render(renderer);
 
   return SDL_APP_CONTINUE;

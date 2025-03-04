@@ -3,13 +3,11 @@
 
 #include <SDL3/SDL.h>
 
-#include "game.h"
-
 typedef struct GameState
 {
   void (*init)();
   void (*handle_input)(SDL_Event *);
-  void (*update)();
+  void (*update)(double delta_time);
   void (*render)(SDL_Renderer *);
   void (*cleanup)();
 } GameState;
