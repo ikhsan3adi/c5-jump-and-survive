@@ -4,7 +4,8 @@
 #include "level0_state.h"
 
 // Enum untuk pilihan menu
-typedef enum {
+typedef enum
+{
     MENU_START,
     MENU_EXIT,
     MENU_COUNT
@@ -29,16 +30,16 @@ GameState menu_state = {
 void menu_init()
 {
     SDL_Log("Menu State: Initialized");
-    
+
     if (TTF_Init() < 0)
     {
         SDL_Log("Failed to initialize SDL_ttf: %s", SDL_GetError());
         exit(1);
     }
-    
-    title_font = TTF_OpenFont("assets/SixtyfourConvergence-Regular.ttf", 48);
-    menu_font = TTF_OpenFont("assets/PixelifySans-Regular.ttf", 36);
-    
+
+    title_font = TTF_OpenFont("assets/fonts/SixtyfourConvergence-Regular.ttf", 48);
+    menu_font = TTF_OpenFont("assets/fonts/PixelifySans-Regular.ttf", 36);
+
     if (!title_font || !menu_font)
     {
         SDL_Log("Failed to load fonts: %s", SDL_GetError());
@@ -52,34 +53,34 @@ void menu_handle_input(SDL_Event *event)
     {
         switch (event->key.key)
         {
-            case SDLK_DOWN:
-            case SDLK_S:
-                current_selection = (current_selection + 1) % MENU_COUNT;
-                break;
-            case SDLK_UP:
-            case SDLK_W:
-                current_selection = (current_selection - 1 + MENU_COUNT) % MENU_COUNT;
-                break;
-            case SDLK_RETURN:
-                if (current_selection == MENU_START)
-                {
-                    SDL_Log("Start Game Triggered!");
-                    change_game_state(&level0_state); // Pindah ke level 0
-                }
-                else if (current_selection == MENU_EXIT)
-                {
-                    SDL_Log("Exit Game Triggered!");
-                    SDL_Quit();
-                    exit(0);
-                }
-                break;
+        case SDLK_DOWN:
+        case SDLK_S:
+            current_selection = (current_selection + 1) % MENU_COUNT;
+            break;
+        case SDLK_UP:
+        case SDLK_W:
+            current_selection = (current_selection - 1 + MENU_COUNT) % MENU_COUNT;
+            break;
+        case SDLK_RETURN:
+            if (current_selection == MENU_START)
+            {
+                SDL_Log("Start Game Triggered!");
+                change_game_state(&level0_state); // Pindah ke level 0
+            }
+            else if (current_selection == MENU_EXIT)
+            {
+                SDL_Log("Exit Game Triggered!");
+                SDL_Quit();
+                exit(0);
+            }
+            break;
         }
     }
     else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN)
     {
         int x = event->button.x;
         int y = event->button.y;
-        
+
         if (x >= start_button.x && x <= start_button.x + start_button.w &&
             y >= start_button.y && y <= start_button.y + start_button.h)
         {
@@ -132,15 +133,17 @@ void menu_render(SDL_Renderer *renderer)
     SDL_RenderFillRect(renderer, &exit_button);
     SDL_Color exit_color = (current_selection == MENU_EXIT) ? yellow : white;
     render_text(renderer, menu_font, "Exit Game", exit_button.x + 30, exit_button.y + 10, exit_color);
-    
+
     // Tampilkan ke layar
     SDL_RenderPresent(renderer);
 }
 
 void menu_cleanup()
 {
-    if (title_font) TTF_CloseFont(title_font);
-    if (menu_font) TTF_CloseFont(menu_font);
+    if (title_font)
+        TTF_CloseFont(title_font);
+    if (menu_font)
+        TTF_CloseFont(menu_font);
     TTF_Quit();
     SDL_Log("Menu State: Cleaned up");
 }
