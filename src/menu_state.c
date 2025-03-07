@@ -26,17 +26,6 @@ GameState menu_state = {
     .cleanup = menu_cleanup,
 };
 
-void drawCircle(SDL_Renderer *renderer, int centerX, int centerY, int radius, SDL_Color color) {
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    for (int w = -radius; w <= radius; w++) {
-        for (int h = -radius; h <= radius; h++) {
-            if (w * w + h * h <= radius * radius) {
-                SDL_RenderPoint(renderer, centerX + w, centerY + h);
-            }
-        }
-    }
-}
-
 void drawCapsuleButton(SDL_Renderer *renderer, SDL_FRect *rect, SDL_Color color) {
     int radius = rect->h / 2;
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
