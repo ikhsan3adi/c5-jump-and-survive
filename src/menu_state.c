@@ -4,8 +4,7 @@
 #include "level0_state.h"
 
 // Enum untuk pilihan menu
-typedef enum
-{
+typedef enum {
     MENU_START,
     MENU_EXIT,
     MENU_COUNT
@@ -15,8 +14,8 @@ typedef enum
 static MenuOption current_selection = MENU_START;
 static TTF_Font *title_font = NULL;
 static TTF_Font *menu_font = NULL;
-static SDL_FRect start_button = {120.0f, 150.0f, 200.0f, 50.0f};
-static SDL_FRect exit_button = {120.0f, 220.0f, 200.0f, 50.0f};
+static SDL_FRect start_button = {190.0f, 160.0f, 220.0f, 50.0f};
+static SDL_FRect exit_button = {190.0f, 230.0f, 220.0f, 50.0f};
 
 // Definisi state menu
 GameState menu_state = {
@@ -27,32 +26,67 @@ GameState menu_state = {
     .cleanup = menu_cleanup,
 };
 
-void menu_init()
-{
-    SDL_Log("Menu State: Initialized");
+void drawCircle(SDL_Renderer *renderer, int centerX, int centerY, int radius, SDL_Color color) {
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    for (int w = -radius; w <= radius; w++) {
+        for (int h = -radius; h <= radius; h++) {
+            if (w * w + h * h <= radius * radius) {
+                SDL_RenderPoint(renderer, centerX + w, centerY + h);
+            }
+        }
+    }
+}
 
-    if (TTF_Init() < 0)
-    {
+void drawCapsuleButton(SDL_Renderer *renderer, SDL_FRect *rect, SDL_Color color) {
+    int radius = rect->h / 2;
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+
+    // Menggambar bagian tengah tombol
+    SDL_FRect middle_rect = {rect->x + radius, rect->y, rect->w - (2 * radius), rect->h};
+    SDL_RenderFillRect(renderer, &middle_rect);
+
+    // Menggambar lingkaran di ujung kiri
+    for (int w = -radius; w <= radius; w++) {
+        for (int h = -radius; h <= radius; h++) {
+            if (w * w + h * h <= radius * radius) {
+                SDL_RenderPoint(renderer, rect->x + radius + w, rect->y + radius + h);
+            }
+        }
+    }
+
+    // Menggambar lingkaran di ujung kanan
+    for (int w = -radius; w <= radius; w++) {
+        for (int h = -radius; h <= radius; h++) {
+            if (w * w + h * h <= radius * radius) {
+                SDL_RenderPoint(renderer, rect->x + rect->w - radius + w, rect->y + radius + h);
+            }
+        }
+    }
+}
+
+void menu_init() {
+    SDL_Log("Menu State: Initialized");
+    if (TTF_Init() < 0) {
         SDL_Log("Failed to initialize SDL_ttf: %s", SDL_GetError());
         exit(1);
     }
 
-    title_font = TTF_OpenFont("assets/fonts/SixtyfourConvergence-Regular.ttf", 48);
-    menu_font = TTF_OpenFont("assets/fonts/PixelifySans-Regular.ttf", 36);
+    title_font = TTF_OpenFont("assets/fonts/SixtyfourConvergence-Regular.ttf", 35);
+    if (!title_font) {
+        SDL_Log("Failed to load title font: %s", SDL_GetError());
+        exit(1);
+    }
 
-    if (!title_font || !menu_font)
-    {
-        SDL_Log("Failed to load fonts: %s", SDL_GetError());
+    menu_font = TTF_OpenFont("assets/fonts/PixelifySans-Regular.ttf", 32);
+    if (!menu_font) {
+        SDL_Log("Failed to load menu font: %s", SDL_GetError());
         exit(1);
     }
 }
 
-void menu_handle_input(SDL_Event *event)
-{
-    if (event->type == SDL_EVENT_KEY_DOWN)
-    {
-        switch (event->key.key)
-        {
+void menu_handle_input(SDL_Event *event) {
+    if (event->type == SDL_EVENT_KEY_DOWN) {
+        switch (event->key.key) {
         case SDLK_DOWN:
         case SDLK_S:
             current_selection = (current_selection + 1) % MENU_COUNT;
@@ -62,35 +96,28 @@ void menu_handle_input(SDL_Event *event)
             current_selection = (current_selection - 1 + MENU_COUNT) % MENU_COUNT;
             break;
         case SDLK_RETURN:
-            if (current_selection == MENU_START)
-            {
+            if (current_selection == MENU_START) {
                 SDL_Log("Start Game Triggered!");
-                change_game_state(&level0_state); // Pindah ke level 0
-            }
-            else if (current_selection == MENU_EXIT)
-            {
+                change_game_state(&level0_state);
+            } else if (current_selection == MENU_EXIT) {
                 SDL_Log("Exit Game Triggered!");
+                menu_cleanup();
                 SDL_Quit();
                 exit(0);
             }
             break;
         }
-    }
-    else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN)
-    {
+    } else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
         int x = event->button.x;
         int y = event->button.y;
-
         if (x >= start_button.x && x <= start_button.x + start_button.w &&
-            y >= start_button.y && y <= start_button.y + start_button.h)
-        {
+            y >= start_button.y && y <= start_button.y + start_button.h) {
             SDL_Log("Start Game Clicked!");
             change_game_state(&level0_state);
-        }
-        else if (x >= exit_button.x && x <= exit_button.x + exit_button.w &&
-                 y >= exit_button.y && y <= exit_button.y + exit_button.h)
-        {
+        } else if (x >= exit_button.x && x <= exit_button.x + exit_button.w &&
+                   y >= exit_button.y && y <= exit_button.y + exit_button.h) {
             SDL_Log("Exit Game Clicked!");
+            menu_cleanup();
             SDL_Quit();
             exit(0);
         }
@@ -109,41 +136,31 @@ void render_text(SDL_Renderer *renderer, TTF_Font *font, const char *text, int x
 
 void menu_update(double delta_time) {}
 
-void menu_render(SDL_Renderer *renderer)
-{
+void menu_render(SDL_Renderer *renderer) {
     SDL_Color white = {255, 255, 255, 255};
     SDL_Color yellow = {255, 255, 0, 255};
     SDL_Color bg_color = {50, 50, 150, 255};
 
-    // Atur background
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
 
-    // Tampilkan teks judul
-    render_text(renderer, title_font, "JUMP & SURVIVE", 100, 50, white);
-
-    // Tombol Start
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    SDL_RenderFillRect(renderer, &start_button);
+    render_text(renderer, title_font, "JUMP & SURVIVE", 50, 50, white);
     SDL_Color start_color = (current_selection == MENU_START) ? yellow : white;
-    render_text(renderer, menu_font, "Start Game", start_button.x + 30, start_button.y + 10, start_color);
-
-    // Tombol Exit
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderFillRect(renderer, &exit_button);
     SDL_Color exit_color = (current_selection == MENU_EXIT) ? yellow : white;
-    render_text(renderer, menu_font, "Exit Game", exit_button.x + 30, exit_button.y + 10, exit_color);
 
-    // Tampilkan ke layar
+    SDL_Color green = {0, 128, 0, 255};
+    drawCapsuleButton(renderer, &start_button, green);
+    render_text(renderer, menu_font, "Start Game", start_button.x + 15, start_button.y + 5, start_color);
+
+    SDL_Color red = {200, 0, 0, 255};
+    drawCapsuleButton(renderer, &exit_button, red);
+    render_text(renderer, menu_font, "Exit Game", exit_button.x + 32, exit_button.y + 5, exit_color);
     SDL_RenderPresent(renderer);
 }
 
-void menu_cleanup()
-{
-    if (title_font)
-        TTF_CloseFont(title_font);
-    if (menu_font)
-        TTF_CloseFont(menu_font);
+void menu_cleanup() {
+    if (title_font) TTF_CloseFont(title_font);
+    if (menu_font) TTF_CloseFont(menu_font);
     TTF_Quit();
     SDL_Log("Menu State: Cleaned up");
 }
