@@ -26,31 +26,27 @@ GameState menu_state = {
     .cleanup = menu_cleanup,
 };
 
+void drawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int radius) {
+    for (int y = -radius; y <= radius; y++) {
+        for (int x = -radius; x <= radius; x++) {
+            if (x * x + y * y <= radius * radius) {
+                SDL_RenderPoint(renderer, cx + x, cy + y);
+            }
+        }
+    }
+}
+
 void drawCapsuleButton(SDL_Renderer *renderer, SDL_FRect *rect, SDL_Color color) {
     int radius = rect->h / 2;
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 
-    // Menggambar bagian tengah tombol
+    // Menggambar bagian tengah tombol (persegi panjang)
     SDL_FRect middle_rect = {rect->x + radius, rect->y, rect->w - (2 * radius), rect->h};
     SDL_RenderFillRect(renderer, &middle_rect);
 
-    // Menggambar lingkaran di ujung kiri
-    for (int w = -radius; w <= radius; w++) {
-        for (int h = -radius; h <= radius; h++) {
-            if (w * w + h * h <= radius * radius) {
-                SDL_RenderPoint(renderer, rect->x + radius + w, rect->y + radius + h);
-            }
-        }
-    }
-
-    // Menggambar lingkaran di ujung kanan
-    for (int w = -radius; w <= radius; w++) {
-        for (int h = -radius; h <= radius; h++) {
-            if (w * w + h * h <= radius * radius) {
-                SDL_RenderPoint(renderer, rect->x + rect->w - radius + w, rect->y + radius + h);
-            }
-        }
-    }
+    // Menggambar lingkaran kiri & kanan dengan fungsi terpisah
+    drawFilledCircle(renderer, rect->x + radius, rect->y + radius, radius);
+    drawFilledCircle(renderer, rect->x + rect->w - radius, rect->y + radius, radius);
 }
 
 void menu_init() {
@@ -75,6 +71,7 @@ void menu_init() {
 
 void menu_handle_input(SDL_Event *event) {
     if (event->type == SDL_EVENT_KEY_DOWN) {
+        SDL_Log("Key Pressed: %d", event->key.key);  // Debug log
         switch (event->key.key) {
         case SDLK_DOWN:
         case SDLK_S:
@@ -95,7 +92,13 @@ void menu_handle_input(SDL_Event *event) {
                 exit(0);
             }
             break;
+        case SDLK_ESCAPE:  // Tombol ESC untuk keluar
+            SDL_Log("Escape Key Pressed! Exiting Game...");
+            menu_cleanup();
+            SDL_Quit();
+            exit(0);
         }
+
     } else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
         int x = event->button.x;
         int y = event->button.y;
