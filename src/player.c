@@ -19,7 +19,7 @@ void handle_player_input(Entity *player, SDL_Event *event)
     {
       player->physics.velocity_x = player->physics.speed * PLAYER_MOVE_MULTIPLIER;
     }
-    if (key_state[SDL_SCANCODE_SPACE] && player->physics.velocity_y == 0)
+    if ((key_state[SDL_SCANCODE_UP] || key_state[SDL_SCANCODE_SPACE]) && player->physics.velocity_y == 0)
     {
       player->physics.velocity_y = PLAYER_JUMP;
     }
@@ -36,7 +36,6 @@ void handle_player_input(Entity *player, SDL_Event *event)
     }
   }
 }
-
 
 void destroy_player(Entity *player)
 {
