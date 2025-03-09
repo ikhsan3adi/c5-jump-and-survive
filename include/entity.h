@@ -18,7 +18,7 @@ typedef struct
     Physics physics;
 } Entity;
 
-Entity *create_entity(float x, float y, float w, float h, SDL_Color color);
+Entity *create_entity(double x, double y, double w, double h, SDL_Color color);
 
 void update_entity(Entity *entity, float delta_time, Entity *objects[], int object_count);
 
