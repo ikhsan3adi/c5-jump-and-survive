@@ -5,7 +5,7 @@ static Game game;
 
 void initialize(const char *appname, const char *appversion, const char *appidentifier)
 {
-  SDL_SetAppMetadata("Jump & Survive", "1.0", "com.c5.jump-and-survive");
+  SDL_SetAppMetadata(appname, appversion, appidentifier);
 
   if (!SDL_Init(SDL_INIT_VIDEO))
   {

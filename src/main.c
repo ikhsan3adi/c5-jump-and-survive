@@ -13,7 +13,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 {
   initialize("Jump & Survive", "1.0", "com.c5.jump-and-survive");
 
-  create_game_instance("Jump & Survive", 600, 480);
+  create_game_instance("Jump & Survive", 960, 640);
 
   last_time = SDL_GetTicks();
 

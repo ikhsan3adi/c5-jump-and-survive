@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "entity.h"
+#include "level.h"
 
 Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
 {
@@ -47,20 +48,29 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
     entity->physics.velocity_x = 0;
   }
 
-  // Cek collision dari atas/bawah
+  // Cek collision dari atas/bawah (dengan entity lainnya)
   entity->transform.y += entity->physics.velocity_y * delta_time;
   collision = check_collision_all(&entity->transform, (Transform **)objects, object_count);
 
   if (collision)
   {
     if (entity->physics.velocity_y > 0)
-    { // Jatuh ke bawah (tabrakan dengan lantai/platform)
+    { // Jatuh ke bawah
       entity->transform.y = collision->y - entity->transform.h;
     }
     else
-    { // Tabrakan dari atas (kepala kena langit-langit)
+    { // Tabrakan dari atas
       entity->transform.y = collision->y + collision->h;
     }
+    entity->physics.velocity_y = 0;
+  }
+
+  // Cek jika menginjak tile map / platform/obstacle
+  bool solid = is_solid(&entity->transform);
+  SDL_Log("is solid: %d", solid);
+  if (solid)
+  {
+    entity->transform.y = old_y;
     entity->physics.velocity_y = 0;
   }
 
