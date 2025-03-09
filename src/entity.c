@@ -15,7 +15,7 @@ Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
   e->physics.velocity_x = 0;
   e->physics.velocity_y = 0;
   e->physics.gravity = 10000.0f;
-  e->physics.speed = 500.0f;
+  e->physics.speed = 1.0f;
   e->physics.friction = 1;
 
   return e;
