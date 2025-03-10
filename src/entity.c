@@ -40,9 +40,9 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   entity->transform.x += entity->physics.velocity_x * delta_time;
 
   // Cek collision dari samping (kiri/kanan)
-  Transform *collision = check_collision_all(&entity->transform, (Transform **)objects, object_count);
+  bool solid = is_solid(&entity->transform);
 
-  if (collision)
+  if (solid)
   {
     entity->transform.x = old_x; // Batalkan gerakan horizontal
     entity->physics.velocity_x = 0;
@@ -50,24 +50,8 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
 
   // Cek collision dari atas/bawah (dengan entity lainnya)
   entity->transform.y += entity->physics.velocity_y * delta_time;
-  collision = check_collision_all(&entity->transform, (Transform **)objects, object_count);
+  solid = is_solid(&entity->transform);
 
-  if (collision)
-  {
-    if (entity->physics.velocity_y > 0)
-    { // Jatuh ke bawah
-      entity->transform.y = collision->y - entity->transform.h;
-    }
-    else
-    { // Tabrakan dari atas
-      entity->transform.y = collision->y + collision->h;
-    }
-    entity->physics.velocity_y = 0;
-  }
-
-  // Cek jika menginjak tile map / platform/obstacle
-  bool solid = is_solid(&entity->transform);
-  SDL_Log("is solid: %d", solid);
   if (solid)
   {
     entity->transform.y = old_y;

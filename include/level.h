@@ -14,7 +14,10 @@
 #define PLATFORM 1
 #define OBSTACLE_1 2
 #define OBSTACLE_2 3
-#define FAKE_PLATFORM 4
+#define SWITCH 4
+#define COINS 5
+#define TRAP 6
+#define DESTRUCT 7
 #define EXIT_GATE 9
 
 extern int solid_tiles[];
@@ -38,4 +41,5 @@ bool is_solid(Transform *transform);
 
 bool is_void(Transform *transform);
 
+bool is_exit(Transform *transform);
 #endif

@@ -12,9 +12,6 @@ short level0_map[MAP_HEIGHT][MAP_WIDTH] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
-    {1, 1, 1, 0, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
-    {1, 1, 1, 0, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
-    {1, 1, 1, 0, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
     {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
     {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
     {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
@@ -23,11 +20,14 @@ short level0_map[MAP_HEIGHT][MAP_WIDTH] = {
     {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
     {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
     {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
-    {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
-    {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
+    {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 9, 9, 9, 0, 0, 0, 0, 0, 1, 1, 1},
+    {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 0, 0, 0, 0, 0, 1, 1, 1},
+    {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 0, 0, 0, 0, 0, 1, 1, 1},
+    {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 0, 0, 0, 0, 0, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
 short level1_map[MAP_HEIGHT][MAP_WIDTH] = {
@@ -100,8 +100,12 @@ void render_level(SDL_Renderer *renderer)
         SDL_SetRenderDrawColor(renderer, 247, 212, 65, 255);
         SDL_RenderFillRect(renderer, &tile_rect);
         break;
-      case FAKE_PLATFORM:
-        SDL_SetRenderDrawColor(renderer, 161, 40, 30, 255);
+      case DESTRUCT:
+        SDL_SetRenderDrawColor(renderer, 0, 40, 30, 255);
+        SDL_RenderFillRect(renderer, &tile_rect);
+        break;
+      case EXIT_GATE:
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(renderer, &tile_rect);
         break;
       default:
@@ -111,23 +115,50 @@ void render_level(SDL_Renderer *renderer)
   }
 }
 
-bool is_solid(Transform *transform)
-{
-  int x = transform->x / TILE_SIZE;
-  int y = (transform->y + transform->h) / TILE_SIZE;
+bool is_solid(Transform *transform) {
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
 
-  for (size_t i = 0; i < sizeof(solid_tiles) / sizeof(solid_tiles[0]); i++)
-  {
-    if (current_level_map[y][x] == solid_tiles[i])
-    {
-      return true;
-    }
+  for (int y = top; y <= bottom; y++) {
+      for (int x = left; x <= right; x++) {
+          if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) {
+              return false;
+          }
+          for (size_t i = 0; i < sizeof(solid_tiles) / sizeof(solid_tiles[0]); i++) {
+              if (current_level_map[y][x] == solid_tiles[i]) {
+                  return true;
+              }
+          }
+      }
   }
-
   return false;
 }
 
 bool is_void(Transform *transform)
 {
   return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT;
+}
+
+bool is_exit(Transform *transform)
+{
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+
+  for (int y = top; y <= bottom; y++) {
+      for (int x = left; x <= right; x++) {
+          if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) {
+              return false;
+          }
+          for (size_t i = 0; i < sizeof(solid_tiles) / sizeof(solid_tiles[0]); i++) {
+            if (current_level_map[y][x] == EXIT_GATE){
+              return true;
+            }
+          }
+      }
+  }
+  return false;
 }
