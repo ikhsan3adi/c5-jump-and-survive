@@ -93,7 +93,7 @@ void render_level(SDL_Renderer *renderer)
         SDL_RenderFillRect(renderer, &tile_rect);
         break;
       case OBSTACLE_1:
-        SDL_SetRenderDrawColor(renderer, 249, 196, 110, 255);
+        SDL_SetRenderDrawColor(renderer, 161, 66, 11, 255);
         SDL_RenderFillRect(renderer, &tile_rect);
         break;
       case OBSTACLE_2:
