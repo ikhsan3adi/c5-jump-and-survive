@@ -27,10 +27,10 @@ void level0_init()
   player = create_entity(100, 400, 40, 40, (SDL_Color){255, 0, 0, 255});
 
   // Inisialisasi platform (tanah)
-  platform = create_entity(0, 440, 600, 40, (SDL_Color){0, 255, 0, 255});
+  platform = create_entity(0, 600, 960, 40, (SDL_Color){0, 255, 0, 255});
 
   // Inisialisasi obstacle (rintangan)
-  obstacle = create_entity(450, 400, 40, 40, (SDL_Color){255, 255, 0, 255});
+  obstacle = create_entity(450, 500, 40, 40, (SDL_Color){255, 255, 0, 255});
 }
 
 void level0_handle_input(SDL_Event *event)
