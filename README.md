@@ -28,7 +28,7 @@ Manager Proyek : Yudi Widhiyasana, S.Si., MT
 | Entity & Collision                   | Muhamad Syahid       |
 | Stage/level                          | Hisyam Khaeru Umam   |
 | Menu & Assets                        | Helga Athifa Hidayat |
-| Settings/Other Utility               | Hanifidin Ibrahim    |
+| game stat                            | Hanifidin Ibrahim    |
 | Additional feature may be added...   |                      |
 
 ### Dokumentasi
