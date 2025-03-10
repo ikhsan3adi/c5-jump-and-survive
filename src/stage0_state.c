@@ -24,7 +24,7 @@ void stage0_init()
   SDL_Log("Stage 0 State: Initialized");
 
   // Inisialisasi player
-  player = create_entity(100, 400, 40, 40, (SDL_Color){255, 0, 0, 255});
+  player = create_entity(100, 400, 32, 32, (SDL_Color){255, 0, 0, 255});
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -49,6 +49,10 @@ void stage0_handle_input(SDL_Event *event)
 void stage0_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
+  
+  if (is_exit(&player->transform)) {
+    change_level(current_level + 1);
+  }
 }
 
 void stage0_render(SDL_Renderer *renderer)
@@ -56,13 +60,14 @@ void stage0_render(SDL_Renderer *renderer)
   SDL_SetRenderDrawColor(renderer, 247, 212, 65, 255);
   SDL_RenderClear(renderer);
 
+  // Render map
+  render_level(renderer);
+
   // Render player
   SDL_SetRenderDrawColor(renderer, player->render.color.r, player->render.color.g, player->render.color.b, 255);
   SDL_FRect player_rect = {player->transform.x, player->transform.y, player->transform.w, player->transform.h};
   SDL_RenderFillRect(renderer, &player_rect);
 
-  // Render map
-  render_level(renderer);
 
   SDL_RenderPresent(renderer);
 }
