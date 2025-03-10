@@ -27,7 +27,7 @@ Manager Proyek : Yudi Widhiyasana, S.Si., MT
 | Game Manager/Singleton & Integration | Ikhsan Satriadi      |
 | Entity & Collision                   | Muhamad Syahid       |
 | Stage/level                          | Hisyam Khaeru Umam   |
-| Menu & Assets                        | Helga Athifa Hidayat |
+| Menu, Assets & UI                       | Helga Athifa Hidayat |
 | game stat                            | Hanifidin Ibrahim    |
 | Additional feature may be added...   |                      |
 
