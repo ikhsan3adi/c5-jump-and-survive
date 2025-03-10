@@ -15,8 +15,8 @@ typedef enum
 static MenuOption current_selection = MENU_START;
 static TTF_Font *title_font = NULL;
 static TTF_Font *menu_font = NULL;
-static SDL_FRect start_button = {190.0f, 160.0f, 220.0f, 50.0f};
-static SDL_FRect exit_button = {190.0f, 230.0f, 220.0f, 50.0f};
+static SDL_FRect start_button = {330.0f, 300.0f, 300.0f, 60.0f};
+static SDL_FRect exit_button = {330.0f, 400.0f, 300.0f, 60.0f};
 
 // Definisi state menu
 GameState menu_state = {
@@ -64,16 +64,14 @@ void menu_init()
         exit(1);
     }
 
-    title_font = TTF_OpenFont("assets/fonts/SixtyfourConvergence-Regular.ttf", 35);
-    if (!title_font)
-    {
+    title_font = TTF_OpenFont("assets/fonts/SixtyfourConvergence-Regular.ttf", 50);
+    if (!title_font) {
         SDL_Log("Failed to load title font: %s", SDL_GetError());
         exit(1);
     }
 
-    menu_font = TTF_OpenFont("assets/fonts/PixelifySans-Regular.ttf", 32);
-    if (!menu_font)
-    {
+    menu_font = TTF_OpenFont("assets/fonts/PixelifySans-Regular.ttf", 36);
+    if (!menu_font) {
         SDL_Log("Failed to load menu font: %s", SDL_GetError());
         exit(1);
     }
@@ -157,17 +155,17 @@ void menu_render(SDL_Renderer *renderer)
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
 
-    render_text(renderer, title_font, "JUMP & SURVIVE", 50, 50, white);
+    render_text(renderer, title_font, "JUMP & SURVIVE", 125, 80, white);
     SDL_Color start_color = (current_selection == MENU_START) ? yellow : white;
     SDL_Color exit_color = (current_selection == MENU_EXIT) ? yellow : white;
 
     SDL_Color green = {0, 128, 0, 255};
     drawCapsuleButton(renderer, &start_button, green);
-    render_text(renderer, menu_font, "Start Game", start_button.x + 15, start_button.y + 5, start_color);
+    render_text(renderer, menu_font, "Start Game", start_button.x + 45, start_button.y + 5, start_color);
 
     SDL_Color red = {200, 0, 0, 255};
     drawCapsuleButton(renderer, &exit_button, red);
-    render_text(renderer, menu_font, "Exit Game", exit_button.x + 32, exit_button.y + 5, exit_color);
+    render_text(renderer, menu_font, "Exit Game", exit_button.x + 65, exit_button.y + 5, exit_color);
     SDL_RenderPresent(renderer);
 }
 
