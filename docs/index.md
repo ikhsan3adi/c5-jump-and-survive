@@ -17,10 +17,16 @@ Jump & Survive adalah game 2D platformer sederhana yang dibuat menggunakan bahas
 
 ## Tools dan Library yang Digunakan
 
-- **Bahasa Pemrograman**: C
-- **Library**: [Simple DirectMedia Layer (SDL)](https://wiki.libsdl.org/SDL3/FrontPage) v3.2.4
-- **Build Tools**: [GNU Make](https://www.gnu.org/software/make/) v4.4.1, [GNU Compiler Collection (GCC)](https://packages.msys2.org/packages/mingw-w64-x86_64-gcc) v14.2.0 (MSYS2)
-- **Dokumentasi**: [MkDocs](https://www.mkdocs.org/) v1.6.1
+- **Bahasa Pemrograman**:
+    - C
+- **Library**:
+    - [Simple DirectMedia Layer (SDL)](https://wiki.libsdl.org/SDL3/FrontPage) v3.2.4
+    - [SDL_ttf](https://wiki.libsdl.org/SDL3_ttf/FrontPage) v3.2.0
+- **Build Tools**:
+    - [GNU Make](https://www.gnu.org/software/make/) v4.4.1
+    - [GNU Compiler Collection (GCC)](https://packages.msys2.org/packages/mingw-w64-x86_64-gcc) v14.2.0 (MSYS2)
+- **Dokumentasi**:
+    - [MkDocs](https://www.mkdocs.org/) v1.6.1
 
 ## Cara Menjalankan
 
