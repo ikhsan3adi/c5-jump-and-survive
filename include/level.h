@@ -12,12 +12,11 @@
 // Tile Type
 #define EMPTY 0
 #define PLATFORM 1
-#define OBSTACLE_1 2
-#define OBSTACLE_2 3
-#define SWITCH 4
-#define COINS 5
-#define TRAP 6
-#define DESTRUCT 7
+#define SOLID_OBSTACLE 2
+#define SWITCH 3
+#define COINS 4
+#define DESTRUCTION 5
+#define LIFE 5
 #define EXIT_GATE 9
 
 extern int solid_tiles[];

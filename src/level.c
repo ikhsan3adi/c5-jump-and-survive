@@ -2,8 +2,7 @@
 
 int solid_tiles[] = {
     PLATFORM,
-    OBSTACLE_1,
-    OBSTACLE_2,
+    SOLID_OBSTACLE,
     // tambahin kalo ada
 };
 
@@ -92,15 +91,15 @@ void render_level(SDL_Renderer *renderer)
         SDL_SetRenderDrawColor(renderer, 161, 35, 30, 255);
         SDL_RenderFillRect(renderer, &tile_rect);
         break;
-      case OBSTACLE_1:
+      case SOLID_OBSTACLE:
         SDL_SetRenderDrawColor(renderer, 161, 66, 11, 255);
         SDL_RenderFillRect(renderer, &tile_rect);
         break;
-      case OBSTACLE_2:
+      case SWITCH:
         SDL_SetRenderDrawColor(renderer, 247, 212, 65, 255);
         SDL_RenderFillRect(renderer, &tile_rect);
         break;
-      case DESTRUCT:
+      case COINS:
         SDL_SetRenderDrawColor(renderer, 0, 40, 30, 255);
         SDL_RenderFillRect(renderer, &tile_rect);
         break;
