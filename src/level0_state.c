@@ -5,6 +5,8 @@
 #include "game.h"
 #include "game_state.h"
 #include "player.h"
+#include "game_stat.h"
+
 
 Entity *player;
 Entity *platform;
@@ -31,6 +33,8 @@ void level0_init()
 
   // Inisialisasi obstacle (rintangan)
   obstacle = create_entity(450, 500, 40, 40, (SDL_Color){255, 255, 0, 255});
+  // Mulai timer untuk level
+  //start_timer(&game_stat);
 }
 
 void level0_handle_input(SDL_Event *event)
