@@ -1,10 +1,5 @@
 #include "level.h"
-
-int solid_tiles[] = {
-    PLATFORM,
-    SOLID_OBSTACLE,
-    // tambahin kalo ada
-};
+#include "entity.h"
 
 short level0_map[MAP_HEIGHT][MAP_WIDTH] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -136,52 +131,4 @@ void render_level(SDL_Renderer *renderer)
       }
     }
   }
-}
-
-bool is_solid(Transform *transform) {
-  int left = transform->x / TILE_SIZE;
-  int right = (transform->x + transform->w - 1) / TILE_SIZE;
-  int top = transform->y / TILE_SIZE;
-  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
-
-  for (int y = top; y <= bottom; y++) {
-      for (int x = left; x <= right; x++) {
-          if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) {
-              return false;
-          }
-          for (size_t i = 0; i < sizeof(solid_tiles) / sizeof(solid_tiles[0]); i++) {
-              if (current_level_map[y][x] == solid_tiles[i]) {
-                  return true;
-              }
-          }
-      }
-  }
-  return false;
-}
-
-bool is_void(Transform *transform)
-{
-  return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT;
-}
-
-bool is_exit(Transform *transform)
-{
-  int left = transform->x / TILE_SIZE;
-  int right = (transform->x + transform->w - 1) / TILE_SIZE;
-  int top = transform->y / TILE_SIZE;
-  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
-
-  for (int y = top; y <= bottom; y++) {
-      for (int x = left; x <= right; x++) {
-          if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) {
-              return false;
-          }
-          for (size_t i = 0; i < sizeof(solid_tiles) / sizeof(solid_tiles[0]); i++) {
-            if (current_level_map[y][x] == EXIT_GATE){
-              return true;
-            }
-          }
-      }
-  }
-  return false;
 }

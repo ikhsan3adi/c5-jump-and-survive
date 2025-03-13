@@ -2,6 +2,12 @@
 #include "entity.h"
 #include "level.h"
 
+int solid_tiles[] = {
+  PLATFORM,
+  SOLID_OBSTACLE,
+  // tambahin kalo ada
+};
+
 Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
 {
   Entity *e = (Entity *)malloc(sizeof(Entity));
@@ -65,4 +71,52 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
 void destroy_entity(Entity *entity)
 {
   free(entity);
+}
+
+bool is_solid(Transform *transform) {
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+
+  for (int y = top; y <= bottom; y++) {
+      for (int x = left; x <= right; x++) {
+          if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) {
+              return false;
+          }
+          for (size_t i = 0; i < sizeof(solid_tiles) / sizeof(solid_tiles[0]); i++) {
+              if (current_level_map[y][x] == solid_tiles[i]) {
+                  return true;
+              }
+          }
+      }
+  }
+  return false;
+}
+
+bool is_void(Transform *transform)
+{
+  return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT;
+}
+
+bool is_exit(Transform *transform)
+{
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+
+  for (int y = top; y <= bottom; y++) {
+      for (int x = left; x <= right; x++) {
+          if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT) {
+              return false;
+          }
+          for (size_t i = 0; i < sizeof(solid_tiles) / sizeof(solid_tiles[0]); i++) {
+            if (current_level_map[y][x] == EXIT_GATE){
+              return true;
+            }
+          }
+      }
+  }
+  return false;
 }
