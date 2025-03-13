@@ -14,7 +14,10 @@
 #define COINS 4
 #define SPIKE 5
 #define LIFE 6
+#define FAKE_COINS 10
+#define BUTTON 8
 #define EXIT_GATE 9
+#define SAWS 7
 
 extern int solid_tiles[];
 

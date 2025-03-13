@@ -24,7 +24,7 @@ void stage0_init()
   SDL_Log("Stage 0 State: Initialized");
 
   // Inisialisasi player
-  player = create_entity(100, 400, 32, 32, (SDL_Color){255, 0, 0, 255});
+  player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -59,12 +59,29 @@ void stage0_update(double delta_time)
       player -> transform.x = 650;
       player -> transform.y = 100;
     }
+    if (current_level == 3)
+    {
+      player -> transform.x = 70;
+      player -> transform.y = 170;
+    }
+    if (current_level == 4)
+    {
+      player -> transform.x = 570;
+      player -> transform.y = 70;
+    } 
+    if (current_level == 5)
+    {
+      player -> transform.x = 80;
+      player -> transform.y = 300;
+    } 
   }
+    
 }
+
 
 void stage0_render(SDL_Renderer *renderer)
 {
-  SDL_SetRenderDrawColor(renderer, 254, 203, 48, 255);
+  SDL_SetRenderDrawColor(renderer, 124, 162, 142, 255);
   SDL_RenderClear(renderer);
 
   // Render map

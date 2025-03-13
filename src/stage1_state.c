@@ -4,6 +4,8 @@
 #include "stage1_state.h"
 #include "game.h"
 #include "game_state.h"
+#include "player.h"
+
 
 // Definisi state
 GameState stage1_state = {
