@@ -52,12 +52,19 @@ void stage0_update(double delta_time)
   
   if (is_exit(&player->transform)) {
     change_level(current_level + 1);
+    player -> transform.x = 100;
+    player -> transform.y = 300;
+    if (current_level == 2)
+    {
+      player -> transform.x = 650;
+      player -> transform.y = 100;
+    }
   }
 }
 
 void stage0_render(SDL_Renderer *renderer)
 {
-  SDL_SetRenderDrawColor(renderer, 247, 212, 65, 255);
+  SDL_SetRenderDrawColor(renderer, 254, 203, 48, 255);
   SDL_RenderClear(renderer);
 
   // Render map

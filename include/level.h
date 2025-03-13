@@ -15,7 +15,7 @@
 #define SOLID_OBSTACLE 2
 #define SWITCH 3
 #define COINS 4
-#define DESTRUCTION 5
+#define SPIKE 5
 #define LIFE 5
 #define EXIT_GATE 9
 
