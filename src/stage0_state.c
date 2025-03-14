@@ -52,27 +52,22 @@ void stage0_update(double delta_time)
   
   if (is_exit(&player->transform)) {
     change_level(current_level + 1);
-    player -> transform.x = 100;
-    player -> transform.y = 300;
+    initiate_player(player,100,300);
     if (current_level == 2)
     {
-      player -> transform.x = 650;
-      player -> transform.y = 100;
+      initiate_player(player,650,100);
     }
     if (current_level == 3)
     {
-      player -> transform.x = 70;
-      player -> transform.y = 170;
+      initiate_player(player,70,170);
     }
     if (current_level == 4)
     {
-      player -> transform.x = 570;
-      player -> transform.y = 70;
+      initiate_player(player,570,70);
     } 
     if (current_level == 5)
     {
-      player -> transform.x = 80;
-      player -> transform.y = 300;
+      initiate_player(player,80,300);
     } 
   }
     
