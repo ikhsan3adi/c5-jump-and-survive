@@ -6,12 +6,14 @@ theme:
   favicon: favicon.ico
   palette:
     - scheme: default # Palette toggle for light mode
-      primary: amber
+      primary: orange
+      accent: red
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate # Palette toggle for dark mode
       primary: amber
+      accent: deep orange
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
