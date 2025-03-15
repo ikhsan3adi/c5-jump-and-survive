@@ -2,32 +2,37 @@
 #define GAME_STAT_H
 
 #include <SDL3/SDL.h>
+#include <stdbool.h> // Untuk tipe data bool
 
 #define DEFAULT_LIVES 3  // Jumlah nyawa awal
 
 typedef struct {
-    int score;          // Skor pemain
-    int lives;          // Jumlah nyawa pemain
-    Uint32 start_time;  // Waktu mulai permainan
-    Uint32 max_time;    // Waktu maksimal untuk menyelesaikan level
+    int score;   // Skor pemain
+    int lives;   // Jumlah nyawa pemain
+    Uint32 timer; // Waktu tersisa dalam detik
+    bool is_paused; // Status apakah game sedang pause
 } GameStat;
 
-extern GameStat game_stat; // Deklarasi variabel global untuk game_stat
+extern GameStat game_stat; // Variabel global untuk status game
 
-// Inisialisasi GameStat
-void init_game_stat(GameStat *stat, Uint32 max_time);
+// Inisialisasi GameStat dengan jumlah nyawa awal dan waktu maksimal per level
+void init_game_stat(GameStat *stat);
 
-// Menambah skor berdasarkan waktu yang tersisa
+// Memulai atau mereset timer permainan
+void start_timer(GameStat *stat);
+
+// Pause dan resume timer
+void pause_timer(GameStat *stat);
+void resume_timer(GameStat *stat);
+
+// Update timer setiap detik jika game tidak di-pause
+void update_timer(GameStat *stat);
+
+// Menambah skor berdasarkan nilai tertentu
 void add_score(GameStat *stat, int base_score, float multiplier);
 
 // Mereset skor ke nol
 void reset_score(GameStat *stat);
-
-// Memulai timer permainan
-void start_timer(GameStat *stat);
-
-// Menghentikan timer dan mengembalikan waktu yang telah berlalu dalam detik
-Uint32 stop_timer(GameStat *stat);
 
 // Menambah satu nyawa (dengan batas maksimum)
 void add_life(GameStat *stat);

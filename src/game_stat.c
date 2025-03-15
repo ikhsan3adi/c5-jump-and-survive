@@ -1,43 +1,47 @@
 #include "game_stat.h"
 #include <stdio.h>
 
+GameStat game_stat; // Deklarasi variabel global
+
 // Inisialisasi GameStat dengan jumlah nyawa awal dan waktu maksimal per level
-void init_game_stat(GameStat *stat, Uint32 max_time) {
+void init_game_stat(GameStat *stat) {
     stat->score = 0;
     stat->lives = DEFAULT_LIVES;
-    stat->start_time = 0;
-    
-    // Pastikan max_time tidak bernilai nol agar timer berfungsi dengan benar
-    stat->max_time = (max_time > 0) ? max_time : 60000; // Default 60 detik jika tidak diberikan
+    stat->timer = 0; // Konversi dari milidetik ke detik
+    stat->is_paused = false;
 }
 
-// Menambah skor berdasarkan waktu yang tersisa
+// Memulai atau mereset timer permainan
+void start_timer(GameStat *stat) {
+    stat->timer = 0; // Konversi dari ms ke detik
+    stat->is_paused = false;
+}
+
+// Pause timer
+void pause_timer(GameStat *stat) {
+    stat->is_paused = true;
+}
+
+// Resume timer
+void resume_timer(GameStat *stat) {
+    stat->is_paused = false;
+}
+
+// Update timer setiap detik jika game tidak di-pause
+void update_timer(GameStat *stat) {
+    if (!stat->is_paused && stat->timer >= 0) {
+        stat->timer++;
+    }
+}
+
+// Menambah skor berdasarkan multiplier
 void add_score(GameStat *stat, int base_score, float multiplier) {
-    if (stat->start_time == 0) return; // Pastikan timer sudah berjalan
-
-    Uint32 elapsed_time = SDL_GetTicks() - stat->start_time;
-    Uint32 remaining_time = (stat->max_time > elapsed_time) ? (stat->max_time - elapsed_time) / 1000 : 0;
-
-    stat->score += base_score + (remaining_time * multiplier);
+    stat->score += base_score + (stat->timer * multiplier);
 }
 
 // Mereset skor ke nol
 void reset_score(GameStat *stat) {
     stat->score = 0;
-}
-
-// Memulai timer permainan
-void start_timer(GameStat *stat) {
-    stat->start_time = SDL_GetTicks();
-}
-
-// Menghentikan timer dan mengembalikan waktu yang telah berlalu dalam detik
-Uint32 stop_timer(GameStat *stat) {
-    if (stat->start_time == 0) {
-        return 0; // Timer belum dimulai
-    }
-    Uint32 elapsed_time = SDL_GetTicks() - stat->start_time;
-    return elapsed_time / 1000; // Konversi ms ke detik
 }
 
 // Menambah satu nyawa (dengan batas maksimum)

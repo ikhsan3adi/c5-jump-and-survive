@@ -47,26 +47,26 @@ void render_text(SDL_Renderer *renderer, TTF_Font *font, const char *text, int x
         SDL_DestroyTexture(text_texture);
 }
 
-void render_game_ui(SDL_Renderer *renderer, int score, int timer, int nyawa)
+// Gunakan GameStat untuk menampilkan UI game
+void render_game_ui(SDL_Renderer *renderer, GameStat *stat)
 {
-
     SDL_Color light_brown = {181, 101, 29, 255};
 
     int heart_x = 30;
     int heart_y = 20;
     int heart_spacing = 60;
 
-    for (int i = 0; i < nyawa; i++)
+    for (int i = 0; i < stat->lives; i++)
     {
         render_text(renderer, sixtyfourconvergence_font, "\u2665", heart_x + (i * heart_spacing), heart_y, 1, light_brown);
     }
 
     char score_text[50];
-    sprintf(score_text, "Score: %d", score);
+    sprintf(score_text, "Score: %d", stat->score);
     render_text(renderer, pixelify_font, score_text, 425, 10, 1, light_brown);
 
     char timer_text[50];
-    sprintf(timer_text, "Time: %d", timer);
+    sprintf(timer_text, "Time: %d", stat->timer);
     render_text(renderer, pixelify_font, timer_text, 800, 10, 1, light_brown);
 }
 
