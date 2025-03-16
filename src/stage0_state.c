@@ -68,18 +68,25 @@ void stage0_update(double delta_time)
     } 
     if (current_level == 5)
     {
-      initiate_player(player,80,300);
-    } 
-    if (current_level == 6)
-    {
       initiate_player(player,50,300);
     }
+    if (current_level == 6)
     {
-      /* code */
+      initiate_player(player,80,300);
+    } 
+    if (current_level == 7)
+    {
+      initiate_player(player,650,50);
+    }    
+    if (current_level == 8)
+    {
+      initiate_player(player,100,70);
     }
-    
-  }
-    
+    if (current_level == 9)
+    {
+      initiate_player(player,75,500);
+    }   
+  }   
 }
 
 
