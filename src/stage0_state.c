@@ -4,6 +4,7 @@
 #include "stage0_state.h"
 #include "stage1_state.h"
 #include "game.h"
+#include "game.h"
 #include "game_state.h"
 #include "player.h"
 #include "level.h"
@@ -69,6 +70,14 @@ void stage0_update(double delta_time)
     {
       initiate_player(player,80,300);
     } 
+    if (current_level == 6)
+    {
+      initiate_player(player,50,300);
+    }
+    {
+      /* code */
+    }
+    
   }
     
 }
