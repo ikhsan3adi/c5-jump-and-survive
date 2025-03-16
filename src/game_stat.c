@@ -19,7 +19,8 @@ void start_timer(GameStat *stat) {
 }
 
 Uint32 get_elapsed_time(GameStat *stat){
-    stat->elapsed_time;
+    stat->elapsed_time = stat->stop_time - stat->start_time;
+    return stat->elapsed_time;
 }
 
 // Pause timer
