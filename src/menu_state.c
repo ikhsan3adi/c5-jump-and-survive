@@ -122,25 +122,6 @@ void menu_handle_input(SDL_Event *event)
             exit(0);
         }
     }
-    else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN)
-    {
-        int x = event->button.x;
-        int y = event->button.y;
-        if (x >= start_button.x && x <= start_button.x + start_button.w &&
-            y >= start_button.y && y <= start_button.y + start_button.h)
-        {
-            SDL_Log("Start Game Clicked!");
-            change_game_state(&level0_state);
-        }
-        else if (x >= exit_button.x && x <= exit_button.x + exit_button.w &&
-                 y >= exit_button.y && y <= exit_button.y + exit_button.h)
-        {
-            SDL_Log("Exit Game Clicked!");
-            menu_cleanup();
-            SDL_Quit();
-            exit(0);
-        }
-    }
 }
 
 void render_text(SDL_Renderer *renderer, TTF_Font *font, const char *text, int x, int y, SDL_Color color)
@@ -157,6 +138,7 @@ void menu_update(double delta_time) {}
 
 void menu_render(SDL_Renderer *renderer)
 {
+    SDL_Color dark_brown = {50, 20, 10, 255}; // Coklat gelap untuk judul
     SDL_Color white = {255, 255, 255, 255};
     SDL_Color yellow = {255, 220, 100, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
     SDL_Color bg_color = {212, 160, 23, 255}; // Warna kuning tua
@@ -164,7 +146,7 @@ void menu_render(SDL_Renderer *renderer)
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
 
-    render_text(renderer, title_font, "JUMP & SURVIVE", 125, 80, white);
+    render_text(renderer, title_font, "JUMP & SURVIVE", 125, 80, dark_brown);
 
     SDL_Color brown_orange = {175, 90, 40, 255}; // Coklat dengan sedikit oranye
     SDL_Color red_orange = {210, 60, 30, 255};   // Lebih merah untuk tombol yang diseleksi
@@ -192,9 +174,15 @@ void menu_render(SDL_Renderer *renderer)
 void menu_cleanup()
 {
     if (title_font)
+    {
         TTF_CloseFont(title_font);
+        title_font = NULL;
+    }
     if (menu_font)
+    {
         TTF_CloseFont(menu_font);
+        menu_font = NULL;
+    }
     TTF_Quit();
     SDL_Log("Menu State: Cleaned up");
 }
