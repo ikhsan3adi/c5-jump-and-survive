@@ -8,23 +8,23 @@ Halaman ini bertujuan untuk memberikan gambaran umum tentang pengembangan proyek
 
 ### Pembagian Tugas Anggota Kelompok
 
-1. **Ikhsan Satriadi** (241511080)
+1. [**Ikhsan Satriadi** (241511080)](https://github.com/ikhsan3adi)
 
      Mengembangkan core lifecycle game, seperti pengelolaan state, dan bertanggung jawab atas inisialisasi program menggunakan library SDL untuk membuat _window_ dan _renderer_. Selain itu, juga membuat dokumentasi teknis proyek.
 
-2. **Muhamad Syahid** (241511081)
+2. [**Muhamad Syahid** (241511081)](https://github.com/muhamadSyahid)
 
      Bertanggung jawab pada pengelolaan entity, seperti player, musuh, dan objek dinamis lainnya. Tanggung jawab juga meliputi pengembangan logika fisika untuk entitas, termasuk implementasi sistem tabrakan / collision dengan tile map.
 
-3. **Hisyam Khaeru Umam** (241511078)
+3. [**Hisyam Khaeru Umam** (241511078)](https://github.com/Umeem26)
 
      Merancang dan mengimplementasikan level permainan, termasuk mendesain level-level dengan berbagai elemen seperti tata letak platform dan rintangan.
 
-4. **Helga Athifa Hidayat** (241511077)
+4. [**Helga Athifa Hidayat** (241511077)](https://github.com/helga1406)
 
      Mengembangkan antarmuka pengguna (UI), mencakup perancangan menu utama, navigasi antar halaman, serta elemen visual seperti indikator skor dan nyawa.
 
-5. **Hanifidin Ibrahim** (241511076)
+5. [**Hanifidin Ibrahim** (241511076)](https://github.com/Hanif13579)
 
      Mengelola sistem statistik permainan (_Game Stats_), termasuk mencatat dan menampilkan data seperti skor, jumlah nyawa yang tersisa, dan timer.
 
@@ -62,8 +62,8 @@ Logika siklus game ini dikelola melalui **state pattern**. Modul `game_state` be
 
 Definisi dan implementasi _game state_ dapat dilihat pada:
 
-- [Modul `game_state`](./modules.md/#modul-game_state)
-- [Main program `main.c`](./modules.md/#main-program)
+- [Modul `game_state`](./modules/game_state.md)
+- [Main program `main.c`](./modules/main.md)
 
 ### Tile System untuk Map, Obstacle, dan Collision
 
@@ -71,9 +71,9 @@ _Tile system_ digunakan untuk mendesain map, rintangan, dan mendukung deteksi ta
 
 Implementasi dan penggunaan _level_ dan _tile system_ dapat dilihat pada:
 
-- [Modul `level`](./modules.md/#modul-level)
-- [Modul `stage0_state`](./modules.md/#stage-0-stage0_state)
-- [Modul `stage1_state`](./modules.md/#stage-1-stage1_state)
+- [Modul `level`](./modules/level.md)
+- [Modul `stage0_state`](./modules/stage0_state.md)
+- [Modul `stage1_state`](./modules/stage1_state.md)
 
 ### Entity System untuk Player dan Objek dinamis lainnya
 
@@ -83,10 +83,10 @@ Desain ini memastikan modularitas, memudahkan penambahan fitur baru, dan menduku
 
 Implementasi _entity_, _player_ dan modul pendukungnya dapat dilihat pada:
 
-- [Modul `entity`](./modules.md/#modul-entity)
-- [Modul `player`](./modules.md/#modul-player)
-- [Modul `transform`](./modules.md/#modul-transform)
-- [Modul `physics`](./modules.md/#modul-physics)
+- [Modul `entity`](./modules/entity.md)
+- [Modul `player`](./modules/player.md)
+- [Modul `transform`](./modules/transform.md)
+- [Modul `physics`](./modules/physics.md)
 
 ---
 
