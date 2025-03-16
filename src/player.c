@@ -5,6 +5,12 @@
 // array untuk menyimpan status tombol
 bool key_state[SDL_SCANCODE_COUNT];
 
+void initiate_player(Entity *player, int x, int y)
+{
+  player -> transform.x = x;
+  player -> transform.y = y;
+}
+
 void handle_player_input(Entity *player, SDL_Event *event)
 {
   if (event->type == SDL_EVENT_KEY_DOWN)

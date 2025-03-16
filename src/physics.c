@@ -1,7 +1,7 @@
 #include "physics.h"
 #include <stdlib.h>
 
-#define GRAVITY 9.8f
+#define GRAVITY 15.9f
 
 void apply_gravity(Physics *physics, float delta_time)
 {

@@ -5,6 +5,7 @@
 #include "game.h"
 #include "game_state.h"
 #include "menu_state.h"
+#include "game_stat.h"
 
 Uint64 last_time;
 
