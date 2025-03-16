@@ -1,7 +1,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include "menu_state.h"
-#include "level0_state.h"
+#include "stage0_state.h"
 #include "ui.h"
 
 // Enum untuk pilihan menu
@@ -78,7 +78,7 @@ void menu_handle_input(SDL_Event *event)
             if (current_selection == MENU_START)
             {
                 SDL_Log("Start Game Triggered!");
-                change_game_state(&level0_state);
+                change_game_state(&stage0_state);
             }
             else if (current_selection == MENU_EXIT)
             {
@@ -103,7 +103,7 @@ void menu_handle_input(SDL_Event *event)
             y >= start_button.y && y <= start_button.y + start_button.h)
         {
             SDL_Log("Start Game Clicked!");
-            change_game_state(&level0_state);
+            change_game_state(&stage0_state);
         }
         else if (x >= exit_button.x && x <= exit_button.x + exit_button.w &&
                  y >= exit_button.y && y <= exit_button.y + exit_button.h)
