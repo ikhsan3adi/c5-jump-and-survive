@@ -47,4 +47,5 @@ bool is_void(Transform *transform);
 
 bool is_exit(Transform *transform);
 
+bool is_coin(Transform *transform);
 #endif
