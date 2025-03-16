@@ -2,6 +2,7 @@
 #include <SDL3_ttf/SDL_ttf.h>
 #include "menu_state.h"
 #include "stage0_state.h"
+#include "ui.h"
 
 // Enum untuk pilihan menu
 typedef enum
@@ -13,8 +14,6 @@ typedef enum
 
 // Variabel untuk melacak pilihan menu
 static MenuOption current_selection = MENU_START;
-static TTF_Font *title_font = NULL;
-static TTF_Font *menu_font = NULL;
 static SDL_FRect start_button = {330.0f, 300.0f, 300.0f, 60.0f};
 static SDL_FRect exit_button = {330.0f, 400.0f, 300.0f, 60.0f};
 
@@ -58,23 +57,6 @@ void drawCapsuleButton(SDL_Renderer *renderer, SDL_FRect *rect, SDL_Color color)
 void menu_init()
 {
     SDL_Log("Menu State: Initialized");
-    if (TTF_Init() < 0)
-    {
-        SDL_Log("Failed to initialize SDL_ttf: %s", SDL_GetError());
-        exit(1);
-    }
-
-    title_font = TTF_OpenFont("assets/fonts/SixtyfourConvergence-Regular.ttf", 50);
-    if (!title_font) {
-        SDL_Log("Failed to load title font: %s", SDL_GetError());
-        exit(1);
-    }
-
-    menu_font = TTF_OpenFont("assets/fonts/PixelifySans-Regular.ttf", 36);
-    if (!menu_font) {
-        SDL_Log("Failed to load menu font: %s", SDL_GetError());
-        exit(1);
-    }
 }
 
 void menu_handle_input(SDL_Event *event)
@@ -134,16 +116,6 @@ void menu_handle_input(SDL_Event *event)
     }
 }
 
-void render_text(SDL_Renderer *renderer, TTF_Font *font, const char *text, int x, int y, SDL_Color color)
-{
-    SDL_Surface *surface = TTF_RenderText_Solid(font, text, strlen(text), color);
-    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
-    SDL_FRect dest_rect = {x, y, (float)surface->w, (float)surface->h};
-    SDL_RenderTexture(renderer, texture, NULL, &dest_rect);
-    SDL_DestroyTexture(texture);
-    SDL_DestroySurface(surface);
-}
-
 void menu_update(double delta_time) {}
 
 void menu_render(SDL_Renderer *renderer)
@@ -155,26 +127,21 @@ void menu_render(SDL_Renderer *renderer)
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
 
-    render_text(renderer, title_font, "JUMP & SURVIVE", 125, 80, white);
+    render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 90, 80, 1.4, white);
     SDL_Color start_color = (current_selection == MENU_START) ? yellow : white;
     SDL_Color exit_color = (current_selection == MENU_EXIT) ? yellow : white;
 
     SDL_Color green = {0, 128, 0, 255};
     drawCapsuleButton(renderer, &start_button, green);
-    render_text(renderer, menu_font, "Start Game", start_button.x + 45, start_button.y + 5, start_color);
+    render_text(renderer, pixelify_font, "Start Game", start_button.x + 45, start_button.y + 5, 1, start_color);
 
     SDL_Color red = {200, 0, 0, 255};
     drawCapsuleButton(renderer, &exit_button, red);
-    render_text(renderer, menu_font, "Exit Game", exit_button.x + 65, exit_button.y + 5, exit_color);
+    render_text(renderer, pixelify_font, "Exit Game", exit_button.x + 65, exit_button.y + 5, 1, exit_color);
     SDL_RenderPresent(renderer);
 }
 
 void menu_cleanup()
 {
-    if (title_font)
-        TTF_CloseFont(title_font);
-    if (menu_font)
-        TTF_CloseFont(menu_font);
-    TTF_Quit();
     SDL_Log("Menu State: Cleaned up");
 }
