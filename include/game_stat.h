@@ -9,8 +9,9 @@
 typedef struct {
     int score;   // Skor pemain
     int lives;   // Jumlah nyawa pemain
-    Uint32 timer; // Waktu tersisa dalam detik
-    bool is_paused; // Status apakah game sedang pause
+    Uint32 start_time; 
+    Uint32 stop_time;
+    Uint32 elapsed_time; 
 } GameStat;
 
 extern GameStat game_stat; // Variabel global untuk status game
@@ -21,15 +22,13 @@ void init_game_stat(GameStat *stat);
 // Memulai atau mereset timer permainan
 void start_timer(GameStat *stat);
 
-// Pause dan resume timer
-void pause_timer(GameStat *stat);
-void resume_timer(GameStat *stat);
+Uint32 get_elapsed_time(GameStat *stat);
 
-// Update timer setiap detik jika game tidak di-pause
-void update_timer(GameStat *stat);
+// Pause timer
+void stop_timer(GameStat *stat);
 
 // Menambah skor berdasarkan nilai tertentu
-void add_score(GameStat *stat, int base_score, float multiplier);
+void add_score(GameStat *stat);
 
 // Mereset skor ke nol
 void reset_score(GameStat *stat);
