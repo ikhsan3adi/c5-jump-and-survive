@@ -56,6 +56,7 @@ void drawCapsuleButton(SDL_Renderer *renderer, SDL_FRect *rect, SDL_Color color)
 
 void menu_init()
 {
+    load_font();
     SDL_Log("Menu State: Initialized");
 }
 
