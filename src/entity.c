@@ -42,14 +42,6 @@ void update_entity(Entity *entity, float delta_time, Entity *objects[], int obje
   apply_gravity(&entity->physics, delta_time);
 
   apply_entity_movement(entity, delta_time, objects, object_count);
-  if (is_coin(&entity->transform))
-  {
-    add_score(&game_stat);
-  }
-  if (is_destruct(&entity->transform))
-  {
-    sub_life(&game_stat);
-  }
 }
 
 void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], int object_count)
@@ -87,7 +79,13 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   bool coin = is_coin(&entity->transform);
   if (coin)
   {
+    add_score(&game_stat);
     printf("Kamu Menyentuh Koin");
+  }
+  bool destruct = is_destruct(&entity->transform);
+  if (destruct)
+  {
+    sub_life(&game_stat);
   }
 }
 

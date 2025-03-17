@@ -28,8 +28,8 @@ void stage0_init()
 
   // Inisialisasi player
   player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
-
   init_game_stat(&game_stat);
+  start_timer(&game_stat);
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -54,7 +54,9 @@ void stage0_handle_input(SDL_Event *event)
 void stage0_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
-  
+
+  game_stat.elapsed_time = get_elapsed_time(&game_stat);
+
   if (is_exit(&player->transform)) {
     change_level(current_level + 1);
     initiate_player(player,100,300);
