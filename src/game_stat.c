@@ -50,13 +50,16 @@ void add_life(GameStat *stat) {
 
 // Mengurangi satu nyawa dan mengecek game over
 void sub_life(GameStat *stat) {
-    if (stat->lives > 0) {
+    Uint32 now = SDL_GetTicks();
+    
+    if (stat->lives > 0 && (now - stat->last_hit_time > 500)) {  // Cooldown 0,5 detik
         stat->lives--;
+        stat->last_hit_time = now; 
         printf("Lives left: %d\n", stat->lives);
         
         if (stat->lives == 0) {
             printf("Game Over!\n");
-            // Tambahkan logika untuk menangani game over di sini
+            // Tambahkan logika game over
         }
     }
 }

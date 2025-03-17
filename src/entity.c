@@ -80,12 +80,17 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   if (coin)
   {
     add_score(&game_stat);
-    printf("Kamu Menyentuh Koin");
   }
   bool destruct = is_destruct(&entity->transform);
   if (destruct)
   {
     sub_life(&game_stat);
+  }
+  bool hole = is_void(&entity->transform);
+  if (hole)
+  {
+    sub_life(&game_stat);
+    //tambahkan agar saat masuk lobang bisa kembali lagi ke atas
   }
 }
 
