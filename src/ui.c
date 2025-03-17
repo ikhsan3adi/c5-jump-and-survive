@@ -70,24 +70,6 @@ void render_game_ui(SDL_Renderer *renderer, GameStat *stat)
     render_text(renderer, pixelify_font, timer_text, 800, 10, 1, light_brown);
 }
 
-void render_game_over_ui(SDL_Renderer *renderer)
-{
-    SDL_Color red = {255, 0, 0, 255};
-    SDL_FRect overlay = {0, 0, 960, 640};
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 128);
-    SDL_RenderFillRect(renderer, &overlay);
-    render_text(renderer, pixelify_font, "Game Over", 360, 250, 1, red);
-}
-
-void render_pause_ui(SDL_Renderer *renderer)
-{
-    SDL_Color yellow = {255, 255, 0, 255};
-    SDL_FRect overlay = {0, 0, 960, 640};
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 128);
-    SDL_RenderFillRect(renderer, &overlay);
-    render_text(renderer, pixelify_font, "Paused", 400, 250, 1, yellow);
-}
-
 void render_menu_ui(SDL_Renderer *renderer)
 {
     SDL_Color cyan = {0, 255, 255, 255};
