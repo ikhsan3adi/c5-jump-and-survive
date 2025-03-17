@@ -7,7 +7,6 @@
 #include "player.h"
 #include "level.h"
 
-
 // Definisi state
 GameState stage1_state = {
     .init = stage1_init,
@@ -47,36 +46,36 @@ void stage1_handle_input(SDL_Event *event)
 void stage1_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
-  
-  if (is_exit(&player->transform)) {
+
+  if (is_exit(&player->transform))
+  {
     change_level(current_level + 1);
     if (current_level == 4)
     {
-      initiate_player(player,570,70);
-    } 
+      initiate_player(player, 570, 70);
+    }
     if (current_level == 5)
     {
-      initiate_player(player,50,300);
+      initiate_player(player, 50, 300);
     }
     if (current_level == 6)
     {
-      initiate_player(player,80,300);
-    } 
+      initiate_player(player, 80, 300);
+    }
     if (current_level == 7)
     {
-      initiate_player(player,650,50);
-    }    
+      initiate_player(player, 650, 50);
+    }
     if (current_level == 8)
     {
-      initiate_player(player,100,70);
+      initiate_player(player, 100, 70);
     }
     if (current_level == 9)
     {
-      initiate_player(player,75,500);
-    }   
-  } 
+      initiate_player(player, 75, 500);
+    }
+  }
 }
-
 
 void stage1_render(SDL_Renderer *renderer)
 {
@@ -87,10 +86,7 @@ void stage1_render(SDL_Renderer *renderer)
   render_level(renderer);
 
   // Render player
-  SDL_SetRenderDrawColor(renderer, player->render.color.r, player->render.color.g, player->render.color.b, 255);
-  SDL_FRect player_rect = {player->transform.x, player->transform.y, player->transform.w, player->transform.h};
-  SDL_RenderFillRect(renderer, &player_rect);
-
+  render_player(renderer, player);
 
   SDL_RenderPresent(renderer);
 }

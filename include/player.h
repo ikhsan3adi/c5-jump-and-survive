@@ -14,4 +14,6 @@ void handle_player_input(Entity *player, SDL_Event *event);
 
 void destroy_player(Entity *player);
 
+void render_player(SDL_Renderer *renderer, Entity *player);
+
 #endif
