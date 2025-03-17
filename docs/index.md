@@ -6,7 +6,7 @@ Selamat Datang di Jump & Survive Documentation!
 
 ## Deskripsi Singkat
 
-Jump & Survive adalah game 2D platformer sederhana yang dibuat menggunakan bahasa pemrograman C dan library SDL3. Dalam game ini, pemain mengendalikan karakter utama yang harus melompat dan menghindari rintangan untuk mencapai tujuan akhir
+**Jump & Survive** adalah game 2D platformer sederhana yang dibuat menggunakan bahasa pemrograman C dan library SDL3. Dalam game ini, pemain mengendalikan karakter utama yang harus melompat dan menghindari rintangan untuk mencapai tujuan akhir.
 
 ---
 
@@ -37,7 +37,6 @@ Jump & Survive adalah game 2D platformer sederhana yang dibuat menggunakan bahas
     - C
 - **Library**:
     - [**Simple DirectMedia Layer 3 (SDL3)**](https://wiki.libsdl.org/SDL3/FrontPage)
-    - [**SDL_ttf**](https://wiki.libsdl.org/SDL3_ttf/FrontPage)
 - **Build Tools**:
     - [**GNU Make**](https://www.gnu.org/software/make/)
     - [**GNU Compiler Collection (GCC)**](https://packages.msys2.org/packages/mingw-w64-x86_64-gcc)

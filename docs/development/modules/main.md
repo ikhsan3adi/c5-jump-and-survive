@@ -63,6 +63,6 @@ Kemudian, fungsi ini mengambil `renderer` dari instance permainan, yang digunaka
 void SDL_AppQuit(void *appstate, SDL_AppResult result) { ... }
 ```
 
-Fungsi `SDL_AppQuit` dipanggil saat aplikasi akan ditutup. Fungsinya adalah untuk membersihkan semua sumber daya yang digunakan oleh aplikasi. Ketika fungsi ini dipanggil, SDL secara otomatis akan membersihkan `window`, `renderer` dan resource lain (misalnya font SDL_ttf) yang telah dibuat, memastikan bahwa semua sumber daya yang dialokasikan oleh aplikasi dilepaskan dengan benar.
+Fungsi `SDL_AppQuit` dipanggil saat program akan ditutup. Fungsinya adalah untuk membersihkan semua sumber daya yang digunakan oleh program. Ketika fungsi ini dipanggil, SDL secara otomatis akan membersihkan `window`, `renderer` dan resource lain (misalnya font SDL_ttf), memastikan bahwa semua sumber daya yang dialokasikan oleh program dilepaskan dengan benar.
 
 ---

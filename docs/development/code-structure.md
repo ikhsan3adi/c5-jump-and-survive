@@ -8,32 +8,37 @@ Proyek ini memiliki struktur direktori berikut:
 
 ```txt
 📂assets/
-  └─ 📂fonts/
+  ├─ 📂fonts/
+  └─ 📂SFX/
 
 📂include/
   ├─ 📂SDL3/
-  ├─ 📂SDL3_ttf/
+  ├─ SFX.h
   ├─ entity.h
   ├─ game.h
-  ├─ game_state.h
   ├─ game_stat.h
+  ├─ game_state.h
   ├─ level.h
   ├─ menu_state.h
+  ├─ obstacle.h
   ├─ physics.h
   ├─ player.h
   ├─ stage0_state.h
   ├─ stage1_state.h
   ├─ transform.h
-  └─ ui.h
+  ├─ ui.h
+  └─ vector.h
 
 📂src/
+  ├─ SFX.c
   ├─ entity.c
   ├─ game.c
-  ├─ game_state.c
   ├─ game_stat.c
+  ├─ game_state.c
   ├─ level.c
   ├─ main.c
   ├─ menu_state.c
+  ├─ obstacle.c
   ├─ physics.c
   ├─ player.c
   ├─ stage0_state.c
@@ -59,6 +64,8 @@ Folder ini menyimpan semua aset yang digunakan dalam game, seperti font, gambar,
 
 - **📂 fonts/**: Berisi font yang digunakan untuk teks dalam game, misalnya judul di menu, skor, atau elemen UI lainnya.
 
+- **📂 SFX/**: Berisi file suara (*.wav &*.mp3) yang digunakan dalam game, seperti jump, gate, coin, dead, dan gameover.
+
 ---
 
 ### **📂 include/**
@@ -67,11 +74,11 @@ Berisi header file (`*.h`) yang mendefinisikan fungsi, struktur, dan konstanta y
 
 - **📂 SDL3/**:
 
-    Berisi file header dari library SDL3.
+    Berisi file header dari library SDL3. Sudah termasuk library SDL_ttf, dan SDL_mixer.
 
-- **📂 SDL3_ttf/**:
+- **SFX.h** & **SFX.c**:
 
-    Berisi file header untuk library SDL_ttf yang menangani teks/font.
+    Berisi kode yang menangani musik dan sound effect.
 
 - **entity.h** & **entity.c**:
 
@@ -98,6 +105,10 @@ Berisi header file (`*.h`) yang mendefinisikan fungsi, struktur, dan konstanta y
 
     Mengatur tampilan start menu. Implementasi dari `game_state`.
 
+- **obstacle.h** & **obstacle.c**:
+
+    Mengatur tampilan dan logika obstacles, contohnya *saw*, *spike*, *fake coins*, dan lainnya.
+
 - **physics.h** & **physics.c**:
 
     Menangani simulasi fisika sederhana seperti gravitasi dan tabrakan(collision).
@@ -118,10 +129,14 @@ Berisi header file (`*.h`) yang mendefinisikan fungsi, struktur, dan konstanta y
 
     Berisi struktur transformasi seperti posisi dan ukuran.
 
+- **vector.h**:
+
+    Berisi struktur sederhana vector, yang memuat 2 buah angka, yaitu x dan y.
+
 - **ui.h** & **ui.c**:
 
     Berisi fungsi untuk menampilkan UI, seperti game UI (skor, nyawa dan timer), render teks, tampilan
-    transisi level, pause menu, dan lainnya.
+    transisi level, pause, game over, dan lainnya.
 
 - **main.c**:
 

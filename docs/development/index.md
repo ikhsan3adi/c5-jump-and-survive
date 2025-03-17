@@ -10,7 +10,7 @@ Halaman ini bertujuan untuk memberikan gambaran umum tentang pengembangan proyek
 
 1. [**Ikhsan Satriadi** (241511080)](https://github.com/ikhsan3adi)
 
-     Mengembangkan core lifecycle game, seperti pengelolaan state, dan bertanggung jawab atas inisialisasi program menggunakan library SDL untuk membuat _window_ dan _renderer_. Selain itu, juga membuat dokumentasi teknis proyek.
+     Mengembangkan core lifecycle game, seperti pengelolaan state, dan bertanggung jawab atas inisialisasi program menggunakan library SDL untuk membuat _window_ dan _renderer_. Ikut membantu dalam pengembangan entity dan level. Selain itu, juga membuat dokumentasi teknis proyek.
 
 2. [**Muhamad Syahid** (241511081)](https://github.com/muhamadSyahid)
 
@@ -18,11 +18,11 @@ Halaman ini bertujuan untuk memberikan gambaran umum tentang pengembangan proyek
 
 3. [**Hisyam Khaeru Umam** (241511078)](https://github.com/Umeem26)
 
-     Merancang dan mengimplementasikan level permainan, termasuk mendesain level-level dengan berbagai elemen seperti tata letak platform dan rintangan.
+     Merancang dan mengimplementasikan level permainan, termasuk mendesain level-level dengan berbagai elemen seperti tata letak platform dan rintangan. Selain itu, juga mendesain bentuk dan tampilan player.
 
 4. [**Helga Athifa Hidayat** (241511077)](https://github.com/helga1406)
 
-     Mengembangkan antarmuka pengguna (UI), mencakup perancangan menu utama, navigasi antar halaman, serta elemen visual seperti indikator skor dan nyawa.
+     Mengembangkan antarmuka pengguna (UI), mencakup perancangan menu utama, game over, pause, navigasi antar halaman, serta elemen visual seperti indikator skor dan nyawa.
 
 5. [**Hanifidin Ibrahim** (241511076)](https://github.com/Hanif13579)
 
@@ -95,10 +95,14 @@ Implementasi _entity_, _player_ dan modul pendukungnya dapat dilihat pada:
 - **Bahasa Pemrograman**:
     - **C** Programing Language (GCC v14.2.0)
 - **Library**:
-    - [**SDL3**](https://wiki.libsdl.org/SDL3/FrontPage) v3.2.4 untuk rendering grafis dan handling event.
-    - [**SDL_ttf**](https://wiki.libsdl.org/SDL3_ttf/FrontPage) v3.2.0 untuk menangani teks dan font.
+    - [**SDL3**](https://www.libsdl.org/) v3.3.0 untuk rendering grafis dan handling event.
+        - [SDL_ttf](https://wiki.libsdl.org/SDL3_ttf/FrontPage) v3.2.0 untuk menangani teks dan font.
+        - [SDL_mixer](https://wiki.libsdl.org/SDL3_mixer/FrontPage) v3.0.0 untuk menangani audio.
+
+        Kami menggunakan build SDL dari: <https://github.com/mmozeiko/build-sdl3>
+
 - **Build Tools**:
-    - [**GNU Make**](https://www.gnu.org/software/make/) v4.4.1 untuk otomatisasi proses build.
+    - [**GNU Make**](https://www.gnu.org/software/make/) untuk otomatisasi proses build.
     - [**GCC**](https://packages.msys2.org/packages/mingw-w64-x86_64-gcc) v14.2.0 (MSYS2) untuk kompilasi _source code_.
 - **Version Control System**:
     - [**Git**](https://git-scm.com/) untuk pengelolaan kode dan kolaborasi.
