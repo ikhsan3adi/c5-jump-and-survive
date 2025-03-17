@@ -5,6 +5,8 @@
 // array untuk menyimpan status tombol
 bool key_state[SDL_SCANCODE_COUNT];
 
+Entity *player;
+
 void initiate_player(Entity *player, int x, int y)
 {
   player -> transform.x = x;
