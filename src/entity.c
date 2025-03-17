@@ -1,5 +1,5 @@
 #include <stdlib.h>
-// #include <stdio.h>
+#include <stdio.h>
 #include "entity.h"
 #include "level.h"
 
@@ -7,6 +7,13 @@ int solid_tiles[] = {
     PLATFORM,
     SOLID_OBSTACLE,
     // tambahin kalo ada
+};
+
+int destruct_tiles[] = {
+  SAWS,
+  SPIKE,
+  FAKE_COINS
+  // tambahin kalo ada
 };
 
 Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
@@ -69,11 +76,11 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   entity->physics.velocity_x *= entity->physics.friction;
 
   // test coin
-  // bool coin = is_coin(&entity->transform);
-  // if (coin)
-  // {
-  //   printf("Kamu Menyentuh Koin");
-  // }
+  bool coin = is_coin(&entity->transform);
+  if (coin)
+  {
+    printf("Kamu Menyentuh Koin");
+  }
 }
 
 void destroy_entity(Entity *entity)
@@ -156,6 +163,33 @@ bool is_coin(Transform *transform)
       {
         current_level_map[y][x] = EMPTY;
         return true;
+      }
+    }
+  }
+  return false;
+}
+
+bool is_destruct(Transform *transform)
+{
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+
+  for (int y = top; y <= bottom; y++)
+  {
+    for (int x = left; x <= right; x++)
+    {
+      if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
+      {
+        return false;
+      }
+      for (size_t i = 0; i < sizeof(destruct_tiles) / sizeof(destruct_tiles[0]); i++)
+      {
+        if (current_level_map[y][x] == destruct_tiles[i])
+        {
+          return true;
+        }
       }
     }
   }
