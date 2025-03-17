@@ -58,32 +58,9 @@ void stage0_update(double delta_time)
     }
     if (current_level == 3)
     {
+      change_game_state(&stage1_state);
       initiate_player(player,70,170);
     }
-    if (current_level == 4)
-    {
-      initiate_player(player,570,70);
-    } 
-    if (current_level == 5)
-    {
-      initiate_player(player,50,300);
-    }
-    if (current_level == 6)
-    {
-      initiate_player(player,80,300);
-    } 
-    if (current_level == 7)
-    {
-      initiate_player(player,650,50);
-    }    
-    if (current_level == 8)
-    {
-      initiate_player(player,100,70);
-    }
-    if (current_level == 9)
-    {
-      initiate_player(player,75,500);
-    }   
   }   
 }
 

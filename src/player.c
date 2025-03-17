@@ -2,6 +2,8 @@
 #include <SDL3/SDL.h>
 #include "player.h"
 
+Entity* player;
+
 // array untuk menyimpan status tombol
 bool key_state[SDL_SCANCODE_COUNT];
 
