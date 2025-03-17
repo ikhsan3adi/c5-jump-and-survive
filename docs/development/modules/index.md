@@ -1,35 +1,41 @@
 # Penjelasan Modul-modul
 
-Halaman ini memberikan penjelasan terperinci tentang modul-modul utama dalam game 2D platformer ini. Setiap modul dijelaskan berdasarkan perannya dalam program, fungsi utama yang diimplementasikan, serta interaksinya dengan modul lain. Dengan pendekatan modular, pengembangan dan debugging dapat dilakukan secara lebih terorganisir.
+Halaman ini memberikan penjelasan terperinci tentang modul-modul utama dalam game 2D platformer ini. Setiap modul dijelaskan berdasarkan perannya dalam program, fungsi utama yang diimplementasikan, serta interaksinya dengan modul lain.
 
 ---
 
 ## Modul-modul
 
-- [Main Program](./main.md) ✅
+- [Main Program](./main.md)
 
-- [Modul `game`](./game.md) ✅
+- [Modul `game`](./game.md)
 
-- [Modul `game_state`](./game_state.md) ✅
+- [Modul `game_state`](./game_state.md)
 
-- [Modul `transform`](./transform.md) ❌
+- [Modul `transform`](./transform.md)
 
-- [Modul `entity`](./entity.md) ❌
+<!-- TODO -->
 
-- [Modul `physics`](./physics.md) ❌
+<!-- - [Modul `entity`](./entity.md) -->
 
-- [Modul `player`](./player.md) ❌
+<!-- - [Modul `physics`](./physics.md) -->
 
-- [Modul `level`](./level.md) ❌
+<!-- - [Modul `player`](./player.md) -->
 
-- [Modul `game_stat`](./game_stat.md) ❌
+<!-- - [Modul `level`](./level.md) -->
 
-- [Modul `ui`](./ui.md) ❌
+<!-- - [Modul `obstacle`](./obstacle.md) -->
 
-- [Start Menu (`menu_state`)](./menu_state.md) ❌
+<!-- - [Modul `game_stat`](./game_stat.md) -->
 
-- [Stage 0 (`stage0_state`)](./stage0_state.md) ❌
+<!-- - [Modul `ui`](./ui.md) -->
 
-- [Stage 1 (`stage1_state`)](./stage1_state.md) ❌
+<!-- - [Modul `SFX`](./sfx.md) -->
+
+<!-- - [Start Menu (`menu_state`)](./menu_state.md) -->
+
+<!-- - [Stage 0 (`stage0_state`)](./stage0_state.md) -->
+
+<!-- - [Stage 1 (`stage1_state`)](./stage1_state.md) -->
 
 ---

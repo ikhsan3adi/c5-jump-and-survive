@@ -6,18 +6,6 @@
 
 Pastikan _compiler_ **GCC** dan **GNU Make** telah terinstal. Jika belum, instal menggunakan perintah berikut:
 
-### Ubuntu/Debian
-
-```sh
-sudo apt update && sudo apt install build-essential -y
-```
-
-### MacOS (menggunakan Homebrew)
-
-```sh
-brew install gcc make
-```
-
 ### Windows (menggunakan MSYS2)
 
 1. Unduh dan instal [MSYS2](https://www.msys2.org/).
