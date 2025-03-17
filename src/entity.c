@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "entity.h"
 #include "level.h"
 
@@ -74,13 +73,6 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
 
   // gesekan (mengurangi kecepatan horizontal jika tidak bergerak)
   entity->physics.velocity_x *= entity->physics.friction;
-
-  // test coin
-  bool coin = is_coin(&entity->transform);
-  if (coin)
-  {
-    printf("Kamu Menyentuh Koin");
-  }
 }
 
 void destroy_entity(Entity *entity)
