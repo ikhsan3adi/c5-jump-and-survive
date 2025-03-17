@@ -5,6 +5,8 @@
 #include "game.h"
 #include "game_state.h"
 #include "menu_state.h"
+#include "game_stat.h"
+#include "ui.h"
 
 Uint64 last_time;
 
@@ -59,5 +61,6 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 /* This function runs once at shutdown. */
 void SDL_AppQuit(void *appstate, SDL_AppResult result)
 {
+  clean_up_ui();
   /* SDL will clean up the window/renderer for us. */
 }
