@@ -9,8 +9,6 @@
 #include "player.h"
 #include "level.h"
 
-Entity *player;
-
 // Definisi state
 GameState stage0_state = {
     .init = stage0_init,
