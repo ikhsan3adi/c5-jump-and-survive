@@ -73,7 +73,6 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
 
   // gesekan (mengurangi kecepatan horizontal jika tidak bergerak)
   entity->physics.velocity_x *= entity->physics.friction;
-
 }
 
 void destroy_entity(Entity *entity)
