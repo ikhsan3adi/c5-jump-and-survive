@@ -14,13 +14,13 @@
 #define COINS 4
 #define SPIKE 5
 #define LIFE 6
-#define FAKE_COINS 10
-#define BUTTON 8
-#define EXIT_GATE 9
 #define SAWS 7
+#define FAKE_COINS 8
+#define EXIT_GATE 9
 
 extern int solid_tiles[];
 
+extern int destruct_tiles[];
 typedef struct
 {
     SDL_Color color;
@@ -47,4 +47,7 @@ bool is_void(Transform *transform);
 
 bool is_exit(Transform *transform);
 
+bool is_coin(Transform *transform);
+
+bool is_destruct(Transform *transform);
 #endif
