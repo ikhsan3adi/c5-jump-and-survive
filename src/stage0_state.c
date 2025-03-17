@@ -7,6 +7,9 @@
 #include "game_state.h"
 #include "player.h"
 #include "level.h"
+#include "entity.h"
+#include "game_stat.h"
+#include "ui.h"
 
 Entity *player;
 
@@ -25,6 +28,8 @@ void stage0_init()
 
   // Inisialisasi player
   player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
+
+  init_game_stat(&game_stat);
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -87,6 +92,7 @@ void stage0_render(SDL_Renderer *renderer)
   SDL_FRect player_rect = {player->transform.x, player->transform.y, player->transform.w, player->transform.h};
   SDL_RenderFillRect(renderer, &player_rect);
 
+  render_game_ui(renderer, &game_stat);
 
   SDL_RenderPresent(renderer);
 }

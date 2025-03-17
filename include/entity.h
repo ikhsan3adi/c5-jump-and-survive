@@ -5,6 +5,7 @@
 
 #include "physics.h"
 #include "transform.h"
+#include "game_stat.h"
 
 // Tile Type
 #define EMPTY 0
