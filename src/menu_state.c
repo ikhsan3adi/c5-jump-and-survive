@@ -27,34 +27,6 @@ GameState menu_state = {
     .cleanup = menu_cleanup,
 };
 
-void drawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int radius)
-{
-    for (int y = -radius; y <= radius; y++)
-    {
-        for (int x = -radius; x <= radius; x++)
-        {
-            if (x * x + y * y <= radius * radius)
-            {
-                SDL_RenderPoint(renderer, cx + x, cy + y);
-            }
-        }
-    }
-}
-
-void drawCapsuleButton(SDL_Renderer *renderer, SDL_FRect *rect, SDL_Color color)
-{
-    int radius = rect->h / 2;
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    // Menggambar bagian tengah tombol (persegi panjang)
-    SDL_FRect middle_rect = {rect->x + radius, rect->y, rect->w - (2 * radius), rect->h};
-    SDL_RenderFillRect(renderer, &middle_rect);
-
-    // Menggambar lingkaran kiri & kanan dengan fungsi terpisah
-    drawFilledCircle(renderer, rect->x + radius, rect->y + radius, radius);
-    drawFilledCircle(renderer, rect->x + rect->w - radius, rect->y + radius, radius);
-}
-
 void menu_init()
 {
     load_font();
@@ -137,7 +109,7 @@ void menu_handle_input(SDL_Event *event)
 void menu_update(double delta_time) {}
 void menu_render(SDL_Renderer *renderer)
 {
-    SDL_Color dark_brown = {50, 20, 10, 255}; // Coklat gelap untuk judul
+    SDL_Color dark_brown = {55, 25, 10, 255}; // Coklat gelap untuk judul
     SDL_Color white = {255, 255, 255, 255};
     SDL_Color yellow = {255, 220, 100, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
     SDL_Color bg_color = {212, 160, 23, 255}; // Warna kuning tua
