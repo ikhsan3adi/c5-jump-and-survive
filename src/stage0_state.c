@@ -11,7 +11,6 @@
 #include "entity.h"
 #include "game_stat.h"
 #include "ui.h"
-Entity *player;
 #include "SFX.h"
 
 // Definisi state

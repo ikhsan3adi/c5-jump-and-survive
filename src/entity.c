@@ -4,6 +4,7 @@
 #include "entity.h"
 #include "level.h"
 #include "vector.h"
+#include "obstacle.h"
 
 int solid_tiles[] = {
     PLATFORM,
@@ -76,20 +77,20 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
     entity->physics.velocity_y = 0;
   }
 
-  // // Implementasi button di setiap level
-  // switch (current_level)
-  // {
-  // case 1:
-  // interaction_buttons(entity,buttonL1);
-  //   break;
+  // Implementasi button di setiap level
+  switch (current_level)
+  {
+  case 1:
+  interaction_buttons_switch(entity,buttonL1);
+    break;
 
-  // case 5:
-  // interaction_buttons(entity,buttonL51);
-  //   break;
+  case 5:
+  interaction_buttons_switch(entity,buttonL51);
+    break;
   
-  // default:
-  //   break;
-  // }
+  default:
+    break;
+  }
 
 
   // Menerapkan gesekan
@@ -227,43 +228,43 @@ bool is_destruct(Transform *transform)
   return false;
 }
 
-// bool is_button(Transform *transform, Switch buttons)
-// {
-//   int left = transform->x / TILE_SIZE;
-//   int right = (transform->x + transform->w - 1) / TILE_SIZE;
-//   int top = transform->y / TILE_SIZE;
-//   int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+bool is_button(Transform *transform, Switch buttons)
+{
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
 
-//   for (int y = top; y <= bottom; y++)
-//   {
-//     for (int x = left; x <= right; x++)
-//     {
-//       if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
-//       {
-//         continue;
-//       }
+  for (int y = top; y <= bottom; y++)
+  {
+    for (int x = left; x <= right; x++)
+    {
+      if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
+      {
+        continue;
+      }
 
-//       if (y+1 == buttons.button.y && x == buttons.button.x)
-//       {
-//         return true;
-//       }
-//     }
-//   }
+      if (y+1 == buttons.button.y && x == buttons.button.x)
+      {
+        return true;
+      }
+    }
+  }
 
-//   return false;
-// }
+  return false;
+}
 
-// void interaction_buttons(Entity *player,Switch button){
-//   bool on_button = is_button(&player->transform, button);
-//   if (on_button)
-//   {
-//     for (int i = 0; i < sizeof(button.switches) / sizeof(Vector); i++)
-//     {
-//       if (button.switches[i].x > 0 && button.switches[i].x < MAP_WIDTH &&
-//           button.switches[i].y > 0 && button.switches[i].y < MAP_HEIGHT)
-//       {
-//         current_level_map[button.switches[i].y][button.switches[i].x] = EMPTY;
-//       }
-//     }
-//   }
-// }
+void interaction_buttons_switch(Entity *player,Switch button){
+  bool on_button = is_button(&player->transform, button);
+  if (on_button)
+  {
+    for (int i = 0; i < sizeof(button.switches) / sizeof(Vector); i++)
+    {
+      if (button.switches[i].x > 0 && button.switches[i].x < MAP_WIDTH &&
+          button.switches[i].y > 0 && button.switches[i].y < MAP_HEIGHT)
+      {
+        current_level_map[button.switches[i].y][button.switches[i].x] = EMPTY;
+      }
+    }
+  }
+}
