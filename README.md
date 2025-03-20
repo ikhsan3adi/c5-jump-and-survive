@@ -2,35 +2,45 @@
 
 ## Proyek 2: Pengembangan Aplikasi Berbasis Library
 
-Kelompok : C5
+Jump & Survive adalah game 2D platformer sederhana yang dibuat menggunakan bahasa pemrograman C dan library SDL3. Dalam game ini, pemain mengendalikan karakter utama yang harus melompat dan menghindari rintangan untuk mencapai tujuan akhir.
 
-Jurusan : Teknik Komputer dan Informatika
+---
 
-Prodi : D3 Teknik Informatika
+**Kelompok** : C5
 
-Manager Proyek : Yudi Widhiyasana, S.Si., MT
+**Jurusan** : Teknik Komputer dan Informatika
+
+**Prodi** : D3 Teknik Informatika
+
+**Manager Proyek** : Yudi Widhiyasana, S.Si., MT
+
+---
 
 ### Anggota Kelompok
 
-| No | Nama                 | NIM       |
-| -- | -------------------- | --------- |
-| 1  | Hanifidin Ibrahim    | 241511076 |
-| 2. | Helga Athifa Hidayat | 241511077 |
-| 3. | Hisyam Khaeru Umam   | 241511078 |
-| 4. | Ikhsan Satriadi      | 241511080 |
-| 5. | Muhamad Syahid       | 241511081 |
+| No  | Nama                                                     | NIM       |
+| --- | -------------------------------------------------------- | --------- |
+| 1   | [**Hanifidin Ibrahim**](https://github.com/Hanif13579)   | 241511076 |
+| 2.  | [**Helga Athifa Hidayat**](https://github.com/helga1406) | 241511077 |
+| 3.  | [**Hisyam Khaeru Umam**](https://github.com/Umeem26)     | 241511078 |
+| 4.  | [**Ikhsan Satriadi**](https://github.com/ikhsan3adi)     | 241511080 |
+| 5.  | [**Muhamad Syahid**](https://github.com/muhamadSyahid)   | 241511081 |
+
+---
 
 ### Pembagian Roles
 
-| Modul/Aspek                          | Nama                 |
-| ------------------------------------ | -------------------- |
-| Game Manager/Singleton & Integration | Ikhsan Satriadi      |
-| Entity & Collision                   | Muhamad Syahid       |
-| Stage/level                          | Hisyam Khaeru Umam   |
-| Menu, Assets & UI                       | Helga Athifa Hidayat |
-| game stat                            | Hanifidin Ibrahim    |
-| Additional feature may be added...   |                      |
+| Modul/Aspek                        | Nama                 |
+| ---------------------------------- | -------------------- |
+| Game State, Integration & Docs     | Ikhsan Satriadi      |
+| Entity, Player & Physics           | Muhamad Syahid       |
+| Stage, Level & Obstacle            | Hisyam Khaeru Umam   |
+| Menu, Assets & UI                  | Helga Athifa Hidayat |
+| Game Stats                         | Hanifidin Ibrahim    |
+| Additional feature may be added... |                      |
+
+---
 
 ### Dokumentasi
 
-[Dokumentasi Jump &amp; Survive](https://ikhsan3adi.github.io/c5-jump-and-survive/)
+[Jump &amp; Survive Documentation](https://ikhsan3adi.github.io/c5-jump-and-survive/)
