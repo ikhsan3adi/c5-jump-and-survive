@@ -1,18 +1,22 @@
 #include <stdlib.h>
+#include <math.h>
 #include "entity.h"
 #include "level.h"
+#include "vector.h"
 
 int solid_tiles[] = {
     PLATFORM,
     SOLID_OBSTACLE,
+    BUTTON,
+    SWITCH
     // tambahin kalo ada
 };
 
 int destruct_tiles[] = {
-  SAWS,
-  SPIKE,
-  FAKE_COINS
-  // tambahin kalo ada
+    SAWS,
+    SPIKE,
+    FAKE_COINS
+    // tambahin kalo ada
 };
 
 Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
@@ -45,34 +49,53 @@ void update_entity(Entity *entity, float delta_time, Entity *objects[], int obje
 
 void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], int object_count)
 {
-  // Simpan posisi sebelum update
+  // Simpan Posisi Sebelum Update Entity
   double old_x = entity->transform.x;
   double old_y = entity->transform.y;
 
-  // Perbarui posisi berdasarkan velocity
+  // Update posisi berdasarkan veloxity x
   entity->transform.x += entity->physics.velocity_x * delta_time;
 
-  // Cek collision dari samping (kiri/kanan)
+  // Cek tabrakan dengan object solid
   bool solid = is_solid(&entity->transform);
-
   if (solid)
   {
-    entity->transform.x = old_x; // Batalkan gerakan horizontal
+    // Menangani tabrakan horizontal
+    entity->transform.x = old_x;
     entity->physics.velocity_x = 0;
   }
 
-  // Cek collision dari atas/bawah (dengan entity lainnya)
+  // Update posisi berdasarkan veloxity y
   entity->transform.y += entity->physics.velocity_y * delta_time;
   solid = is_solid(&entity->transform);
-
   if (solid)
   {
+    // Menangani tabrakan vertikal
     entity->transform.y = old_y;
     entity->physics.velocity_y = 0;
   }
 
-  // gesekan (mengurangi kecepatan horizontal jika tidak bergerak)
+  // // Implementasi button di setiap level
+  // switch (current_level)
+  // {
+  // case 1:
+  // interaction_buttons(entity,buttonL1);
+  //   break;
+
+  // case 5:
+  // interaction_buttons(entity,buttonL51);
+  //   break;
+  
+  // default:
+  //   break;
+  // }
+
+
+  // Menerapkan gesekan
   entity->physics.velocity_x *= entity->physics.friction;
+
+  // Cek sentuhan antara player dengan koin
+  bool coin = is_coin(&entity->transform);
 }
 
 void destroy_entity(Entity *entity)
@@ -187,3 +210,44 @@ bool is_destruct(Transform *transform)
   }
   return false;
 }
+
+// bool is_button(Transform *transform, Switch buttons)
+// {
+//   int left = transform->x / TILE_SIZE;
+//   int right = (transform->x + transform->w - 1) / TILE_SIZE;
+//   int top = transform->y / TILE_SIZE;
+//   int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+
+//   for (int y = top; y <= bottom; y++)
+//   {
+//     for (int x = left; x <= right; x++)
+//     {
+//       if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
+//       {
+//         continue;
+//       }
+
+//       if (y+1 == buttons.button.y && x == buttons.button.x)
+//       {
+//         return true;
+//       }
+//     }
+//   }
+
+//   return false;
+// }
+
+// void interaction_buttons(Entity *player,Switch button){
+//   bool on_button = is_button(&player->transform, button);
+//   if (on_button)
+//   {
+//     for (int i = 0; i < sizeof(button.switches) / sizeof(Vector); i++)
+//     {
+//       if (button.switches[i].x > 0 && button.switches[i].x < MAP_WIDTH &&
+//           button.switches[i].y > 0 && button.switches[i].y < MAP_HEIGHT)
+//       {
+//         current_level_map[button.switches[i].y][button.switches[i].x] = EMPTY;
+//       }
+//     }
+//   }
+// }
