@@ -5,6 +5,7 @@
 #include "level.h"
 #include "vector.h"
 #include "obstacle.h"
+#include "SFX.h"
 
 int solid_tiles[] = {
     PLATFORM,
@@ -169,6 +170,7 @@ bool is_exit(Transform *transform)
       }
       if (current_level_map[y][x] == EXIT_GATE)
       {
+        play_sound(gate_sfx, 3, 0);
         return true;
       }
     }
@@ -194,6 +196,7 @@ bool is_coin(Transform *transform)
       if (current_level_map[y][x] == COINS)
       {
         current_level_map[y][x] = EMPTY;
+        play_sound(coin_sfx, 2, 0);
         return true;
       }
     }
@@ -220,6 +223,7 @@ bool is_destruct(Transform *transform)
       {
         if (current_level_map[y][x] == destruct_tiles[i])
         {
+          play_sound(dead_sfx, 4, 0);
           return true;
         }
       }
