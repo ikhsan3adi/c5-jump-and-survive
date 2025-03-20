@@ -74,6 +74,10 @@ void stage1_update(double delta_time)
     {
       initiate_player(player, 75, 500);
     }
+    if (current_level == 10)
+    {
+      initiate_player(player, 50, 50);
+    }
   }
 }
 
