@@ -1,5 +1,5 @@
 # Compiler
-CC = gcc
+CC = gcc -Wall -g
 
 # Flags
 CFLAGS = -Iinclude -Llib

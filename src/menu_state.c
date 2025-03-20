@@ -3,6 +3,7 @@
 #include "menu_state.h"
 #include "stage0_state.h"
 #include "ui.h"
+#include "SFX.h"
 
 // Enum untuk pilihan menu
 typedef enum
@@ -58,6 +59,7 @@ void menu_init()
 {
     load_font();
     SDL_Log("Menu State: Initialized");
+    play_music(menu_bgm, INT32_MAX);
 }
 void menu_handle_input(SDL_Event *event)
 {
@@ -135,18 +137,18 @@ void menu_handle_input(SDL_Event *event)
 void menu_update(double delta_time) {}
 void menu_render(SDL_Renderer *renderer)
 {
-    SDL_Color dark_brown = {50, 20, 10, 255}; // Coklat gelap untuk judul
-    SDL_Color white = {255, 255, 255, 255};
-    SDL_Color yellow = {255, 220, 100, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
-    SDL_Color bg_color = {212, 160, 23, 255}; // Warna kuning tua
+    SDL_Color dark_brown = {124, 162, 142, 255}; // Coklat gelap untuk judul
+    SDL_Color white = {10, 55, 58, 255};
+    SDL_Color yellow = {255, 255, 255, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
+    SDL_Color bg_color = {10, 55, 58, 255}; // Warna kuning tua
 
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
 
     render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 125, 80, 1.4, dark_brown);
 
-    SDL_Color brown_orange = {175, 90, 40, 255}; // Coklat dengan sedikit oranye
-    SDL_Color red_orange = {210, 60, 30, 255};   // Lebih merah untuk tombol yang diseleksi
+    SDL_Color brown_orange = {124, 162, 142, 255}; // Coklat dengan sedikit oranye
+    SDL_Color red_orange = {124, 162, 142, 255};   // Lebih merah untuk tombol yang diseleksi
 
     // Warna tombol diperbaiki agar sesuai dengan current_selection
     SDL_Color start_button_color = (current_selection == MENU_START) ? red_orange : brown_orange;
