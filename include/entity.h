@@ -5,6 +5,7 @@
 
 #include "physics.h"
 #include "transform.h"
+#include "game_stat.h"
 
 // Tile Type
 #define EMPTY 0
@@ -51,7 +52,6 @@ bool is_exit(Transform *transform);
 bool is_coin(Transform *transform);
 
 bool is_destruct(Transform *transform);
-
 // bool is_button(Transform *transform,Switch button);
 
 // void interaction_buttons(Entity *player,Switch button);

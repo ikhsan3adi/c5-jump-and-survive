@@ -8,8 +8,11 @@
 #include "game_state.h"
 #include "player.h"
 #include "level.h"
-#include "SFX.h"
+#include "entity.h"
+#include "game_stat.h"
 #include "ui.h"
+Entity *player;
+#include "SFX.h"
 
 // Definisi state
 GameState stage0_state = {
@@ -26,8 +29,8 @@ void stage0_init()
 
   // Inisialisasi playerL
   player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
-
   init_game_stat(&game_stat);
+  start_timer(&game_stat);
 
   // Memainkan musik latar belakang
   if (stage0_bgm)
@@ -59,8 +62,9 @@ void stage0_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
 
-  if (is_exit(&player->transform))
-  {
+  game_stat.elapsed_time = get_elapsed_time(&game_stat);
+
+  if (is_exit(&player->transform)) {
     change_level(current_level + 1);
     initiate_player(player, 100, 300);
     if (current_level == 2)

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 #include "entity.h"
 #include "level.h"
@@ -13,10 +14,10 @@ int solid_tiles[] = {
 };
 
 int destruct_tiles[] = {
-    SAWS,
-    SPIKE,
-    FAKE_COINS
-    // tambahin kalo ada
+  SAWS,
+  SPIKE,
+  FAKE_COINS
+  // tambahin kalo ada
 };
 
 Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
@@ -96,6 +97,21 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
 
   // Cek sentuhan antara player dengan koin
   bool coin = is_coin(&entity->transform);
+  if (coin)
+  {
+    add_score(&game_stat);
+  }
+  bool destruct = is_destruct(&entity->transform);
+  if (destruct)
+  {
+    sub_life(&game_stat);
+  }
+  bool hole = is_void(&entity->transform);
+  if (hole)
+  {
+    sub_life(&game_stat);
+    //tambahkan agar saat masuk lobang bisa kembali lagi ke atas
+  }
 }
 
 void destroy_entity(Entity *entity)

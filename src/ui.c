@@ -66,7 +66,7 @@ void render_game_ui(SDL_Renderer *renderer, GameStat *stat)
     render_text(renderer, pixelify_font, score_text, 425, 10, 1, light_brown);
 
     char timer_text[50];
-    sprintf(timer_text, "Time: %d", stat->start_time);
+    sprintf(timer_text, "Time: %d", stat->elapsed_time / 1000);
     render_text(renderer, pixelify_font, timer_text, 800, 10, 1, light_brown);
 }
 
