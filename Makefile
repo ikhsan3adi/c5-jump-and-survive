@@ -1,9 +1,9 @@
 # Compiler
-CC = gcc
+CC = gcc -Wall -g
 
 # Flags
 CFLAGS = -Iinclude -Llib
-LDFLAGS = -lSDL3 -lSDL3_ttf
+LDFLAGS = -lSDL3 -lSDL3_ttf -lSDL3_mixer
 
 # Directories
 BUILD_DIR = build

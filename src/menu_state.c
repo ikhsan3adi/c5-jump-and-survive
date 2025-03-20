@@ -1,8 +1,9 @@
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3/SDL_ttf.h>
 #include "menu_state.h"
 #include "stage0_state.h"
 #include "ui.h"
+#include "SFX.h"
 
 // Enum untuk pilihan menu
 typedef enum
@@ -58,13 +59,13 @@ void menu_init()
 {
     load_font();
     SDL_Log("Menu State: Initialized");
+    play_music(menu_bgm, INT32_MAX);
 }
-
 void menu_handle_input(SDL_Event *event)
 {
     if (event->type == SDL_EVENT_KEY_DOWN)
     {
-        SDL_Log("Key Pressed: %d", event->key.key); // Debug log
+        SDL_Log("Key Pressed: %d", event->key.key);
         switch (event->key.key)
         {
         case SDLK_DOWN:
@@ -89,11 +90,27 @@ void menu_handle_input(SDL_Event *event)
                 exit(0);
             }
             break;
-        case SDLK_ESCAPE: // Tombol ESC untuk keluar
+        case SDLK_ESCAPE:
             SDL_Log("Escape Key Pressed! Exiting Game...");
             menu_cleanup();
             SDL_Quit();
             exit(0);
+        }
+    }
+    else if (event->type == SDL_EVENT_MOUSE_MOTION)
+    {
+        int x = event->motion.x;
+        int y = event->motion.y;
+
+        if (x >= start_button.x && x <= start_button.x + start_button.w &&
+            y >= start_button.y && y <= start_button.y + start_button.h)
+        {
+            current_selection = MENU_START;
+        }
+        else if (x >= exit_button.x && x <= exit_button.x + exit_button.w &&
+                 y >= exit_button.y && y <= exit_button.y + exit_button.h)
+        {
+            current_selection = MENU_EXIT;
         }
     }
     else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN)
@@ -118,27 +135,38 @@ void menu_handle_input(SDL_Event *event)
 }
 
 void menu_update(double delta_time) {}
-
 void menu_render(SDL_Renderer *renderer)
 {
-    SDL_Color white = {255, 255, 255, 255};
-    SDL_Color yellow = {255, 255, 0, 255};
-    SDL_Color bg_color = {50, 50, 150, 255};
+    SDL_Color dark_brown = {124, 162, 142, 255}; // Coklat gelap untuk judul
+    SDL_Color white = {10, 55, 58, 255};
+    SDL_Color yellow = {255, 255, 255, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
+    SDL_Color bg_color = {10, 55, 58, 255}; // Warna kuning tua
 
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
 
-    render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 90, 80, 1.4, white);
-    SDL_Color start_color = (current_selection == MENU_START) ? yellow : white;
-    SDL_Color exit_color = (current_selection == MENU_EXIT) ? yellow : white;
+    render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 125, 80, 1.4, dark_brown);
 
-    SDL_Color green = {0, 128, 0, 255};
-    drawCapsuleButton(renderer, &start_button, green);
-    render_text(renderer, pixelify_font, "Start Game", start_button.x + 45, start_button.y + 5, 1, start_color);
+    SDL_Color brown_orange = {124, 162, 142, 255}; // Coklat dengan sedikit oranye
+    SDL_Color red_orange = {124, 162, 142, 255};   // Lebih merah untuk tombol yang diseleksi
 
-    SDL_Color red = {200, 0, 0, 255};
-    drawCapsuleButton(renderer, &exit_button, red);
-    render_text(renderer, pixelify_font, "Exit Game", exit_button.x + 65, exit_button.y + 5, 1, exit_color);
+    // Warna tombol diperbaiki agar sesuai dengan current_selection
+    SDL_Color start_button_color = (current_selection == MENU_START) ? red_orange : brown_orange;
+    SDL_Color exit_button_color = (current_selection == MENU_EXIT) ? red_orange : brown_orange;
+
+    SDL_Color start_text_color = (current_selection == MENU_START) ? yellow : white;
+    SDL_Color exit_text_color = (current_selection == MENU_EXIT) ? yellow : white;
+
+    // Start button
+    SDL_SetRenderDrawColor(renderer, start_button_color.r, start_button_color.g, start_button_color.b, 255);
+    SDL_RenderFillRect(renderer, &start_button);
+    render_text(renderer, pixelify_font, "Start Game", start_button.x + 45, start_button.y + 5, 1, start_text_color);
+
+    // Exit button
+    SDL_SetRenderDrawColor(renderer, exit_button_color.r, exit_button_color.g, exit_button_color.b, 255);
+    SDL_RenderFillRect(renderer, &exit_button);
+    render_text(renderer, pixelify_font, "Exit Game", exit_button.x + 65, exit_button.y + 5, 1, exit_text_color);
+
     SDL_RenderPresent(renderer);
 }
 
