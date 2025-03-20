@@ -16,8 +16,6 @@ void load_font();
 
 void render_text(SDL_Renderer *renderer, TTF_Font *font, const char *text, int x, int y, float scale, SDL_Color color);
 void render_game_ui(SDL_Renderer *renderer, GameStat *stat);
-void render_game_over_ui(SDL_Renderer *renderer);
-void render_pause_ui(SDL_Renderer *renderer);
 void render_menu_ui(SDL_Renderer *renderer);
 void clean_up_ui();
 
