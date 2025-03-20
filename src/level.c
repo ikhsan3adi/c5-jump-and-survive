@@ -1,5 +1,6 @@
 #include "level.h"
 #include "entity.h"
+#include "obstacle.h"
 
 short level0_map[MAP_HEIGHT][MAP_WIDTH] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -38,7 +39,7 @@ short level1_map[MAP_HEIGHT][MAP_WIDTH] = {
     {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
     {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 1, 1},
     {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 1, 1},
-    {1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+    {1, 1, 1, 1, 1, 1, 10, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 1, 1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -126,7 +127,7 @@ short level5_map[MAP_HEIGHT][MAP_WIDTH] = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 8, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 2, 2, 10, 0, 0, 0, 0, 0, 0},
     {0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0},
     {0, 0, 8, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 9, 9, 0, 0},
     {0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 9, 9, 0, 0},
@@ -258,12 +259,25 @@ int current_level = 0;
 
 short (*current_level_map)[MAP_WIDTH] = level0_map; // default Stage 0
 
+Switch buttonL1;
+Switch buttonL51;
+Switch buttonL52;
+Switch buttonL61;
+Switch buttonL62;
+
 void change_level(int level)
 {
   switch (level)
   {
-  case 1:
+    case 1:
     current_level_map = level1_map;
+    buttonL1 = (Switch){.button = {13,6}, .switches = {{13,7},{13,8},
+                                                {14,7},{14,8},
+                                                {15,7},{15,8},
+                                                {16,7},{16,8},
+                                                {17,7},{17,8},
+                                                {18,7},{18,8},
+                                                {19,7},{19,8}}};
     break;
   case 2:
     current_level_map = level2_map;
@@ -276,21 +290,25 @@ void change_level(int level)
     break;
   case 5:
     current_level_map = level5_map;
+    buttonL51 = (Switch){.button = {9,8}, .switches = {{13,9},{13,10},
+                                                {14,9},{14,10},
+                                                {15,9},{15,10},
+                                                {16,9},{16,10},
+                                                {17,9},{17,10},
+                                                {18,9},{18,10},
+                                                {19,9},{19,10}}};
     break;
   case 6:
     current_level_map = level6_map;
     break;
   case 7:
     current_level_map = level7_map;
-    break;
+    break;  
   case 8:
     current_level_map = level8_map;
     break;
   case 9:
     current_level_map = level9_map;
-    break;
-  case 10:
-    current_level_map = level10_map;
     break;
   case 0:
   default:
@@ -335,6 +353,10 @@ void render_level(SDL_Renderer *renderer)
         break;
       case EXIT_GATE:
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_RenderFillRect(renderer, &tile_rect);
+        break;
+      case BUTTON:
+        SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
         SDL_RenderFillRect(renderer, &tile_rect);
         break;
       default:

@@ -4,6 +4,7 @@
 #include <SDL3/SDL.h>
 
 #include "transform.h"
+#include "obstacle.h"
 
 #define TILE_SIZE 32
 #define MAP_WIDTH 30
@@ -17,6 +18,11 @@ extern short level4_map[MAP_HEIGHT][MAP_WIDTH];
 extern short level5_map[MAP_HEIGHT][MAP_WIDTH];
 
 extern int current_level;
+extern Switch buttonL1;
+extern Switch buttonL51;
+extern Switch buttonL52;
+extern Switch buttonL61;
+extern Switch buttonL62;
 
 extern short (*current_level_map)[MAP_WIDTH];
 

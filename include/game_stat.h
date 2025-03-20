@@ -11,7 +11,8 @@ typedef struct {
     int lives;   // Jumlah nyawa pemain
     Uint32 start_time; 
     Uint32 stop_time;
-    Uint32 elapsed_time; 
+    Uint32 elapsed_time;
+    Uint32 last_hit_time;
 } GameStat;
 
 extern GameStat game_stat; // Variabel global untuk status game
