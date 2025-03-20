@@ -1,7 +1,7 @@
-#include "ui.h"
-#include <SDL3_ttf/SDL_ttf.h>
-#include "menu_state.h"
 #include <stdio.h>
+
+#include "ui.h"
+#include "menu_state.h"
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;

@@ -1,5 +1,5 @@
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3/SDL_ttf.h>
 #include "menu_state.h"
 #include "stage0_state.h"
 #include "ui.h"
