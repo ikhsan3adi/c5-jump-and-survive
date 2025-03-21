@@ -69,6 +69,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 
   current_state->update(delta_time);
   current_state->render(renderer);
+  SDL_RenderPresent(renderer);
 
   return SDL_APP_CONTINUE;
 }

@@ -90,8 +90,6 @@ void stage0_render(SDL_Renderer *renderer)
   render_player(renderer, player);
 
   render_game_ui(renderer, &game_stat);
-
-  SDL_RenderPresent(renderer);
 }
 
 void stage0_cleanup()
