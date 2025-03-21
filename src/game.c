@@ -28,3 +28,13 @@ Game *get_game_instance()
   }
   return &game;
 }
+
+void skip_physics_frame()
+{
+  game.is_physics_paused = true;
+}
+
+void resume_physics()
+{
+  game.is_physics_paused = false;
+}

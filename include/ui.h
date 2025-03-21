@@ -17,6 +17,15 @@ void load_font();
 void render_text(SDL_Renderer *renderer, TTF_Font *font, const char *text, int x, int y, float scale, SDL_Color color);
 void render_game_ui(SDL_Renderer *renderer, GameStat *stat);
 void render_menu_ui(SDL_Renderer *renderer);
+
+/**
+ * @param stage next level's stage
+ * @param level next level
+ */
+void show_level_transition(SDL_Renderer *renderer, int stage, int level);
+
+void show_stage_transition(SDL_Renderer *renderer, int stage);
+
 void clean_up_ui();
 
 #endif
