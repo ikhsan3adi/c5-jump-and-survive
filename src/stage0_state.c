@@ -8,6 +8,7 @@
 #include "game_state.h"
 #include "player.h"
 #include "level.h"
+#include "ui.h"
 
 // Definisi state
 GameState stage0_state = {
@@ -75,8 +76,6 @@ void stage0_render(SDL_Renderer *renderer)
 
   // Render player
   render_player(renderer, player);
-
-  SDL_RenderPresent(renderer);
 }
 
 void stage0_cleanup()

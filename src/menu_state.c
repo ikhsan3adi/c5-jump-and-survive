@@ -133,6 +133,7 @@ void menu_handle_input(SDL_Event *event)
 }
 
 void menu_update(double delta_time) {}
+
 void menu_render(SDL_Renderer *renderer)
 {
     SDL_Color dark_brown = {50, 20, 10, 255}; // Coklat gelap untuk judul
@@ -164,8 +165,6 @@ void menu_render(SDL_Renderer *renderer)
     SDL_SetRenderDrawColor(renderer, exit_button_color.r, exit_button_color.g, exit_button_color.b, 255);
     SDL_RenderFillRect(renderer, &exit_button);
     render_text(renderer, pixelify_font, "Exit Game", exit_button.x + 65, exit_button.y + 5, 1, exit_text_color);
-
-    SDL_RenderPresent(renderer);
 }
 
 void menu_cleanup()
