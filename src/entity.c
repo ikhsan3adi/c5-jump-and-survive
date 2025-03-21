@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "entity.h"
+#include "player.h"
 #include "level.h"
 #include "vector.h"
 #include "obstacle.h"
@@ -86,8 +87,8 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
 
   case 5:
   interaction_buttons_switch(entity,buttonL51);
+  interaction_buttons_switch(entity,buttonL52);
     break;
-  
   default:
     break;
   }
@@ -106,11 +107,13 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   if (destruct)
   {
     sub_life(&game_stat);
+    reinitiate_player(entity, current_level);
   }
   bool hole = is_void(&entity->transform);
   if (hole)
   {
     sub_life(&game_stat);
+    reinitiate_player(entity, current_level);
     //tambahkan agar saat masuk lobang bisa kembali lagi ke atas
   }
 }
