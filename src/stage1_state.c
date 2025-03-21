@@ -6,6 +6,8 @@
 #include "game_state.h"
 #include "player.h"
 #include "level.h"
+#include "SFX.h"
+#include "ui.h"
 
 // Definisi state
 GameState stage1_state = {
@@ -22,6 +24,13 @@ void stage1_init()
 
   // Inisialisasi player
   player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
+
+  init_game_stat(&game_stat);
+
+  if (stage1_bgm)
+  {
+    play_music(stage1_bgm, INT32_MAX);
+  }
 }
 
 void stage1_handle_input(SDL_Event *event)
@@ -91,6 +100,8 @@ void stage1_render(SDL_Renderer *renderer)
 
   // Render player
   render_player(renderer, player);
+
+  render_game_ui(renderer, &game_stat);
 
   SDL_RenderPresent(renderer);
 }

@@ -2,7 +2,8 @@
 #define UI_H
 
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3/SDL_ttf.h>
+
 #include "game_stat.h"
 
 #define PIXELIFYSANS_FONT "assets/fonts/PixelifySans-Regular.ttf"
