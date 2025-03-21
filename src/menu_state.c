@@ -109,10 +109,10 @@ void menu_handle_input(SDL_Event *event)
 void menu_update(double delta_time) {}
 void menu_render(SDL_Renderer *renderer)
 {
-    SDL_Color dark_brown = {55, 25, 10, 255}; // Coklat gelap untuk judul
-    SDL_Color white = {255, 255, 255, 255};
-    SDL_Color yellow = {255, 220, 100, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
-    SDL_Color bg_color = {212, 160, 23, 255}; // Warna kuning tua
+    SDL_Color dark_brown = {124, 162, 142, 255}; // Coklat gelap untuk judul
+    SDL_Color white = {10, 55, 58, 255};
+    SDL_Color yellow = {255, 255, 255, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
+    SDL_Color bg_color = {10, 55, 58, 255}; // Warna kuning tua
 
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
@@ -145,4 +145,5 @@ void menu_render(SDL_Renderer *renderer)
 void menu_cleanup()
 {
     SDL_Log("Menu State: Cleaned up");
+    stop_music();
 }

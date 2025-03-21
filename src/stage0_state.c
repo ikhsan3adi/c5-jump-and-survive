@@ -12,6 +12,7 @@
 #include "game_stat.h"
 #include "ui.h"
 #include "SFX.h"
+#include "gameover_state.h"
 
 // Definisi state
 GameState stage0_state = {
@@ -30,12 +31,16 @@ void stage0_init()
   player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
   init_game_stat(&game_stat);
   start_timer(&game_stat);
+  
+  SDL_Renderer *renderer = get_game_instance()->renderer;
+  show_stage_transition(renderer, 0);
 
   // Memainkan musik latar belakang
   if (stage0_bgm)
   {
     play_music(stage0_bgm, INT32_MAX);
   }
+
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -64,8 +69,17 @@ void stage0_update(double delta_time)
   game_stat.elapsed_time = get_elapsed_time(&game_stat);
 
   if (is_exit(&player->transform)) {
-    change_level(current_level + 1);
-    initiate_player(player, 100, 300);
+    current_level++;
+
+    SDL_Renderer *renderer = get_game_instance()->renderer;
+    show_level_transition(renderer, 0, current_level + 1);
+
+    change_level(current_level);
+
+    if (current_level == 1)
+    {
+      initiate_player(player, 100, 300);
+    }
     if (current_level == 2)
     {
       initiate_player(player, 650, 100);
@@ -90,6 +104,9 @@ void stage0_render(SDL_Renderer *renderer)
   render_player(renderer, player);
 
   render_game_ui(renderer, &game_stat);
+
+  SDL_RenderPresent(renderer);
+
 }
 
 void stage0_cleanup()
