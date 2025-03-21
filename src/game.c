@@ -5,7 +5,7 @@ static Game game;
 
 void initialize(const char *appname, const char *appversion, const char *appidentifier)
 {
-  SDL_SetAppMetadata("Jump & Survive", "1.0", "com.c5.jump-and-survive");
+  SDL_SetAppMetadata(appname, appversion, appidentifier);
 
   if (!SDL_Init(SDL_INIT_VIDEO))
   {
@@ -27,4 +27,14 @@ Game *get_game_instance()
     SDL_Log("Game instance has not been initialized!, call `create_game_instance` first.");
   }
   return &game;
+}
+
+void skip_physics_frame()
+{
+  game.is_physics_paused = true;
+}
+
+void resume_physics()
+{
+  game.is_physics_paused = false;
 }

@@ -1,5 +1,19 @@
 #include <stdlib.h>
 #include "entity.h"
+#include "level.h"
+
+int solid_tiles[] = {
+    PLATFORM,
+    SOLID_OBSTACLE,
+    // tambahin kalo ada
+};
+
+int destruct_tiles[] = {
+  SAWS,
+  SPIKE,
+  FAKE_COINS
+  // tambahin kalo ada
+};
 
 Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
 {
@@ -39,28 +53,21 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   entity->transform.x += entity->physics.velocity_x * delta_time;
 
   // Cek collision dari samping (kiri/kanan)
-  Transform *collision = check_collision_all(&entity->transform, (Transform **)objects, object_count);
+  bool solid = is_solid(&entity->transform);
 
-  if (collision)
+  if (solid)
   {
     entity->transform.x = old_x; // Batalkan gerakan horizontal
     entity->physics.velocity_x = 0;
   }
 
-  // Cek collision dari atas/bawah
+  // Cek collision dari atas/bawah (dengan entity lainnya)
   entity->transform.y += entity->physics.velocity_y * delta_time;
-  collision = check_collision_all(&entity->transform, (Transform **)objects, object_count);
+  solid = is_solid(&entity->transform);
 
-  if (collision)
+  if (solid)
   {
-    if (entity->physics.velocity_y > 0)
-    { // Jatuh ke bawah (tabrakan dengan lantai/platform)
-      entity->transform.y = collision->y - entity->transform.h;
-    }
-    else
-    { // Tabrakan dari atas (kepala kena langit-langit)
-      entity->transform.y = collision->y + collision->h;
-    }
+    entity->transform.y = old_y;
     entity->physics.velocity_y = 0;
   }
 
@@ -71,4 +78,112 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
 void destroy_entity(Entity *entity)
 {
   free(entity);
+}
+
+bool is_solid(Transform *transform)
+{
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+
+  for (int y = top; y <= bottom; y++)
+  {
+    for (int x = left; x <= right; x++)
+    {
+      if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
+      {
+        return false;
+      }
+      for (size_t i = 0; i < sizeof(solid_tiles) / sizeof(solid_tiles[0]); i++)
+      {
+        if (current_level_map[y][x] == solid_tiles[i])
+        {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+bool is_void(Transform *transform)
+{
+  return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT;
+}
+
+bool is_exit(Transform *transform)
+{
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+
+  for (int y = top; y <= bottom; y++)
+  {
+    for (int x = left; x <= right; x++)
+    {
+      if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
+      {
+        return false;
+      }
+      if (current_level_map[y][x] == EXIT_GATE)
+      {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+bool is_coin(Transform *transform)
+{
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+
+  for (int y = top; y <= bottom; y++)
+  {
+    for (int x = left; x <= right; x++)
+    {
+      if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
+      {
+        return false;
+      }
+      if (current_level_map[y][x] == COINS)
+      {
+        current_level_map[y][x] = EMPTY;
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+bool is_destruct(Transform *transform)
+{
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+
+  for (int y = top; y <= bottom; y++)
+  {
+    for (int x = left; x <= right; x++)
+    {
+      if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
+      {
+        return false;
+      }
+      for (size_t i = 0; i < sizeof(destruct_tiles) / sizeof(destruct_tiles[0]); i++)
+      {
+        if (current_level_map[y][x] == destruct_tiles[i])
+        {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
 }

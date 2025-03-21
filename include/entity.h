@@ -6,6 +6,21 @@
 #include "physics.h"
 #include "transform.h"
 
+// Tile Type
+#define EMPTY 0
+#define PLATFORM 1
+#define SOLID_OBSTACLE 2
+#define SWITCH 3
+#define COINS 4
+#define SPIKE 5
+#define LIFE 6
+#define SAWS 7
+#define FAKE_COINS 8
+#define EXIT_GATE 9
+
+extern int solid_tiles[];
+
+extern int destruct_tiles[];
 typedef struct
 {
     SDL_Color color;
@@ -26,4 +41,13 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
 
 void destroy_entity(Entity *entity);
 
+bool is_solid(Transform *transform);
+
+bool is_void(Transform *transform);
+
+bool is_exit(Transform *transform);
+
+bool is_coin(Transform *transform);
+
+bool is_destruct(Transform *transform);
 #endif
