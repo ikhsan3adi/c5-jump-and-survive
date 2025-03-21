@@ -7,9 +7,7 @@
 #include "game.h"
 #include "level.h"
 #include "player.h"
-
-#include "ui.h"
-#include "menu_state.h"
+#include "SFX.h"
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;
@@ -214,6 +212,8 @@ void show_level_transition(SDL_Renderer *renderer, int stage, int level)
 
     int rect_width = 0;
 
+    play_sound(gate_sfx, 5, 0);
+
     skip_physics_frame();
 
     switch (stage)
@@ -316,6 +316,7 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
 
         SDL_Delay(16);
     }
+    stop_sound(5);
 }
 
 void clean_up_ui()

@@ -6,6 +6,8 @@
 #include "vector.h"
 #include "obstacle.h"
 #include "SFX.h"
+#include "gameover_state.h"
+#include "ui.h"
 
 int solid_tiles[] = {
     PLATFORM,
@@ -16,10 +18,10 @@ int solid_tiles[] = {
 };
 
 int destruct_tiles[] = {
-  SAWS,
-  SPIKE,
-  FAKE_COINS
-  // tambahin kalo ada
+    SAWS,
+    SPIKE,
+    FAKE_COINS
+    // tambahin kalo ada
 };
 
 Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
@@ -52,6 +54,8 @@ void update_entity(Entity *entity, float delta_time, Entity *objects[], int obje
 
 void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], int object_count)
 {
+  bool is_alive = true;
+
   // Simpan Posisi Sebelum Update Entity
   double old_x = entity->transform.x;
   double old_y = entity->transform.y;
@@ -82,17 +86,16 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   switch (current_level)
   {
   case 1:
-  interaction_buttons_switch(entity,buttonL1);
+    interaction_buttons_switch(entity, buttonL1);
     break;
 
   case 5:
-  interaction_buttons_switch(entity,buttonL51);
+    interaction_buttons_switch(entity, buttonL51);
     break;
-  
+
   default:
     break;
   }
-
 
   // Menerapkan gesekan
   entity->physics.velocity_x *= entity->physics.friction;
@@ -106,14 +109,21 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   bool destruct = is_destruct(&entity->transform);
   if (destruct)
   {
-    sub_life(&game_stat);
+    is_alive = sub_life(&game_stat);
   }
   bool hole = is_void(&entity->transform);
   if (hole)
   {
-    sub_life(&game_stat);
-    //tambahkan agar saat masuk lobang bisa kembali lagi ke atas
+    is_alive = sub_life(&game_stat);
+    // tambahkan agar saat masuk lobang bisa kembali lagi ke atas
   }
+
+  if (!is_alive)
+  {
+    // SDL_Renderer
+    // game_over_render(renderer);
+  }
+  
 }
 
 void destroy_entity(Entity *entity)
@@ -248,7 +258,7 @@ bool is_button(Transform *transform, Switch buttons)
         continue;
       }
 
-      if (y+1 == buttons.button.y && x == buttons.button.x)
+      if (y + 1 == buttons.button.y && x == buttons.button.x)
       {
         return true;
       }
@@ -258,7 +268,8 @@ bool is_button(Transform *transform, Switch buttons)
   return false;
 }
 
-void interaction_buttons_switch(Entity *player,Switch button){
+void interaction_buttons_switch(Entity *player, Switch button)
+{
   bool on_button = is_button(&player->transform, button);
   if (on_button)
   {
