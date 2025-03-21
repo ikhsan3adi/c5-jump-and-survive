@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3/SDL_ttf.h>
 
 #include "ui.h"
 #include "menu_state.h"
@@ -149,11 +149,9 @@ void show_pause_ui(SDL_Renderer *renderer)
     while (!is_exit)
     {
         // render tampilan saat ini dibelakangnya agar menciptakan efek overlay
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
         current_state->render(renderer);
 
         // render overlay
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 30, 15, 20, 180);
         SDL_RenderFillRect(renderer, &overlay_rect);
 
