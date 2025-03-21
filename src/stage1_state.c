@@ -52,6 +52,14 @@ void stage1_handle_input(SDL_Event *event)
         change_game_state(&stage1_state);
       }
     }
+
+    if (event->key.scancode == SDL_SCANCODE_ESCAPE)
+    {
+      stop_music();
+      SDL_Renderer *renderer = get_game_instance()->renderer;
+      show_pause_ui(renderer);
+      play_music(stage1_bgm, INT32_MAX);
+    }
   }
 }
 

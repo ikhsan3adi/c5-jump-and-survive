@@ -115,7 +115,7 @@ void menu_render(SDL_Renderer *renderer)
     SDL_Color yellow = {255, 255, 255, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
     SDL_Color bg_color = {10, 55, 58, 255}; // Warna kuning tua
 
-    SDL_Color title_text_color = {55, 25, 10, 255}; // judul
+    SDL_Color title_text_color = {124, 162, 142, 255}; // judul
 
 
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
@@ -123,8 +123,8 @@ void menu_render(SDL_Renderer *renderer)
 
     render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 100, 80, 1.4, title_text_color);
 
-    SDL_Color btn_color = {150, 140, 120, 255};        // Coklat dengan sedikit oranye
-    SDL_Color selected_btn_color = {36, 199, 77, 255}; // Lebih merah untuk tombol yang diseleksi
+    SDL_Color btn_color = {124, 162, 142, 255};        // Coklat dengan sedikit oranye
+    SDL_Color selected_btn_color = {124, 162, 142, 255}; // Lebih merah untuk tombol yang diseleksi
 
     // Warna tombol diperbaiki agar sesuai dengan current_selection
     SDL_Color start_button_color = (current_selection == MENU_START) ? selected_btn_color : btn_color;

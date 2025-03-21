@@ -89,6 +89,8 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 
     int rect_height = 0;
 
+    play_sound(gameover_sfx, 6, 0);
+
     skip_physics_frame();
 
     while (!is_exit)

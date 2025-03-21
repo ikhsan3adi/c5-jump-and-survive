@@ -1,4 +1,7 @@
 #include "game_stat.h"
+#include "ui.h"
+#include "game.h"
+#include "SFX.h"
 #include <stdio.h>
 #define SCORE_PER_COIN 10
 
@@ -66,7 +69,10 @@ bool sub_life(GameStat *stat)
         stat->last_hit_time = now;
 
         if (stat->lives == 0)
-        {
+        {   
+            stop_music();
+            SDL_Renderer *renderer = get_game_instance()->renderer;
+            show_game_over_ui(renderer, *stat);
             return false;
         }
     }
