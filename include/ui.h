@@ -18,6 +18,15 @@ void render_game_ui(SDL_Renderer *renderer, GameStat *stat);
 void render_game_over_ui(SDL_Renderer *renderer);
 void render_pause_ui(SDL_Renderer *renderer);
 void render_menu_ui(SDL_Renderer *renderer);
+
+/**
+ * @param stage next level's stage
+ * @param level next level
+ */
+void show_level_transition(SDL_Renderer *renderer, int stage, int level);
+
+void show_stage_transition(SDL_Renderer *renderer, int stage);
+
 void clean_up_ui();
 
 #endif
