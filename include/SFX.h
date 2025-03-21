@@ -26,6 +26,10 @@ void play_sound(Mix_Chunk *sound, int channel, int loops);
 
 void play_music(Mix_Music *sound, int loops);
 
+void stop_music();
+
+void stop_sound(int channel);
+
 // Membersihkan audio
 void cleanup_audio(); 
 

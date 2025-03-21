@@ -27,34 +27,6 @@ GameState menu_state = {
     .cleanup = menu_cleanup,
 };
 
-void drawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int radius)
-{
-    for (int y = -radius; y <= radius; y++)
-    {
-        for (int x = -radius; x <= radius; x++)
-        {
-            if (x * x + y * y <= radius * radius)
-            {
-                SDL_RenderPoint(renderer, cx + x, cy + y);
-            }
-        }
-    }
-}
-
-void drawCapsuleButton(SDL_Renderer *renderer, SDL_FRect *rect, SDL_Color color)
-{
-    int radius = rect->h / 2;
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    // Menggambar bagian tengah tombol (persegi panjang)
-    SDL_FRect middle_rect = {rect->x + radius, rect->y, rect->w - (2 * radius), rect->h};
-    SDL_RenderFillRect(renderer, &middle_rect);
-
-    // Menggambar lingkaran kiri & kanan dengan fungsi terpisah
-    drawFilledCircle(renderer, rect->x + radius, rect->y + radius, radius);
-    drawFilledCircle(renderer, rect->x + rect->w - radius, rect->y + radius, radius);
-}
-
 void menu_init()
 {
     load_font();
@@ -137,22 +109,26 @@ void menu_handle_input(SDL_Event *event)
 void menu_update(double delta_time) {}
 void menu_render(SDL_Renderer *renderer)
 {
-    SDL_Color dark_brown = {50, 20, 10, 255}; // Coklat gelap untuk judul
-    SDL_Color white = {255, 255, 255, 255};
-    SDL_Color yellow = {255, 220, 100, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
-    SDL_Color bg_color = {212, 160, 23, 255}; // Warna kuning tua
+
+    SDL_Color dark_brown = {124, 162, 142, 255}; // Coklat gelap untuk judul
+    SDL_Color white = {10, 55, 58, 255};
+    SDL_Color yellow = {255, 255, 255, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
+    SDL_Color bg_color = {10, 55, 58, 255}; // Warna kuning tua
+
+    SDL_Color title_text_color = {124, 162, 142, 255}; // judul
+
 
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
 
-    render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 125, 80, 1.4, dark_brown);
+    render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 100, 80, 1.4, title_text_color);
 
-    SDL_Color brown_orange = {124, 162, 142, 255}; // Coklat dengan sedikit oranye
-    SDL_Color red_orange = {124, 162, 142, 255};   // Lebih merah untuk tombol yang diseleksi
+    SDL_Color btn_color = {124, 162, 142, 255};        // Coklat dengan sedikit oranye
+    SDL_Color selected_btn_color = {124, 162, 142, 255}; // Lebih merah untuk tombol yang diseleksi
 
     // Warna tombol diperbaiki agar sesuai dengan current_selection
-    SDL_Color start_button_color = (current_selection == MENU_START) ? red_orange : brown_orange;
-    SDL_Color exit_button_color = (current_selection == MENU_EXIT) ? red_orange : brown_orange;
+    SDL_Color start_button_color = (current_selection == MENU_START) ? selected_btn_color : btn_color;
+    SDL_Color exit_button_color = (current_selection == MENU_EXIT) ? selected_btn_color : btn_color;
 
     SDL_Color start_text_color = (current_selection == MENU_START) ? yellow : white;
     SDL_Color exit_text_color = (current_selection == MENU_EXIT) ? yellow : white;
@@ -173,4 +149,5 @@ void menu_render(SDL_Renderer *renderer)
 void menu_cleanup()
 {
     SDL_Log("Menu State: Cleaned up");
+    stop_music();
 }

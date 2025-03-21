@@ -4,7 +4,6 @@
 #include "stage0_state.h"
 #include "stage1_state.h"
 #include "game.h"
-#include "game.h"
 #include "game_state.h"
 #include "player.h"
 #include "level.h"
@@ -31,6 +30,9 @@ void stage0_init()
   init_game_stat(&game_stat);
   start_timer(&game_stat);
 
+  SDL_Renderer *renderer = get_game_instance()->renderer;
+  show_stage_transition(renderer, 0);
+
   // Memainkan musik latar belakang
   if (stage0_bgm)
   {
@@ -54,6 +56,14 @@ void stage0_handle_input(SDL_Event *event)
         change_game_state(&stage1_state);
       }
     }
+
+    if (event->key.scancode == SDL_SCANCODE_ESCAPE)
+    {
+      stop_music();
+      SDL_Renderer *renderer = get_game_instance()->renderer;
+      show_pause_ui(renderer);
+      play_music(stage0_bgm, INT32_MAX);
+    }
   }
 }
 
@@ -63,9 +73,19 @@ void stage0_update(double delta_time)
 
   game_stat.elapsed_time = get_elapsed_time(&game_stat);
 
-  if (is_exit(&player->transform)) {
-    change_level(current_level + 1);
-    initiate_player(player, 100, 300);
+  if (is_exit(&player->transform))
+  {
+    current_level++;
+
+    SDL_Renderer *renderer = get_game_instance()->renderer;
+    show_level_transition(renderer, 0, current_level + 1);
+
+    change_level(current_level);
+
+    if (current_level == 1)
+    {
+      initiate_player(player, 100, 300);
+    }
     if (current_level == 2)
     {
       initiate_player(player, 650, 100);

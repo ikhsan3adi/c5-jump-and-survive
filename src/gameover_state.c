@@ -3,6 +3,7 @@
 #include <SDL3/SDL_ttf.h>
 #include "stage0_state.h"
 #include "ui.h"
+#include "SFX.h"
 
 typedef enum
 {
@@ -26,6 +27,7 @@ GameState gameover_state = {
 void game_over_init()
 {
     SDL_Log("Game Over State: Initialized");
+    play_sound (dead_sfx,1 ,0);
 }
 
 void game_over_handle_input(SDL_Event *event)

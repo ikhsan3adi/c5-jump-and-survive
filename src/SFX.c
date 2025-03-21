@@ -30,7 +30,7 @@ void init_audio()
     menu_bgm = load_music("assets/SFX/bg-music-home1.mp3");
     jump_sfx = load_sound("assets/SFX/jump.wav");
     gate_sfx = load_sound("assets/SFX/exit-gate.wav");
-    coin_sfx = load_sound("assets/SFX/coins.wav");
+    coin_sfx = load_sound("assets/SFX/coin.wav");
     dead_sfx = load_sound("assets/SFX/dead.wav");
     gameover_sfx = load_sound("assets/SFX/game-over.wav");
 }
@@ -69,6 +69,16 @@ void play_music(Mix_Music *sound, int loops)
     {
         Mix_PlayMusic(sound, loops);
     }
+}
+
+void stop_music()
+{
+    Mix_HaltMusic();
+}
+
+void stop_sound(int channel)
+{
+    Mix_HaltChannel(channel);
 }
 
 void cleanup_audio()

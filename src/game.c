@@ -18,6 +18,7 @@ void create_game_instance(const char *title, int width, int height)
 {
   game.window = SDL_CreateWindow(title, width, height, SDL_WINDOW_OPENGL);
   game.renderer = SDL_CreateRenderer(game.window, NULL);
+  SDL_SetRenderDrawBlendMode(game.renderer, SDL_BLENDMODE_BLEND);
 }
 
 Game *get_game_instance()
@@ -27,4 +28,14 @@ Game *get_game_instance()
     SDL_Log("Game instance has not been initialized!, call `create_game_instance` first.");
   }
   return &game;
+}
+
+void skip_physics_frame()
+{
+  game.is_physics_paused = true;
+}
+
+void resume_physics()
+{
+  game.is_physics_paused = false;
 }
