@@ -23,8 +23,16 @@ extern Switch buttonL51;
 extern Switch buttonL52;
 extern Switch buttonL61;
 extern Switch buttonL62;
+extern Switch_Obstacles buttonL7;
+extern Switch_Obstacles buttonL81;
+extern Switch buttonL82;
+extern Switch_Obstacles buttonL91;
+extern Switch_Obstacles buttonL92;
+extern Switch_Obstacles buttonL101;
+extern Switch buttonL102;
+extern Switch_Obstacles buttonL103;
 
-extern short (*current_level_map)[MAP_WIDTH];
+extern short current_level_map[MAP_HEIGHT][MAP_WIDTH];
 
 void change_level(int level);
 
