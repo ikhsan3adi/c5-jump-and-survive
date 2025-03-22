@@ -3,6 +3,7 @@
 
 #include <SDL3/SDL.h>
 #include "vector.h"
+#define PI 3.14159265
 
 typedef struct 
 {

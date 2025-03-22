@@ -4,6 +4,7 @@
 Mix_Music *stage0_bgm;
 Mix_Music *menu_bgm;
 Mix_Music *stage1_bgm;
+Mix_Music *win_bgm;
 Mix_Chunk *jump_sfx;
 Mix_Chunk *gate_sfx;
 Mix_Chunk *coin_sfx;
@@ -28,6 +29,7 @@ void init_audio()
     stage0_bgm = load_music("assets/SFX/bg-music1.mp3");
     stage1_bgm = load_music("assets/SFX/bg-music2.mp3");
     menu_bgm = load_music("assets/SFX/bg-music-home1.mp3");
+    win_bgm = load_music("assets/SFX/champion.mp3");
     jump_sfx = load_sound("assets/SFX/jump.wav");
     gate_sfx = load_sound("assets/SFX/exit-gate.wav");
     coin_sfx = load_sound("assets/SFX/coin.wav");
