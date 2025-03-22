@@ -8,7 +8,11 @@
 #include "game_state.h"
 #include "player.h"
 #include "level.h"
+#include "obstacles.h"
 
+#define MAX_OBSTACLES 10
+
+Obstacle *obstacle[MAX_OBSTACLES];
 // Definisi state
 GameState stage0_state = {
     .init = stage0_init,
@@ -21,6 +25,13 @@ GameState stage0_state = {
 void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
+
+  //inisialisasi obstacle
+  obstacle[0] = create_obstacle(400, 442, 30, 10, SAWS);
+  obstacle[1] = create_obstacle(210, 437, 30, 10, SPIKE);
+  obstacle[2] = create_obstacle(637, 435, 30, 10, FAKE_COINS);
+  obstacle[3] = create_obstacle(550, 437, 30, 10, SAWS);
+  obstacle[4] = create_obstacle(230, 437, 30, 10, SPIKE);
 
   // Inisialisasi player
   player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
@@ -48,6 +59,13 @@ void stage0_handle_input(SDL_Event *event)
 void stage0_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
+
+  // ✅ Update setiap obstacle supaya saw bisa berputar
+  for (int i = 0; i < MAX_OBSTACLES; i++) {
+    if (obstacle[i]) {
+        update_obstacle(obstacle[i], delta_time);
+    } 
+  }
   
   if (is_exit(&player->transform)) {
     change_level(current_level + 1);
@@ -101,6 +119,13 @@ void stage0_render(SDL_Renderer *renderer)
   SDL_FRect player_rect = {player->transform.x, player->transform.y, player->transform.w, player->transform.h};
   SDL_RenderFillRect(renderer, &player_rect);
 
+  for (int i = 0; i < MAX_OBSTACLES; i++) {
+    if (obstacle[i]) {
+        render_obstacle(renderer, obstacle[i]);  // ✅ Kirim pointer ke obstacle
+    }
+  }
+
+
 
   SDL_RenderPresent(renderer);
 }
@@ -108,5 +133,5 @@ void stage0_render(SDL_Renderer *renderer)
 void stage0_cleanup()
 {
   SDL_Log("Stage 0 State: Cleaned up");
-  destroy_player(player);
+  destroy_player(player);//
 }
