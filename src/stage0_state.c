@@ -29,15 +29,16 @@ void stage0_init()
   player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
   init_game_stat(&game_stat);
   start_timer(&game_stat);
-
+  
   SDL_Renderer *renderer = get_game_instance()->renderer;
   show_stage_transition(renderer, 0);
-
+  
   // Memainkan musik latar belakang
   if (stage0_bgm)
   {
     play_music(stage0_bgm, INT32_MAX);
   }
+  change_level(0);
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -46,16 +47,6 @@ void stage0_handle_input(SDL_Event *event)
 
   if (event->type == SDL_EVENT_KEY_DOWN)
   {
-    //! CONTOH
-    if (event->key.scancode == SDL_SCANCODE_N)
-    {
-      change_level(current_level == 0 ? 1 : 0);
-
-      if (current_level == 2)
-      {
-        change_game_state(&stage1_state);
-      }
-    }
 
     if (event->key.scancode == SDL_SCANCODE_ESCAPE)
     {
@@ -75,14 +66,14 @@ void stage0_update(double delta_time)
 
   if (is_exit(&player->transform))
   {
-    current_level++;
-
+    
     SDL_Renderer *renderer = get_game_instance()->renderer;
-    show_level_transition(renderer, 0, current_level + 1);
+    show_level_transition(renderer, 0, current_level);
+    current_level++;
 
     change_level(current_level);
 
-    if (current_level == 1)
+    if (current_level == 1 || current_level == 0)
     {
       initiate_player(player, 100, 300);
     }
