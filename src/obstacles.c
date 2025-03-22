@@ -60,7 +60,9 @@ void render_obstacle(SDL_Renderer *renderer, const Obstacle *obstacle) {
 }
 
 void destroy_obstacle(Obstacle *obstacle) {
-    free(obstacle);
+    if (obstacle) {
+        free(obstacle);
+    }
 }
 
 // Menggambar Saw (Lingkaran dengan gigi)
