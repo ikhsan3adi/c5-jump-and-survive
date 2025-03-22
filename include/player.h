@@ -8,10 +8,16 @@
 
 extern Entity *player;
 
+extern bool key_state[SDL_SCANCODE_COUNT];
+
 void initiate_player(Entity *player, int x, int y);
+
+void reinitiate_player(Entity *player, int level);
 
 void handle_player_input(Entity *player, SDL_Event *event);
 
 void destroy_player(Entity *player);
+
+void render_player(SDL_Renderer *renderer, Entity *player);
 
 #endif
