@@ -8,6 +8,7 @@ typedef struct {
     Entity entity;
     float rotation;       // Untuk rotasi Saw
     float rotationSpeed;  // Kecepatan rotasi Saw
+    int type;
 } Obstacle;
 
 extern Obstacle *obstacles[];
@@ -26,6 +27,7 @@ void destroy_obstacle(Obstacle *obstacle);
 // Fungsi tambahan untuk menggambar Saw dan Spike
 void draw_rotating_saw(SDL_Renderer *renderer, SDL_FRect rect, float angle);
 void draw_triangle(SDL_Renderer *renderer, SDL_FRect rect);
-void draw_coin(SDL_Renderer *renderer, SDL_FRect rect);
+void draw_coin(SDL_Renderer *renderer, SDL_FRect rect, int type);
+void draw_gate(SDL_Renderer *renderer,  SDL_FRect exit_rect);
 
 #endif

@@ -1,5 +1,6 @@
 #include "level.h"
 #include "entity.h"
+#include "obstacles.h"
 
 short level0_map[MAP_HEIGHT][MAP_WIDTH] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -303,6 +304,9 @@ void render_level(SDL_Renderer *renderer)
       case EXIT_GATE:
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderFillRect(renderer, &tile_rect);
+
+        // Render gate untuk melapisi kotak putih
+        draw_gate(renderer, tile_rect);
         break;
       default:
         break;

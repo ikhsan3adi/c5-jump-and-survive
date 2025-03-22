@@ -33,6 +33,9 @@ void stage0_init()
   obstacle[3] = create_obstacle(550, 437, 30, 10, SAWS);
   obstacle[4] = create_obstacle(230, 437, 30, 10, SPIKE);
 
+  //inisialisasi coin
+  obstacle[5] = create_obstacle(600, 400, 30, 10, COINS);
+
   // Inisialisasi player
   player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
 }
