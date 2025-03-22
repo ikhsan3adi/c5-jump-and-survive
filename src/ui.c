@@ -331,7 +331,7 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
 
     int rect_height = 0;
 
-    play_sound(gameover_sfx, 6, 0);
+    play_music(win_bgm, 1);
 
     skip_physics_frame();
 
@@ -386,6 +386,7 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
         // Delay untuk smooth animation
         SDL_Delay(16);
     }
+    stop_music();
 }
 
 void clean_up_ui()

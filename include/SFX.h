@@ -6,6 +6,7 @@
 extern Mix_Music *stage0_bgm;
 extern Mix_Music *menu_bgm;
 extern Mix_Music *stage1_bgm;
+extern Mix_Music *win_bgm;
 extern Mix_Chunk *jump_sfx;
 extern Mix_Chunk *gate_sfx;
 extern Mix_Chunk *coin_sfx;
