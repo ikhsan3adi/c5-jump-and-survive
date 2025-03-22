@@ -6,14 +6,14 @@
 void draw_rotating_saw(SDL_Renderer *renderer, SDL_FRect rect, float angle)
 {
     int cx = rect.x + rect.w / 2;
-    int cy = rect.y + rect.h / 2;
-    int radius = rect.w / 1.5;
+    int cy = rect.y + rect.h;
+    int radius = rect.w / 2;
     int innerRadius = radius / 3; // Ukuran lubang tengah
     int spikeLength = radius / 2; // Panjang duri diperbesar
     int spikeCount = 8;           // Jumlah duri dikurangi
 
     // Warna dasar lingkaran hitam
-    SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
+    // SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
 
     // Menggambar lingkaran dengan lubang di tengah
     for (int y = -radius; y <= radius; y++)
@@ -30,32 +30,41 @@ void draw_rotating_saw(SDL_Renderer *renderer, SDL_FRect rect, float angle)
     }
 
     // Warna untuk duri
-    SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
+    // SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
 
+    SDL_FColor color;
+    SDL_GetRenderDrawColorFloat(renderer, &color.r, &color.g, &color.b, &color.a);
     // Menggambar duri berbentuk segitiga
     for (int i = 0; i < spikeCount; i++)
     {
-        float theta = (angle + i * (360.0 / spikeCount)) * M_PI / 180.0;
-        float nextTheta = (angle + (i + 1) * (360.0 / spikeCount)) * M_PI / 180.0;
-
+        float theta = (angle + i * (360.0 / spikeCount)) * PI / 180.0;
+        float nextTheta = (angle + (i + 1) * (360.0 / spikeCount)) * PI / 180.0;
         // Titik pangkal kiri
-        int x1 = cx + cos(theta) * radius;
-        int y1 = cy + sin(theta) * radius;
+        double x1 = cx + cos(theta) * radius;
+        double y1 = cy + sin(theta) * radius;
 
         // Titik pangkal kanan
-        int x2 = cx + cos(nextTheta) * radius;
-        int y2 = cy + sin(nextTheta) * radius;
+        double x2 = cx + cos(nextTheta) * radius;
+        double y2 = cy + sin(nextTheta) * radius;
 
         // Titik ujung lancip (lebih keluar)
-        int x3 = cx + cos((theta + nextTheta) / 2) * (radius + spikeLength);
-        int y3 = cy + sin((theta + nextTheta) / 2) * (radius + spikeLength);
+        double x3 = cx + cos((theta + nextTheta) / 2) * (radius + spikeLength);
+        double y3 = cy + sin((theta + nextTheta) / 2) * (radius + spikeLength);
+
+        // ambil warna draw color saat ini
 
         // Menggambar segitiga duri
-        SDL_RenderLine(renderer, x1, y1, x3, y3);
-        SDL_RenderLine(renderer, x2, y2, x3, y3);
-        SDL_RenderLine(renderer, x1, y1, x2, y2);
+
+        SDL_Vertex vertexes[3] = {
+            {{x1, y1}, {color.r, color.g, color.b, color.a}},
+            {{x2, y2}, {color.r, color.g, color.b, color.a}},
+            {{x3, y3}, {color.r, color.g, color.b, color.a}},
+        };
+
+        SDL_RenderGeometry(renderer, NULL, vertexes, 3, NULL, 0);
     }
 }
+
 void draw_triangle(SDL_Renderer *renderer, SDL_FRect rect)
 {
     float scale = 1;
@@ -66,29 +75,30 @@ void draw_triangle(SDL_Renderer *renderer, SDL_FRect rect)
     float centerY = rect.y + (rect.h / 2) - (newH / 2);
 
     // Menyempitkan alas segitiga (misalnya, 70% dari lebar awal)
-    float baseFactor = 0.8;
+    float baseFactor = 1;
     float baseWidth = newW * baseFactor;
 
     // Titik-titik segitiga lancip
-    int x1 = centerX + newW / 2; // Titik atas
-    int y1 = centerY;
-    int x2 = centerX + (newW - baseWidth) / 2; // Kiri bawah (lebih ke tengah)
-    int y2 = centerY + newH;
-    int x3 = x2 + baseWidth; // Kanan bawah (lebih ke tengah)
-    int y3 = y2;
+    double x1 = centerX + newW / 2; // Titik atas
+    double y1 = centerY;
+    double x2 = centerX + (newW - baseWidth) / 2; // Kiri bawah (lebih ke tengah)
+    double y2 = centerY + newH;
+    double x3 = x2 + baseWidth; // Kanan bawah (lebih ke tengah)
+    double y3 = y2;
 
-    SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
-    for (int y = y1; y <= y2; y++)
-    {
-        float startX = x1 + (x2 - x1) * ((float)(y - y1) / (y2 - y1));
-        float endX = x1 + (x3 - x1) * ((float)(y - y1) / (y3 - y1));
-        SDL_RenderLine(renderer, startX, y, endX, y);
-    }
+    // ambil warna draw color saat ini
+    SDL_FColor color;
+    SDL_GetRenderDrawColorFloat(renderer, &color.r, &color.g, &color.b, &color.a);
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderLine(renderer, x1, y1, x2, y2);
-    SDL_RenderLine(renderer, x2, y2, x3, y3);
-    SDL_RenderLine(renderer, x3, y3, x1, y1);
+    // Menggambar segitiga duri
+
+    SDL_Vertex vertexes[3] = {
+        {{x1, y1}, {color.r, color.g, color.b, color.a}},
+        {{x2, y2}, {color.r, color.g, color.b, color.a}},
+        {{x3, y3}, {color.r, color.g, color.b, color.a}},
+    };
+
+    SDL_RenderGeometry(renderer, NULL, vertexes, 3, NULL, 0);
 }
 
 void draw_coin(SDL_Renderer *renderer, SDL_FRect rect, int type)
@@ -96,15 +106,6 @@ void draw_coin(SDL_Renderer *renderer, SDL_FRect rect, int type)
     int cx = rect.x + rect.w / 2;
     int cy = rect.y + rect.h / 2;
     int radius = rect.w / 3; // Pastikan width = height agar lingkaran sempurna
-
-    if (type == COINS)
-    {
-        SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255); // Kuning terang
-    }
-    else if (type == FAKE_COINS)
-    {
-        SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255); // Kuning gelap
-    }
 
     for (int w = 0; w < radius * 2; w++)
     {
