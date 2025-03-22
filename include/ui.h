@@ -30,6 +30,8 @@ void show_level_transition(SDL_Renderer *renderer, int stage, int level);
 
 void show_stage_transition(SDL_Renderer *renderer, int stage);
 
+void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat);
+
 void clean_up_ui();
 
 #endif
