@@ -71,6 +71,16 @@ void play_music(Mix_Music *sound, int loops)
     }
 }
 
+void stop_music()
+{
+    Mix_HaltMusic();
+}
+
+void stop_sound(int channel)
+{
+    Mix_HaltChannel(channel);
+}
+
 void cleanup_audio()
 {
     Mix_CloseAudio();

@@ -18,6 +18,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 
   create_game_instance("Jump & Survive", SCREEN_WIDTH, SCREEN_HEIGHT);
 
+  // load assets (fonts, sfx)
+  init_font();
   init_audio();
 
   last_time = SDL_GetTicks();

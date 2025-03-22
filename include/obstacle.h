@@ -3,6 +3,7 @@
 
 #include <SDL3/SDL.h>
 #include "vector.h"
+#define PI 3.14159265
 
 typedef struct 
 {
@@ -11,6 +12,12 @@ typedef struct
 
 } Switch;
 
+typedef struct 
+{
+    Vector button;
+    Vector switches[100];
+    Vector obstacles[100];
 
+} Switch_Obstacles;
 #endif
 
