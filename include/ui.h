@@ -12,7 +12,7 @@
 extern TTF_Font *sixtyfourconvergence_font;
 extern TTF_Font *pixelify_font;
 
-void load_font();
+void init_font();
 
 void render_text(SDL_Renderer *renderer, TTF_Font *font, const char *text, int x, int y, float scale, SDL_Color color);
 

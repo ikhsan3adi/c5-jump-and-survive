@@ -15,7 +15,7 @@ TTF_Font *pixelify_font;
 SDL_Surface *text_surface = NULL;
 SDL_Texture *text_texture = NULL;
 
-void load_font()
+void init_font()
 {
     if (!TTF_Init())
     {
