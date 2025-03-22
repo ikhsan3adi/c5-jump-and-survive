@@ -7,6 +7,7 @@
 #include "game_state.h"
 #include "player.h"
 #include "level.h"
+#include "obstacles.h"
 #include "entity.h"
 #include "game_stat.h"
 #include "ui.h"
@@ -25,7 +26,6 @@ void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
 
-  // Inisialisasi playerL
   player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
   init_game_stat(&game_stat);
   start_timer(&game_stat);
@@ -102,11 +102,12 @@ void stage0_render(SDL_Renderer *renderer)
 
   render_game_ui(renderer, &game_stat);
 
+
   SDL_RenderPresent(renderer);
 }
 
 void stage0_cleanup()
 {
   SDL_Log("Stage 0 State: Cleaned up");
-  destroy_player(player);
+  destroy_player(player);//
 }
