@@ -3,7 +3,10 @@
 #include "menu_state.h"
 #include "stage0_state.h"
 #include "ui.h"
+#include "player.h"
+#include "level.h"
 #include "SFX.h"
+#include "game.h"
 
 // Enum untuk pilihan menu
 typedef enum
@@ -31,6 +34,10 @@ void menu_init()
 {
     SDL_Log("Menu State: Initialized");
     play_music(menu_bgm, INT32_MAX);
+
+    player = create_entity(120, 416, 32, 32, (SDL_Color){0, 0, 0, 255});
+
+    change_level(0);
 }
 
 void menu_handle_input(SDL_Event *event)
@@ -110,7 +117,7 @@ void menu_update(double delta_time) {}
 
 void menu_render(SDL_Renderer *renderer)
 {
-    SDL_Color bg_color = {10, 55, 58, 255};
+    SDL_Color bg_color = {124, 162, 142, 255};
     SDL_Color title_text_color = {124, 162, 142, 255};
     SDL_Color text_color = {10, 55, 58, 255};
     SDL_Color selected_text_color = {255, 255, 255, 255};
@@ -126,6 +133,14 @@ void menu_render(SDL_Renderer *renderer)
 
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
+
+    // level as background
+    render_level(renderer);
+    render_player(renderer, player);
+
+    // overlay
+    SDL_SetRenderDrawColor(renderer, 30, 30, 30, 120);
+    SDL_RenderFillRect(renderer, &(SDL_FRect){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
 
     render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 100, 80, 1.4, title_text_color);
 

@@ -26,13 +26,13 @@ void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
 
-  player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
+  player = create_entity(120, 416, 32, 32, (SDL_Color){0, 0, 0, 255});
   init_game_stat(&game_stat);
   start_timer(&game_stat);
-  
+
   SDL_Renderer *renderer = get_game_instance()->renderer;
   show_stage_transition(renderer, 0);
-  
+
   // Memainkan musik latar belakang
   if (stage0_bgm)
   {
@@ -66,7 +66,6 @@ void stage0_update(double delta_time)
 
   if (is_exit(&player->transform))
   {
-    
     SDL_Renderer *renderer = get_game_instance()->renderer;
     show_level_transition(renderer, 0, current_level);
     current_level++;
@@ -77,11 +76,11 @@ void stage0_update(double delta_time)
     {
       initiate_player(player, 100, 300);
     }
-    if (current_level == 2)
+    else if (current_level == 2)
     {
       initiate_player(player, 650, 100);
     }
-    if (current_level == 3)
+    else if (current_level == 3)
     {
       change_game_state(&stage1_state);
       initiate_player(player, 70, 170);
@@ -101,13 +100,10 @@ void stage0_render(SDL_Renderer *renderer)
   render_player(renderer, player);
 
   render_game_ui(renderer, &game_stat);
-
-
-  SDL_RenderPresent(renderer);
 }
 
 void stage0_cleanup()
 {
   SDL_Log("Stage 0 State: Cleaned up");
-  destroy_player(player);//
+  destroy_player(player); //
 }
