@@ -87,13 +87,33 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   switch (current_level)
   {
   case 1:
-    interaction_buttons_switch(entity, buttonL1);
+  interaction_buttons_switch(entity, buttonL1);
     break;
 
   case 5:
   interaction_buttons_switch(entity,buttonL51);
   interaction_buttons_switch(entity,buttonL52);
     break;
+  case 6:
+  interaction_buttons_switch(entity,buttonL61);
+  interaction_buttons_switch(entity,buttonL62);
+    break;
+  case 7:
+  interaction_buttons_obstacles_switch(entity,buttonL7);
+    break;
+  case 8:
+  interaction_buttons_obstacles_switch(entity,buttonL81);
+  interaction_buttons_switch(entity,buttonL82);
+    break;
+  case 9:
+  interaction_buttons_obstacles_switch(entity,buttonL91);
+  interaction_buttons_obstacles_switch(entity,buttonL92);
+    break;
+  case 10:
+  interaction_buttons_obstacles_switch(entity,buttonL101);
+  interaction_buttons_switch(entity,buttonL102);
+  interaction_buttons_obstacles_switch(entity,buttonL103);
+      break;
   default:
     break;
   }
@@ -235,6 +255,9 @@ bool is_destruct(Transform *transform)
       {
         if (current_level_map[y][x] == destruct_tiles[i])
         {
+          if (destruct_tiles[i] == FAKE_COINS){
+            current_level_map[y][x] = EMPTY;
+          }
           play_sound(dead_sfx, 4, 0);
           return true;
         }
@@ -244,7 +267,7 @@ bool is_destruct(Transform *transform)
   return false;
 }
 
-bool is_button(Transform *transform, Switch buttons)
+bool is_button(Transform *transform, Vector buttons)
 {
   int left = transform->x / TILE_SIZE;
   int right = (transform->x + transform->w - 1) / TILE_SIZE;
@@ -260,7 +283,7 @@ bool is_button(Transform *transform, Switch buttons)
         continue;
       }
 
-      if (y + 1 == buttons.button.y && x == buttons.button.x)
+      if (y + 1 == buttons.y && x == buttons.x)
       {
         return true;
       }
@@ -272,7 +295,7 @@ bool is_button(Transform *transform, Switch buttons)
 
 void interaction_buttons_switch(Entity *player, Switch button)
 {
-  bool on_button = is_button(&player->transform, button);
+  bool on_button = is_button(&player->transform, button.button);
   if (on_button)
   {
     for (int i = 0; i < sizeof(button.switches) / sizeof(Vector); i++)
@@ -281,6 +304,30 @@ void interaction_buttons_switch(Entity *player, Switch button)
           button.switches[i].y > 0 && button.switches[i].y < MAP_HEIGHT)
       {
         current_level_map[button.switches[i].y][button.switches[i].x] = EMPTY;
+      }
+    }
+  }
+}
+
+void interaction_buttons_obstacles_switch(Entity *player, Switch_Obstacles button)
+{
+  bool on_button = is_button(&player->transform, button.button);
+  if (on_button)
+  {
+    for (int i = 0; i < sizeof(button.switches) / sizeof(Vector); i++)
+    {
+      if (button.switches[i].x > 0 && button.switches[i].x < MAP_WIDTH &&
+          button.switches[i].y > 0 && button.switches[i].y < MAP_HEIGHT)
+      {
+        current_level_map[button.switches[i].y][button.switches[i].x] = EMPTY;
+      }
+    }
+    for (int i = 0; i < sizeof(button.obstacles) / sizeof(Vector); i++)
+    {
+      if (button.obstacles[i].x > 0 && button.obstacles[i].x < MAP_WIDTH &&
+          button.obstacles[i].y > 0 && button.obstacles[i].y < MAP_HEIGHT)
+      {
+        current_level_map[button.obstacles[i].y][button.obstacles[i].x] = SOLID_OBSTACLE;
       }
     }
   }

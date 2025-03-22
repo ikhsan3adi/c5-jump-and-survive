@@ -11,6 +11,12 @@ typedef struct
 
 } Switch;
 
+typedef struct 
+{
+    Vector button;
+    Vector switches[100];
+    Vector obstacles[100];
 
+} Switch_Obstacles;
 #endif
 

@@ -42,16 +42,6 @@ void stage1_handle_input(SDL_Event *event)
 
   if (event->type == SDL_EVENT_KEY_DOWN)
   {
-    //! CONTOH
-    if (event->key.scancode == SDL_SCANCODE_N)
-    {
-      change_level(current_level == 0 ? 1 : 0);
-
-      if (current_level == 2)
-      {
-        change_game_state(&stage1_state);
-      }
-    }
 
     if (event->key.scancode == SDL_SCANCODE_ESCAPE)
     {
@@ -71,11 +61,11 @@ void stage1_update(double delta_time)
 
   if (is_exit(&player->transform))
   {
-    current_level++;
-
+    
     SDL_Renderer *renderer = get_game_instance()->renderer;
-    show_level_transition(renderer, 1, current_level + 1);
-    change_level(current_level + 1);
+    show_level_transition(renderer, 1, current_level);
+    current_level++;
+    change_level(current_level);
 
     if (current_level == 4)
     {
