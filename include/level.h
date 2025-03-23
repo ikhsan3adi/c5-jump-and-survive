@@ -4,7 +4,7 @@
 #include <SDL3/SDL.h>
 
 #include "transform.h"
-#include "obstacle.h"
+#include "obstacles.h"
 
 #define TILE_SIZE 32
 #define MAP_WIDTH 30

@@ -5,7 +5,7 @@
 #include "player.h"
 #include "level.h"
 #include "vector.h"
-#include "obstacle.h"
+#include "obstacles.h"
 #include "SFX.h"
 #include "ui.h"
 
@@ -135,6 +135,7 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   bool hole = is_void(&entity->transform);
   if (hole)
   {
+    play_sound(dead_sfx, 4, 0);
     is_alive = sub_life(&game_stat);
     reinitiate_player(entity, current_level);
   }
