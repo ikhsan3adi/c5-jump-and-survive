@@ -157,27 +157,31 @@ void draw_gate(SDL_Renderer *renderer, SDL_FRect exit_rect)
 
 SawManager saw_manager;
 
-Saw *create_saw(float x, float y, float w, float h, float velocity_x, float velocity_y) {
-    Saw* saw = malloc(sizeof(Saw)); // Allocate memory for the saw
-    if (saw == NULL) {
+Saw *create_saw(float x, float y, float w, float h, float velocity_x, float velocity_y)
+{
+    Saw *saw = malloc(sizeof(Saw)); // Allocate memory for the saw
+    if (saw == NULL)
+    {
         SDL_Log("Failed to allocate memory for saw!");
         return NULL;
     }
     saw->transform.x = x;
     saw->transform.y = y;
-    saw->transform.w = w; 
+    saw->transform.w = w;
     saw->transform.h = h;
     saw->physics.velocity_x = velocity_x;
     saw->physics.velocity_y = velocity_y;
     return saw;
 }
 
-void update_saw(Saw *saw, float delta_time) {
+void update_saw(Saw *saw, float delta_time)
+{
     saw->transform.x += saw->physics.velocity_x * delta_time;
     saw->transform.y += saw->physics.velocity_y * delta_time;
 }
 
-void render_saw(SDL_Renderer *renderer, Saw *saw, float angle) {
+void render_saw(SDL_Renderer *renderer, Saw *saw, float angle)
+{
     int cx = saw->transform.x + saw->transform.w / 2;
     int cy = saw->transform.y + saw->transform.h / 2;
     int radius = saw->transform.w / 2;
@@ -238,104 +242,127 @@ void render_saw(SDL_Renderer *renderer, Saw *saw, float angle) {
     }
 }
 
-void add_saw(SawManager* manager, float x, float y, float w, float h, float velocity_x, float velocity_y) {
-    if (manager->count >= MAX_SAWS) {
+void add_saw(SawManager *manager, float x, float y, float w, float h, float velocity_x, float velocity_y)
+{
+    if (manager->count >= MAX_SAWS)
+    {
         SDL_Log("Maximum number of saws reached!");
         return;
     }
-    
+
     manager->saws[manager->count] = create_saw(x, y, w, h, velocity_x, velocity_y);
-    if (manager->saws[manager->count] != NULL) {
+    if (manager->saws[manager->count] != NULL)
+    {
         manager->count++;
     }
 }
 
-void update_all_saws(SawManager* manager, float delta_time) {
-    for (int i = 0; i < manager->count; i++) {
-        Saw* saw = manager->saws[i];
-        
+void update_all_saws(SawManager *manager, float delta_time)
+{
+    for (int i = 0; i < manager->count; i++)
+    {
+        Saw *saw = manager->saws[i];
+
         // Store previous position for collision resolution
         // float prev_x = saw->transform.x;
         // float prev_y = saw->transform.y;
-        
+
         // Update position based on velocity
         saw->transform.x += saw->physics.velocity_x * delta_time;
         saw->transform.y += saw->physics.velocity_y * delta_time;
-        
+
         // Boundary handling for level edges
         float level_min_x = 0;
         float level_max_x = MAP_WIDTH * TILE_SIZE;
         float level_min_y = 0;
         float level_max_y = MAP_HEIGHT * TILE_SIZE;
-        
+
         // Check for boundary collision
         int bounced = 0;
-        
-        if (saw->transform.x < level_min_x) {
+
+        if (saw->transform.x < level_min_x)
+        {
             saw->transform.x = level_min_x;
-            saw->physics.velocity_x *= -1;  // Reverse horizontal direction
+            saw->physics.velocity_x *= -1; // Reverse horizontal direction
             bounced = 1;
         }
-        else if (saw->transform.x + saw->transform.w > level_max_x) {
+        else if (saw->transform.x + saw->transform.w > level_max_x)
+        {
             saw->transform.x = level_max_x - saw->transform.w;
-            saw->physics.velocity_x *= -1;  // Reverse horizontal direction
+            saw->physics.velocity_x *= -1; // Reverse horizontal direction
             bounced = 1;
         }
-        
-        if (saw->transform.y < level_min_y) {
+
+        if (saw->transform.y < level_min_y)
+        {
             saw->transform.y = level_min_y;
-            saw->physics.velocity_y *= -1;  // Reverse vertical direction
+            saw->physics.velocity_y *= -1; // Reverse vertical direction
             bounced = 1;
         }
-        else if (saw->transform.y + saw->transform.h > level_max_y) {
+        else if (saw->transform.y + saw->transform.h > level_max_y)
+        {
             saw->transform.y = level_max_y - saw->transform.h;
-            saw->physics.velocity_y *= -1;  // Reverse vertical direction
+            saw->physics.velocity_y *= -1; // Reverse vertical direction
             bounced = 1;
         }
-        
+
         // Check for collision with walls in the map
-        if (!bounced) {
+        if (!bounced)
+        {
             // Check corners of the saw for wall collision
             int corners[4][2] = {
-                {saw->transform.x, saw->transform.y},                       // Top-left
-                {saw->transform.x + saw->transform.w, saw->transform.y},    // Top-right
-                {saw->transform.x, saw->transform.y + saw->transform.h},    // Bottom-left
+                {saw->transform.x, saw->transform.y},                                      // Top-left
+                {saw->transform.x + saw->transform.w, saw->transform.y},                   // Top-right
+                {saw->transform.x, saw->transform.y + saw->transform.h},                   // Bottom-left
                 {saw->transform.x + saw->transform.w, saw->transform.y + saw->transform.h} // Bottom-right
             };
-            
-            for (int c = 0; c < 4; c++) {
+
+            for (int c = 0; c < 4; c++)
+            {
                 int tile_x = corners[c][0] / TILE_SIZE;
                 int tile_y = corners[c][1] / TILE_SIZE;
-                
+
                 // Make sure we're within map bounds
-                if (tile_x >= 0 && tile_x < MAP_WIDTH && tile_y >= 0 && tile_y < MAP_HEIGHT) {
+                if (tile_x >= 0 && tile_x < MAP_WIDTH && tile_y >= 0 && tile_y < MAP_HEIGHT)
+                {
                     // Check if we hit a wall (value 1 in level9_map)
-                    if (current_level_map[tile_y][tile_x] == 1) {
+                    if (current_level_map[tile_y][tile_x] == 1)
+                    {
                         // Determine which direction to bounce
-                        if (c == 0 || c == 2) {  // Left side corners
-                            if (saw->physics.velocity_x < 0) {
+                        if (c == 0 || c == 2)
+                        { // Left side corners
+                            if (saw->physics.velocity_x < 0)
+                            {
                                 saw->physics.velocity_x *= -1;
                                 saw->transform.x = (tile_x + 1) * TILE_SIZE + 1;
                             }
-                        } else {  // Right side corners
-                            if (saw->physics.velocity_x > 0) {
+                        }
+                        else
+                        { // Right side corners
+                            if (saw->physics.velocity_x > 0)
+                            {
                                 saw->physics.velocity_x *= -1;
                                 saw->transform.x = tile_x * TILE_SIZE - saw->transform.w - 1;
                             }
                         }
-                        
-                        if (c == 0 || c == 1) {  // Top side corners
-                            if (saw->physics.velocity_y < 0) {
+
+                        if (c == 0 || c == 1)
+                        { // Top side corners
+                            if (saw->physics.velocity_y < 0)
+                            {
                                 saw->physics.velocity_y *= -1;
                                 saw->transform.y = (tile_y + 1) * TILE_SIZE + 1;
                             }
-                        } else {  // Bottom side corners
-                            if (saw->physics.velocity_y > 0) {
+                        }
+                        else
+                        { // Bottom side corners
+                            if (saw->physics.velocity_y > 0)
+                            {
                                 saw->physics.velocity_y *= -1;
                                 saw->transform.y = tile_y * TILE_SIZE - saw->transform.h - 1;
                             }
                         }
-                        
+
                         bounced = 1;
                         break; // Found a collision, no need to check other corners
                     }
@@ -345,70 +372,54 @@ void update_all_saws(SawManager* manager, float delta_time) {
     }
 }
 
-void render_all_saws(SDL_Renderer* renderer, SawManager* manager) {
-    for (int i = 0; i < manager->count; i++) {
+void render_all_saws(SDL_Renderer *renderer, SawManager *manager)
+{
+    for (int i = 0; i < manager->count; i++)
+    {
         render_saw(renderer, manager->saws[i], SDL_GetTicks() / 2 % 360);
     }
 }
 
-void cleanup_saw_manager(SawManager* manager) {
-    for (int i = 0; i < manager->count; i++) {
+void cleanup_saw_manager(SawManager *manager)
+{
+    for (int i = 0; i < manager->count; i++)
+    {
         free(manager->saws[i]);
         manager->saws[i] = NULL;
     }
     manager->count = 0;
 }
 
-void setup_level_saws(int level) {
+void setup_level_saws(int level)
+{
     // cleanup_saw_manager(saw_manager);
 
-    if (level == 7) 
+    if (level == 7)
     {
         add_saw(&saw_manager, 20 * TILE_SIZE, 5.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
-        add_saw(&saw_manager, 15 * TILE_SIZE, 8.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);     
-        add_saw(&saw_manager, 20 * TILE_SIZE, 11.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   
+        add_saw(&saw_manager, 15 * TILE_SIZE, 8.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 11.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
     }
 
     if (level == 8)
     {
         add_saw(&saw_manager, 24 * TILE_SIZE, 20 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, 1500);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 10 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, -1500);     
-        add_saw(&saw_manager, 16 * TILE_SIZE, 20 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, 1500);  
+        add_saw(&saw_manager, 20 * TILE_SIZE, 10 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, -1500);
+        add_saw(&saw_manager, 16 * TILE_SIZE, 20 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, 1500);
     }
-    
+
     if (level == 9)
     {
-        
-        add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);    
-        add_saw(&saw_manager, 20 * TILE_SIZE, 9 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   
+
+        add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 9.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
     }
 
     if (level == 10)
     {
-        add_saw(&saw_manager, 25 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 7 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);     
-        add_saw(&saw_manager, 25 * TILE_SIZE, 10 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   
-        add_saw(&saw_manager, 20 * TILE_SIZE, 13 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);     
+        add_saw(&saw_manager, 25 * TILE_SIZE, 4.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 7.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);
+        add_saw(&saw_manager, 25 * TILE_SIZE, 10.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 13.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);
     }
-    
-    // else if (level == 10) {
-        // Level 10 saws - more challenging patterns
-        // create_circular_saw_pattern(&saw_manager, 15 * TILE_SIZE, 10 * TILE_SIZE, 60, 6, 80, TILE_SIZE - 6);
-        
-        // // Add some horizontal moving saws in corridors
-        // add_saw(&saw_manager, 5 * TILE_SIZE, 5 * TILE_SIZE, TILE_SIZE - 4, TILE_SIZE - 4, 120, 0);
-        // add_saw(&saw_manager, 12 * TILE_SIZE, 8 * TILE_SIZE, TILE_SIZE - 4, TILE_SIZE - 4, -140, 0);
-        
-        // // Add some vertical moving saws
-        // add_saw(&saw_manager, 26 * TILE_SIZE, 12 * TILE_SIZE, TILE_SIZE - 4, TILE_SIZE - 4, 0, 130);
-        // add_saw(&saw_manager, 26 * TILE_SIZE, 16 * TILE_SIZE, TILE_SIZE - 4, TILE_SIZE - 4, 0, -130);
-        
-        // // Add diagonal moving saws for extra challenge
-        // add_saw(&saw_manager, 8 * TILE_SIZE, 14 * TILE_SIZE, TILE_SIZE - 4, TILE_SIZE - 4, 100, 100);
-        // add_saw(&saw_manager, 20 * TILE_SIZE, 15 * TILE_SIZE, TILE_SIZE - 4, TILE_SIZE - 4, -100, -100);
-    // }
 }
-
-// int is_wall_at(int level, int tile_x, int tile_y) {
-//     return (current_level_map[tile_y][tile_x] == 1);
-// }

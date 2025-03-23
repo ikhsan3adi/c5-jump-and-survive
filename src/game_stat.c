@@ -68,7 +68,7 @@ bool sub_life(GameStat *stat)
         stat->last_hit_time = now;
 
         if (stat->lives == 0)
-        {   
+        {
             stop_music();
             SDL_Renderer *renderer = get_game_instance()->renderer;
             show_game_over_ui(renderer, *stat);

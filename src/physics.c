@@ -32,8 +32,10 @@ Transform *check_collision_all(Transform *entity, Transform *objects[], int obje
   return NULL; // Tidak ada tabrakan
 }
 
-void handle_saw_collision(Transform saw_transform, Transform player_transform) {
-  if (check_collision(saw_transform, player_transform)) {
+void handle_saw_collision(Transform saw_transform, Transform player_transform)
+{
+  if (check_collision(saw_transform, player_transform))
+  {
     play_sound(dead_sfx, 4, 0);
     sub_life(&game_stat);
     reinitiate_player(player, current_level);

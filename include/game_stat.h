@@ -6,10 +6,11 @@
 
 #define DEFAULT_LIVES 3  // Jumlah nyawa awal
 
-typedef struct {
-    int score;   // Skor pemain
-    int lives;   // Jumlah nyawa pemain
-    Uint32 start_time; 
+typedef struct
+{
+    int score; // Skor pemain
+    int lives; // Jumlah nyawa pemain
+    Uint32 start_time;
     Uint32 stop_time;
     Uint32 elapsed_time;
     Uint32 last_hit_time;
