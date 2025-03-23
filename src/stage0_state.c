@@ -27,8 +27,6 @@ void stage0_init()
   SDL_Log("Stage 0 State: Initialized");
 
   player = create_player((Transform){120, 416, 32, 32}, 10000.0f, 1.0f, 1);
-  init_game_stat(&game_stat);
-  start_timer(&game_stat);
 
   SDL_Renderer *renderer = get_game_instance()->renderer;
   show_stage_transition(renderer, 0);
@@ -38,6 +36,9 @@ void stage0_init()
   {
     play_music(stage0_bgm, INT32_MAX);
   }
+
+  init_game_stat(&game_stat);
+  start_timer(&game_stat);
   change_level(0);
 }
 
