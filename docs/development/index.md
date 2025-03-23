@@ -10,23 +10,23 @@ Halaman ini bertujuan untuk memberikan gambaran umum tentang pengembangan proyek
 
 1. [**Ikhsan Satriadi** (241511080)](https://github.com/ikhsan3adi)
 
-     Mengembangkan core lifecycle game, seperti pengelolaan state, dan bertanggung jawab atas inisialisasi program menggunakan library SDL untuk membuat _window_ dan _renderer_. Ikut membantu dalam pengembangan entity dan level. Selain itu, juga membuat dokumentasi teknis proyek.
+     Mengembangkan logika lifecycle game, seperti pengelolaan state, dan bertanggung jawab atas inisialisasi program menggunakan library SDL untuk membuat _window_ dan _renderer_. Ikut membantu dalam pengembangan  entity, level dan beberapa tampilan/ui. Selain itu, juga membuat dokumentasi teknis proyek.
 
 2. [**Muhamad Syahid** (241511081)](https://github.com/muhamadSyahid)
 
-     Bertanggung jawab pada pengelolaan entity, seperti player, musuh, dan objek dinamis lainnya. Tanggung jawab juga meliputi pengembangan logika fisika untuk entitas, termasuk implementasi sistem tabrakan / collision dengan tile map.
+     Bertanggung jawab pada pengelolaan entity, seperti player, dan objek dinamis lainnya. Tanggung jawab juga meliputi pengembangan logika fisika untuk entitas, termasuk implementasi sistem tabrakan / collision dengan tile map. Selain itu, juga membuat logika rintangan.
 
 3. [**Hisyam Khaeru Umam** (241511078)](https://github.com/Umeem26)
 
-     Merancang dan mengimplementasikan level permainan, termasuk mendesain level-level dengan berbagai elemen seperti tata letak platform dan rintangan. Selain itu, juga mendesain bentuk dan tampilan player.
+     Merancang dan mengimplementasikan level permainan, termasuk mendesain level-level dengan berbagai elemen seperti tata letak platform dan rintangan. Membuat dan mengatur logika audio dan sound effect. Selain itu, juga mendesain bentuk dan tampilan player.
 
 4. [**Helga Athifa Hidayat** (241511077)](https://github.com/helga1406)
 
-     Mengembangkan antarmuka pengguna (UI), mencakup perancangan menu utama, game over, pause, navigasi antar halaman, serta elemen visual seperti indikator skor dan nyawa.
+     Mengembangkan antarmuka pengguna (UI), mencakup perancangan menu utama dan elemen visual seperti indikator skor dan nyawa. Membuat antarmuka untuk menampilkan teks. Selain itu, juga mengatur asset font yang digunakan dalam permainan.
 
 5. [**Hanifidin Ibrahim** (241511076)](https://github.com/Hanif13579)
 
-     Mengelola sistem statistik permainan (_Game Stats_), termasuk mencatat dan menampilkan data seperti skor, jumlah nyawa yang tersisa, dan timer.
+     Mengelola sistem statistik permainan (_Game Stats_), termasuk mencatat dan menampilkan data seperti skor, jumlah nyawa yang tersisa, dan timer. Selain itu, juga membuat desain tampilan _obstacle_ dan _coin_.
 
 ### Pembagian Branch
 
@@ -39,7 +39,7 @@ Halaman ini bertujuan untuk memberikan gambaran umum tentang pengembangan proyek
 - **`feat/entity-and-physics`**: Mengembangkan logika _entity_ (player) dan modul fisika.
 - **`feat/tile-system`**: Mengimplementasikan sistem tile untuk _level design_.
 - **`feat/game-stat`**: Berisi pengembangan fitur terkait statistik game, seperti skor dan waktu bermain.
-- **`feat/coins-and-other-obstacles`**: Mengembangkan fitur tambahan, seperti koin dan rintangan dalam permainan.
+- **`feat/coins-and-other-obstacles`**: Mengembangkan fitur koin dan rintangan dalam permainan.
 
 #### Branch dokumentasi
 

@@ -14,28 +14,30 @@ Halaman ini memberikan penjelasan terperinci tentang modul-modul utama dalam gam
 
 - [Modul `transform`](./transform.md)
 
-<!-- TODO -->
+- [Modul `vector`](./vector.md)
 
-<!-- - [Modul `entity`](./entity.md) -->
+- [Modul `entity`](./entity.md)
 
-<!-- - [Modul `physics`](./physics.md) -->
+- [Modul `physics`](./physics.md)
 
-<!-- - [Modul `player`](./player.md) -->
+- [Modul `player`](./player.md)
 
-<!-- - [Modul `level`](./level.md) -->
+- [Modul `level`](./level.md)
 
-<!-- - [Modul `obstacle`](./obstacle.md) -->
+- [Modul `obstacle`](./obstacle.md)
 
-<!-- - [Modul `game_stat`](./game_stat.md) -->
+- [Modul `game_stat`](./game_stat.md)
 
-<!-- - [Modul `ui`](./ui.md) -->
+- [Modul `ui`](./ui.md)
 
-<!-- - [Modul `SFX`](./sfx.md) -->
+- [Modul `SFX`](./sfx.md)
 
-<!-- - [Start Menu (`menu_state`)](./menu_state.md) -->
+- [Modul `util`](./util.md)
 
-<!-- - [Stage 0 (`stage0_state`)](./stage0_state.md) -->
+- [Start Menu (`menu_state`)](./menu_state.md)
 
-<!-- - [Stage 1 (`stage1_state`)](./stage1_state.md) -->
+- [Stage 0 (`stage0_state`)](./stage0_state.md)
+
+- [Stage 1 (`stage1_state`)](./stage1_state.md)
 
 ---

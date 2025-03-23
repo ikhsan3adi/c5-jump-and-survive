@@ -12,7 +12,7 @@
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) { ... }
 ```
 
-Fungsi `SDL_AppInit` adalah titik awal aplikasi, dipanggil hanya sekali saat program dimulai. Fungsi ini bertugas untuk melakukan inisialisasi awal, termasuk memanggil fungsi `initialize()` untuk inisialisasi permainan dan mengatur metadata. Selanjutnya, fungsi `create_game_instance()` dipanggil untuk membuat window dan renderer game. Terakhir, `change_game_state()` digunakan untuk mengatur state awal permainan ke `menu_state`, yang berarti layar menu akan ditampilkan pertama kali saat aplikasi dijalankan.
+Fungsi `SDL_AppInit` adalah titik awal aplikasi, dipanggil hanya sekali saat program dimulai. Fungsi ini bertugas untuk melakukan inisialisasi awal, termasuk memanggil fungsi `initialize()` untuk inisialisasi permainan dan mengatur metadata. Selanjutnya, fungsi `create_game_instance()` dipanggil untuk membuat window dan renderer game. Memanggil `init_font()` dan `init_audio()` untuk memuat asset. Terakhir, `change_game_state()` digunakan untuk mengatur state awal permainan ke `menu_state`, yang berarti layar menu akan ditampilkan pertama kali saat aplikasi dijalankan. Fungsi
 
 ---
 
@@ -42,7 +42,9 @@ Fungsi `SDL_AppIterate` adalah jantung dari loop permainan, dipanggil setiap fra
 
 ```c
   Uint64 current_time = SDL_GetTicks();
+
   double delta_time = ((current_time - last_time) * 1000 / (double)SDL_GetPerformanceFrequency());
+
   last_time = current_time;
 ```
 
@@ -53,6 +55,7 @@ Kemudian, fungsi ini mengambil `renderer` dari instance permainan, yang digunaka
 
   current_state->update(delta_time);
   current_state->render(renderer);
+  SDL_RenderPresent(renderer);
 ```
 
 ---

@@ -11,6 +11,7 @@ typedef struct
 {
   SDL_Window *window;
   SDL_Renderer *renderer;
+  bool is_physics_paused;
 } Game;
 ```
 
@@ -92,18 +93,52 @@ Game *get_game_instance()
 }
 ```
 
+### **skip_physics_frame()**
+
+```c title="game.h"
+void skip_physics_frame();
+```
+
+Fungsi `skip_physics_frame` digunakan untuk membekukan frame dari pemrosesan fisika dengan mengatur `delta_time` ke 0. Fungsi ini akan mengubah `is_physics_paused` dari `game` ke `true`.
+
+### **resume_physics()**
+
+```c title="game.h"
+void resume_physics();
+```
+
+Fungsi `resume_physics` digunakan untuk mengaktifkan pemrosesan fisika. Fungsi ini akan mengubah `is_physics_paused` dari `game` ke `false`.
+
 ## Interaksi dengan modul lain
 
-Fungsi-fungsi yang didefinisikan dalam modul `game` ini (yaitu `initialize()`, `create_game_instance()`, dan `get_game_instance()`) dipanggil dari [`main.c` (main program)](./main.md) untuk melakukan inisialisasi SDL, membuat window dan renderer game untuk digunakan di bagian lain program, contohnya digunakan di fungsi render dari `game_state`
+* **Inisialisasi Window dan Renderer**
 
-```c title="main.c" hl_lines="1 2 7"
-  Game *game = get_game_instance();
-  SDL_Renderer *renderer = game->renderer;
+    Fungsi-fungsi yang didefinisikan dalam modul `game` ini (yaitu `initialize()`, `create_game_instance()`, dan `get_game_instance()`) dipanggil dari [`main.c` (main program)](./main.md) untuk melakukan inisialisasi SDL, membuat window dan renderer game untuk digunakan di bagian lain program, contohnya digunakan di fungsi render dari `game_state`
 
-  GameState *current_state = get_current_game_state();
+    ```c title="main.c" hl_lines="1 2 7"
+      Game *game = get_game_instance();
+      SDL_Renderer *renderer = game->renderer;
 
-  current_state->update(delta_time);
-  current_state->render(renderer);
-```
+      GameState *current_state = get_current_game_state();
+
+      current_state->update(delta_time);
+      current_state->render(renderer);
+    ```
+
+* **Mengatur Physics**
+
+    Fungsi `skip_physics_frame()` dan `resume_physics()` dipanggil untuk membekukan frame dari pemrosesan fisika dan mengaktifkan pemrosesan fisika. Digunakan ketika pause, game over dan kondisi lain yang memerlukan pemrosesan fisika dijeda.
+
+    ```c title="main.c" hl_lines="4"
+    if (game->is_physics_paused)
+    {
+      delta_time = 0.0f;
+      resume_physics();
+    }
+    else
+    {
+      delta_time = ((current_time - last_time) * 1000 / (double)SDL_GetPerformanceFrequency());
+    }
+    ```
 
 ---

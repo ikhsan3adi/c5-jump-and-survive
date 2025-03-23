@@ -29,17 +29,19 @@ nav:
           - Modul game: development/modules/game.md
           - Modul game_state: development/modules/game_state.md
           - Modul transform: development/modules/transform.md
-          # - Modul entity: development/modules/entity.md
-          # - Modul physics: development/modules/physics.md
-          # - Modul player: development/modules/player.md
-          # - Modul level: development/modules/level.md
-          # - Modul obstacle: development/modules/obstacle.md
-          # - Modul game_stat: development/modules/game_stat.md
-          # - Modul ui: development/modules/ui.md
-          # - Modul SFX: development/modules/sfx.md
-          # - Start Menu (menu_state): development/modules/menu_state.md
-          # - Stage 0 (stage0_state): development/modules/stage0_state.md
-          # - Stage 1 (stage1_state): development/modules/stage1_state.md
+          - Modul vector: development/modules/vector.md
+          - Modul entity: development/modules/entity.md
+          - Modul physics: development/modules/physics.md
+          - Modul player: development/modules/player.md
+          - Modul level: development/modules/level.md
+          - Modul obstacle: development/modules/obstacle.md
+          - Modul game_stat: development/modules/game_stat.md
+          - Modul UI: development/modules/ui.md
+          - Modul SFX: development/modules/sfx.md
+          - Modul util: development/modules/util.md
+          - Start Menu (menu_state): development/modules/menu_state.md
+          - Stage 0 (stage0_state): development/modules/stage0_state.md
+          - Stage 1 (stage1_state): development/modules/stage1_state.md
   - Penggunaan:
       - Cara Menjalankan Program: usage.md
       - Cara Memainkan: how-to-play.md

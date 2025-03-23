@@ -27,7 +27,8 @@ Selamat Datang di Jump & Survive Documentation!
 5. **Sistem Tile Map Berbasis Array 2D**  
    Tile system menggunakan array 2D untuk merepresentasikan map secara grid.
 
-6. **Tampilan Menu Utama**  
+6. **User Interface & Menu Utama**  
+   Tampilan menu utama. Selain itu, terdapat tampilan pause, game over, dan level transition.
 
 ---
 
