@@ -7,8 +7,11 @@
 #include "game_state.h"
 #include "player.h"
 #include "level.h"
-
-Entity *player;
+#include "obstacles.h"
+#include "entity.h"
+#include "game_stat.h"
+#include "ui.h"
+#include "SFX.h"
 
 // Definisi state
 GameState stage0_state = {
@@ -23,8 +26,19 @@ void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
 
-  // Inisialisasi player
-  player = create_entity(100, 400, 32, 32, (SDL_Color){0, 0, 0, 255});
+  player = create_entity(120, 416, 32, 32, (SDL_Color){0, 0, 0, 255});
+  init_game_stat(&game_stat);
+  start_timer(&game_stat);
+
+  SDL_Renderer *renderer = get_game_instance()->renderer;
+  show_stage_transition(renderer, 0);
+
+  // Memainkan musik latar belakang
+  if (stage0_bgm)
+  {
+    play_music(stage0_bgm, INT32_MAX);
+  }
+  change_level(0);
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -33,15 +47,13 @@ void stage0_handle_input(SDL_Event *event)
 
   if (event->type == SDL_EVENT_KEY_DOWN)
   {
-    //! CONTOH
-    if (event->key.scancode == SDL_SCANCODE_N)
-    {
-      change_level(current_level == 0 ? 1 : 0);
 
-      if (current_level == 2)
-      {
-        change_game_state(&stage1_state);
-      }
+    if (event->key.scancode == SDL_SCANCODE_ESCAPE)
+    {
+      stop_music();
+      SDL_Renderer *renderer = get_game_instance()->renderer;
+      show_pause_ui(renderer);
+      play_music(stage0_bgm, INT32_MAX);
     }
   }
 }
@@ -49,30 +61,32 @@ void stage0_handle_input(SDL_Event *event)
 void stage0_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
-  
-  if (is_exit(&player->transform)) {
-    change_level(current_level + 1);
-    initiate_player(player,100,300);
-    if (current_level == 2)
-    {
-      initiate_player(player,650,100);
-    }
-    if (current_level == 3)
-    {
-      initiate_player(player,70,170);
-    }
-    if (current_level == 4)
-    {
-      initiate_player(player,570,70);
-    } 
-    if (current_level == 5)
-    {
-      initiate_player(player,80,300);
-    } 
-  }
-    
-}
 
+  game_stat.elapsed_time = get_elapsed_time(&game_stat);
+
+  if (is_exit(&player->transform))
+  {
+    SDL_Renderer *renderer = get_game_instance()->renderer;
+    show_level_transition(renderer, 0, current_level);
+    current_level++;
+
+    change_level(current_level);
+
+    if (current_level == 1 || current_level == 0)
+    {
+      initiate_player(player, 100, 300);
+    }
+    else if (current_level == 2)
+    {
+      initiate_player(player, 650, 100);
+    }
+    else if (current_level == 3)
+    {
+      change_game_state(&stage1_state);
+      initiate_player(player, 70, 170);
+    }
+  }
+}
 
 void stage0_render(SDL_Renderer *renderer)
 {
@@ -83,16 +97,13 @@ void stage0_render(SDL_Renderer *renderer)
   render_level(renderer);
 
   // Render player
-  SDL_SetRenderDrawColor(renderer, player->render.color.r, player->render.color.g, player->render.color.b, 255);
-  SDL_FRect player_rect = {player->transform.x, player->transform.y, player->transform.w, player->transform.h};
-  SDL_RenderFillRect(renderer, &player_rect);
+  render_player(renderer, player);
 
-
-  SDL_RenderPresent(renderer);
+  render_game_ui(renderer, &game_stat);
 }
 
 void stage0_cleanup()
 {
   SDL_Log("Stage 0 State: Cleaned up");
-  destroy_player(player);
+  destroy_player(player); //
 }
