@@ -7,7 +7,6 @@
 #include "vector.h"
 #include "obstacle.h"
 #include "SFX.h"
-#include "gameover_state.h"
 #include "ui.h"
 
 int solid_tiles[] = {

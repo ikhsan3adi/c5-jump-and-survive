@@ -81,6 +81,7 @@ void handle_player_input(Entity *player, SDL_Event *event)
     {
       player->physics.velocity_y = PLAYER_JUMP;
       play_sound(jump_sfx, 1, 0);
+      key_state[event->key.scancode] = false;
     }
   }
   else if (event->type == SDL_EVENT_KEY_UP)
