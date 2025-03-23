@@ -2,7 +2,7 @@
 
 Selamat Datang di Jump & Survive Documentation!
 
-<!-- TODO: Put preview or banner image here -->
+![1742751997051](image/index/1742751997051.png)
 
 ## Deskripsi Singkat
 

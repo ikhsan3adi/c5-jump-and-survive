@@ -137,7 +137,7 @@ Fungsi `reinitiate_player` digunakan untuk mengatur ulang posisi pemain berdasar
 void handle_player_input(Entity *player, SDL_Event *event);
 ```
 
-Fungsi `handle_player_input` menangani input dari pemain. Fungsi ini menerima pointer ke entity pemain dan event SDL sebagai input. Berdasarkan event (tekanan tombol keyboard), fungsi ini akan memperbarui status `key_state` dan mungkin memicu aksi pemain seperti bergerak atau melompat.
+Fungsi `handle_player_input` menangani input dari pemain. Fungsi ini menerima pointer ke entity pemain dan event SDL sebagai input. Berdasarkan event (tekanan tombol keyboard), fungsi ini akan memperbarui status `key_state` dan memicu aksi pemain seperti bergerak atau melompat.
 
 ---
 

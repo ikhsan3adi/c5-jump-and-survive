@@ -228,6 +228,6 @@ Modul `game_stat` berinteraksi dengan modul lain sebagai berikut:
 * **Modul `ui`:** Modul `ui` menggunakan informasi dari struktur `GameStat` (melalui variabel global `game_stat`) untuk menampilkan status permainan kepada pemain. Ini termasuk:
     * Menampilkan skor pemain saat ini menggunakan `game_stat.score` dalam UI game.
     * Menampilkan jumlah nyawa pemain saat ini menggunakan `game_stat.lives` dalam UI game.
-    * Menampilkan skor akhir dan mungkin statistik lainnya pada layar "Game Over" dan "Congratulations" menggunakan data dari `game_stat`.
+    * Menampilkan skor akhir dan statistik lainnya pada layar "Game Over" dan "Congratulations" menggunakan data dari `game_stat`.
 
 ---

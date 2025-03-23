@@ -11,7 +11,7 @@
 ```c title="entity.h"
 typedef struct
 {
-SDL_Color color;
+    SDL_Color color;
 } EntityRenderComponent;
 ```
 
@@ -22,9 +22,9 @@ Struktur `EntityRenderComponent` menyimpan informasi yang berkaitan dengan rende
 ```c title="entity.h"
 typedef struct
 {
-Transform transform;
-EntityRenderComponent render;
-Physics physics;
+    Transform transform;
+    EntityRenderComponent render;
+    Physics physics;
 } Entity;
 ```
 
