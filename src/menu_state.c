@@ -44,7 +44,7 @@ void menu_handle_input(SDL_Event *event)
 {
     if (event->type == SDL_EVENT_KEY_DOWN)
     {
-        SDL_Log("Key Pressed: %d", event->key.key);
+        SDL_Log("Key Pressed: %d (%s)", event->key.key, SDL_GetKeyName(event->key.key));
         switch (event->key.key)
         {
         case SDLK_DOWN:
