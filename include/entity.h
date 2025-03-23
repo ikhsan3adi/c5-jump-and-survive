@@ -24,6 +24,8 @@
 extern int solid_tiles[];
 
 extern int destruct_tiles[];
+
+extern SawManager saw_manager;
 typedef struct
 {
     SDL_Color color;
