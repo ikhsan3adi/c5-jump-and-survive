@@ -368,8 +368,8 @@ void setup_level_saws(int level) {
         // add_saw(&saw_manager, 15 * TILE_SIZE, 5 * TILE_SIZE, TILE_SIZE - 4, TILE_SIZE - 4, 0, 80);     // Vertical moving saw
         
         // // Saws in the middle open area (rows 8-10, columns 3-27)
-        add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 200, 0);    // Horizontal moving saw
-        add_saw(&saw_manager, 20 * TILE_SIZE, 9 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -200, 0);   // Horizontal moving saw opposite direction
+        add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);    // Horizontal moving saw
+        add_saw(&saw_manager, 20 * TILE_SIZE, 9 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   // Horizontal moving saw opposite direction
         
         // // Saws in the bottom section (rows 13-19, columns 25-27)
         // create_vertical_saw_wall(&saw_manager, 26 * TILE_SIZE, 13 * TILE_SIZE, 19 * TILE_SIZE, 80, TILE_SIZE * 2, TILE_SIZE - 4);

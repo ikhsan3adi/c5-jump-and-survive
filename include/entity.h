@@ -19,11 +19,13 @@
 #define SAWS 7
 #define FAKE_COINS 8
 #define EXIT_GATE 9
-#define BUTTON 10
+#define BUTTON 10 
 
 extern int solid_tiles[];
 
 extern int destruct_tiles[];
+
+extern Vector gate_tiles[10];
 
 extern SawManager saw_manager;
 typedef struct
@@ -61,4 +63,12 @@ bool is_button(Transform *transform,Vector button);
 void interaction_buttons_switch(Entity *player,Switch button);
 
 void interaction_buttons_obstacles_switch(Entity *player,Switch_Obstacles button);
+
+bool has_coin_tiles();
+
+void find_gate_tiles();
+
+void restore_gate_tiles();
+
+void hide_gate_tiles();
 #endif

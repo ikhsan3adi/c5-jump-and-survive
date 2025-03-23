@@ -278,6 +278,9 @@ void change_level(int level)
   {
     case 1:
     memcpy(current_level_map,level1_map,sizeof(level1_map));
+ 
+    find_gate_tiles();
+    hide_gate_tiles();   
     buttonL1 = (Switch){.button = {13,6}, .switches = {{13,7},{13,8},
                                                 {14,7},{14,8},
                                                 {15,7},{15,8},
@@ -288,15 +291,23 @@ void change_level(int level)
     break;
   case 2:
     memcpy(current_level_map,level2_map,sizeof(level2_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     break;
   case 3:
     memcpy(current_level_map,level3_map,sizeof(level3_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     break;
   case 4:
     memcpy(current_level_map,level4_map,sizeof(level4_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     break;
   case 5:
     memcpy(current_level_map,level5_map,sizeof(level5_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     buttonL51 = (Switch){.button = {9,8}, .switches = {{13,9},{13,10},
                                                 {14,9},{14,10},
                                                 {15,9},{15,10},
@@ -314,6 +325,8 @@ void change_level(int level)
     break;
   case 6:
     memcpy(current_level_map,level6_map,sizeof(level6_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     buttonL61 = (Switch){.button = {11,9}, .switches = {{11,10},
                                                 {12,10},
                                                 {13,10}}};
@@ -324,10 +337,14 @@ void change_level(int level)
     break;
   case 7:
     memcpy(current_level_map,level7_map,sizeof(level7_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     buttonL7 = (Switch_Obstacles){.button = {10,7}, .switches = {{10,24}}, .obstacles = {{10,6}}};
     break;  
   case 8:
     memcpy(current_level_map,level8_map,sizeof(level8_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     buttonL81 = (Switch_Obstacles){.button = {13,7}, .switches = {{11,14},
                                                                   {12,14}},
                                                      .obstacles = {{13,3},{13,4},{13,5},{13,6}}};
@@ -337,12 +354,16 @@ void change_level(int level)
     break;
   case 9:
     memcpy(current_level_map,level9_map,sizeof(level9_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     buttonL91 = (Switch_Obstacles){.button = {7,21}, .switches = {}, .obstacles = {{7,7},{8,7}}};
     buttonL92 = (Switch_Obstacles){.button = {11,15}, .obstacles = {{11,21},
                                                 {12,21}}};
     break;
   case 10:
     memcpy(current_level_map,level10_map,sizeof(level10_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     buttonL101 = (Switch_Obstacles){.button = {9,4}, .switches = {{11,7},
                                                                   {12,7},
                                                                   {13,7}},
@@ -354,6 +375,8 @@ void change_level(int level)
   case 0:
   default:
     memcpy(current_level_map,level0_map,sizeof(level0_map));
+    find_gate_tiles();
+    hide_gate_tiles();
     break;
   }
   current_level = level;
