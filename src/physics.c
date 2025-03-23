@@ -33,10 +33,9 @@ Transform *check_collision_all(Transform *entity, Transform *objects[], int obje
 }
 
 void handle_saw_collision(Transform saw_transform, Transform player_transform) {
-  bool is_alive = true;
   if (check_collision(saw_transform, player_transform)) {
     play_sound(dead_sfx, 4, 0);
-    is_alive = sub_life(&game_stat);
+    sub_life(&game_stat);
     reinitiate_player(player, current_level);
   }
 }

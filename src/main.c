@@ -80,5 +80,6 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 void SDL_AppQuit(void *appstate, SDL_AppResult result)
 {
   clean_up_ui();
+  cleanup_audio();
   /* SDL will clean up the window/renderer for us. */
 }
