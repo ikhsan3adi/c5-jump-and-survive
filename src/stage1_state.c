@@ -37,7 +37,8 @@ void stage1_init()
   {
     play_music(stage1_bgm, INT32_MAX);
   }
-  if (current_level == 9) {
+  if (current_level == 9)
+  {
     setup_level_saws(current_level);
   }
   change_level(current_level);
@@ -51,9 +52,10 @@ void stage1_handle_input(SDL_Event *event)
   if (event->type == SDL_EVENT_KEY_DOWN)
   {
 
-    if (event->key.scancode == SDL_SCANCODE_N){
-        change_level(current_level + 1);
-        reinitiate_player(player, current_level);
+    if (event->key.scancode == SDL_SCANCODE_N)
+    {
+      change_level(current_level + 1);
+      reinitiate_player(player, current_level);
     }
 
     if (event->key.scancode == SDL_SCANCODE_ESCAPE)
@@ -70,13 +72,12 @@ void stage1_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
 
-  if (current_level == 9) {
-    update_all_saws(&saw_manager, delta_time);
-    
-    // Check for collision with player
-    for (int i = 0; i < saw_manager.count; i++) {
-      handle_saw_collision(saw_manager.saws[i]->transform, player->transform);
-    }
+  update_all_saws(&saw_manager, delta_time);
+
+  // Check for collision with player
+  for (int i = 0; i < saw_manager.count; i++)
+  {
+    handle_saw_collision(saw_manager.saws[i]->transform, player->transform);
   }
 
   game_stat.elapsed_time = get_elapsed_time(&game_stat);
@@ -95,6 +96,8 @@ void stage1_update(double delta_time)
     show_level_transition(renderer, 1, current_level);
     current_level++;
     change_level(current_level);
+    cleanup_saw_manager(&saw_manager);
+    setup_level_saws(current_level);
 
     if (current_level == 4)
     {
@@ -119,7 +122,6 @@ void stage1_update(double delta_time)
     else if (current_level == 9)
     {
       initiate_player(player, 75, 500);
-      setup_level_saws(current_level);
     }
     else if (current_level == 10)
     {
@@ -137,13 +139,11 @@ void stage1_render(SDL_Renderer *renderer)
   render_level(renderer);
 
   // Render Saws
-  if (current_level == 9) {
-    render_all_saws(renderer, &saw_manager);
-  }
+
+  render_all_saws(renderer, &saw_manager);
 
   // Render player
   render_player(renderer, player);
-
 
   render_game_ui(renderer, &game_stat);
 }

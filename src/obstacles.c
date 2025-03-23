@@ -361,19 +361,36 @@ void cleanup_saw_manager(SawManager* manager) {
 
 void setup_level_saws(int level) {
     // cleanup_saw_manager(saw_manager);
-    
-    if (level == 9) {
-        // Level 9 saws - adjust positions and velocities as needed
-        // add_saw(&saw_manager, 5 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE - 4, TILE_SIZE - 4, 100, 0);     // Horizontal moving saw
-        // add_saw(&saw_manager, 15 * TILE_SIZE, 5 * TILE_SIZE, TILE_SIZE - 4, TILE_SIZE - 4, 0, 80);     // Vertical moving saw
-        
-        // // Saws in the middle open area (rows 8-10, columns 3-27)
-        add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);    // Horizontal moving saw
-        add_saw(&saw_manager, 20 * TILE_SIZE, 9 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   // Horizontal moving saw opposite direction
-        
-        // // Saws in the bottom section (rows 13-19, columns 25-27)
-        // create_vertical_saw_wall(&saw_manager, 26 * TILE_SIZE, 13 * TILE_SIZE, 19 * TILE_SIZE, 80, TILE_SIZE * 2, TILE_SIZE - 4);
+
+    if (level == 7) 
+    {
+        add_saw(&saw_manager, 20 * TILE_SIZE, 5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
+        add_saw(&saw_manager, 15 * TILE_SIZE, 8 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);     
+        add_saw(&saw_manager, 20 * TILE_SIZE, 11 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   
     }
+
+    if (level == 8)
+    {
+        add_saw(&saw_manager, 24 * TILE_SIZE, 20 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, 1500);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 10 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, -1500);     
+        add_saw(&saw_manager, 16 * TILE_SIZE, 20 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, 1500);  
+    }
+    
+    if (level == 9)
+    {
+        
+        add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);    
+        add_saw(&saw_manager, 20 * TILE_SIZE, 9 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   
+    }
+
+    if (level == 10)
+    {
+        add_saw(&saw_manager, 25 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 7 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);     
+        add_saw(&saw_manager, 25 * TILE_SIZE, 10 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   
+        add_saw(&saw_manager, 20 * TILE_SIZE, 13 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);     
+    }
+    
     // else if (level == 10) {
         // Level 10 saws - more challenging patterns
         // create_circular_saw_pattern(&saw_manager, 15 * TILE_SIZE, 10 * TILE_SIZE, 60, 6, 80, TILE_SIZE - 6);
