@@ -5,7 +5,7 @@
 #include "player.h"
 #include "level.h"
 #include "vector.h"
-#include "obstacle.h"
+#include "obstacles.h"
 #include "SFX.h"
 #include "ui.h"
 
@@ -23,6 +23,9 @@ int destruct_tiles[] = {
     FAKE_COINS
     // tambahin kalo ada
 };
+
+Vector gate_tiles[10];
+int num_gate_tiles = 0;
 
 Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
 {
@@ -117,6 +120,11 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
     break;
   }
 
+  bool coin_status = has_coin_tiles();
+  if (!coin_status) {
+    restore_gate_tiles(); 
+  }
+
   // Menerapkan gesekan
   entity->physics.velocity_x *= entity->physics.friction;
 
@@ -135,6 +143,7 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   bool hole = is_void(&entity->transform);
   if (hole)
   {
+    play_sound(dead_sfx, 4, 0);
     is_alive = sub_life(&game_stat);
     reinitiate_player(entity, current_level);
   }
@@ -329,5 +338,50 @@ void interaction_buttons_obstacles_switch(Entity *player, Switch_Obstacles butto
         current_level_map[button.obstacles[i].y][button.obstacles[i].x] = SOLID_OBSTACLE;
       }
     }
+  }
+}
+
+bool has_coin_tiles() {
+  for (int y = 0; y < MAP_HEIGHT; y++) {
+      for (int x = 0; x < MAP_WIDTH; x++) {
+          if (current_level_map[y][x] == 4) {
+              return true;
+          }
+      }
+  }
+  return false;
+}
+
+void find_gate_tiles() {
+  num_gate_tiles = 0;
+  for (int y = 0; y < MAP_HEIGHT; y++) {
+      for (int x = 0; x < MAP_WIDTH; x++) {
+          if (current_level_map[y][x] == 9) {
+              if (num_gate_tiles < 10) {
+                  gate_tiles[num_gate_tiles].y = y;
+                  gate_tiles[num_gate_tiles].x = x;
+                  num_gate_tiles++;
+              }
+          }
+      }
+  }
+}
+
+void hide_gate_tiles() {
+  bool status = has_coin_tiles();
+  if (status) {
+      for (int i = 0; i < num_gate_tiles; i++) {
+          int y = gate_tiles[i].y;
+          int x = gate_tiles[i].x;
+          current_level_map[y][x] = 0;
+      }
+  }
+}
+
+void restore_gate_tiles() {
+  for (int i = 0; i < num_gate_tiles; i++) {
+      int y = gate_tiles[i].y;
+      int x = gate_tiles[i].x;
+      current_level_map[y][x] = 9;
   }
 }
