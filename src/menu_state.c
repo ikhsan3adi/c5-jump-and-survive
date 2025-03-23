@@ -1,8 +1,9 @@
 #include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3/SDL_ttf.h>
 #include "menu_state.h"
 #include "stage0_state.h"
 #include "ui.h"
+#include "SFX.h"
 
 // Enum untuk pilihan menu
 typedef enum
@@ -58,6 +59,7 @@ void menu_init()
 {
     load_font();
     SDL_Log("Menu State: Initialized");
+    play_music(menu_bgm, INT32_MAX);
 }
 void menu_handle_input(SDL_Event *event)
 {
@@ -145,8 +147,8 @@ void menu_render(SDL_Renderer *renderer)
 
     render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 125, 80, 1.4, dark_brown);
 
-    SDL_Color brown_orange = {175, 90, 40, 255}; // Coklat dengan sedikit oranye
-    SDL_Color red_orange = {210, 60, 30, 255};   // Lebih merah untuk tombol yang diseleksi
+    SDL_Color brown_orange = {124, 162, 142, 255}; // Coklat dengan sedikit oranye
+    SDL_Color red_orange = {124, 162, 142, 255};   // Lebih merah untuk tombol yang diseleksi
 
     // Warna tombol diperbaiki agar sesuai dengan current_selection
     SDL_Color start_button_color = (current_selection == MENU_START) ? red_orange : brown_orange;

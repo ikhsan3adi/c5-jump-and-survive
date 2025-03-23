@@ -6,6 +6,8 @@
 #include "game_state.h"
 #include "menu_state.h"
 #include "game_stat.h"
+#include "SFX.h"
+#include "ui.h"
 
 Uint64 last_time;
 
@@ -15,6 +17,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
   initialize("Jump & Survive", "1.0", "com.c5.jump-and-survive");
 
   create_game_instance("Jump & Survive", 960, 640);
+
+  init_audio();
 
   last_time = SDL_GetTicks();
 
@@ -60,5 +64,6 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 /* This function runs once at shutdown. */
 void SDL_AppQuit(void *appstate, SDL_AppResult result)
 {
+  clean_up_ui();
   /* SDL will clean up the window/renderer for us. */
 }

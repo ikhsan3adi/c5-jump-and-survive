@@ -18,6 +18,7 @@
 #define SAWS 7
 #define FAKE_COINS 8
 #define EXIT_GATE 9
+#define BUTTON 10
 
 extern int solid_tiles[];
 
@@ -51,4 +52,7 @@ bool is_exit(Transform *transform);
 bool is_coin(Transform *transform);
 
 bool is_destruct(Transform *transform);
+// bool is_button(Transform *transform,Switch button);
+
+// void interaction_buttons(Entity *player,Switch button);
 #endif
