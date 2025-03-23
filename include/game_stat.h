@@ -6,12 +6,14 @@
 
 #define DEFAULT_LIVES 3  // Jumlah nyawa awal
 
-typedef struct {
-    int score;   // Skor pemain
-    int lives;   // Jumlah nyawa pemain
-    Uint32 start_time; 
+typedef struct
+{
+    int score; // Skor pemain
+    int lives; // Jumlah nyawa pemain
+    Uint32 start_time;
     Uint32 stop_time;
-    Uint32 elapsed_time; 
+    Uint32 elapsed_time;
+    Uint32 last_hit_time;
 } GameStat;
 
 extern GameStat game_stat; // Variabel global untuk status game
@@ -36,7 +38,7 @@ void reset_score(GameStat *stat);
 // Menambah satu nyawa (dengan batas maksimum)
 void add_life(GameStat *stat);
 
-// Mengurangi satu nyawa (cek jika game over)
-void sub_life(GameStat *stat);
+// Mengurangi satu nyawa (return false jika nyawa abis)
+bool sub_life(GameStat *stat);
 
 #endif // GAME_STAT_H

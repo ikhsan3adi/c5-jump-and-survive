@@ -3,6 +3,10 @@
 #include "menu_state.h"
 #include "stage0_state.h"
 #include "ui.h"
+#include "player.h"
+#include "level.h"
+#include "SFX.h"
+#include "game.h"
 
 // Enum untuk pilihan menu
 typedef enum
@@ -26,44 +30,21 @@ GameState menu_state = {
     .cleanup = menu_cleanup,
 };
 
-void drawFilledCircle(SDL_Renderer *renderer, int cx, int cy, int radius)
-{
-    for (int y = -radius; y <= radius; y++)
-    {
-        for (int x = -radius; x <= radius; x++)
-        {
-            if (x * x + y * y <= radius * radius)
-            {
-                SDL_RenderPoint(renderer, cx + x, cy + y);
-            }
-        }
-    }
-}
-
-void drawCapsuleButton(SDL_Renderer *renderer, SDL_FRect *rect, SDL_Color color)
-{
-    int radius = rect->h / 2;
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    // Menggambar bagian tengah tombol (persegi panjang)
-    SDL_FRect middle_rect = {rect->x + radius, rect->y, rect->w - (2 * radius), rect->h};
-    SDL_RenderFillRect(renderer, &middle_rect);
-
-    // Menggambar lingkaran kiri & kanan dengan fungsi terpisah
-    drawFilledCircle(renderer, rect->x + radius, rect->y + radius, radius);
-    drawFilledCircle(renderer, rect->x + rect->w - radius, rect->y + radius, radius);
-}
-
 void menu_init()
 {
-    load_font();
     SDL_Log("Menu State: Initialized");
+    play_music(menu_bgm, INT32_MAX);
+
+    player = create_player((Transform){120, 416, 32, 32}, 10000.0f, 1.0f, 1);
+
+    change_level(0);
 }
+
 void menu_handle_input(SDL_Event *event)
 {
     if (event->type == SDL_EVENT_KEY_DOWN)
     {
-        SDL_Log("Key Pressed: %d", event->key.key);
+        SDL_Log("Key Pressed: %d (%s)", event->key.key, SDL_GetKeyName(event->key.key));
         switch (event->key.key)
         {
         case SDLK_DOWN:
@@ -133,27 +114,35 @@ void menu_handle_input(SDL_Event *event)
 }
 
 void menu_update(double delta_time) {}
+
 void menu_render(SDL_Renderer *renderer)
 {
-    SDL_Color dark_brown = {50, 20, 10, 255}; // Coklat gelap untuk judul
-    SDL_Color white = {255, 255, 255, 255};
-    SDL_Color yellow = {255, 220, 100, 255};  // Kuning agak terang untuk teks tombol yang diseleksi
-    SDL_Color bg_color = {212, 160, 23, 255}; // Warna kuning tua
+    SDL_Color bg_color = {124, 162, 142, 255};
+    SDL_Color title_text_color = {124, 162, 142, 255};
+    SDL_Color text_color = {10, 55, 58, 255};
+    SDL_Color selected_text_color = {255, 255, 255, 255};
+    SDL_Color btn_color = {124, 162, 142, 255};
+    SDL_Color selected_btn_color = {124, 162, 142, 255};
+
+    // Warna tombol diperbaiki agar sesuai dengan current_selection
+    SDL_Color start_button_color = (current_selection == MENU_START) ? selected_btn_color : btn_color;
+    SDL_Color exit_button_color = (current_selection == MENU_EXIT) ? selected_btn_color : btn_color;
+
+    SDL_Color start_text_color = (current_selection == MENU_START) ? selected_text_color : text_color;
+    SDL_Color exit_text_color = (current_selection == MENU_EXIT) ? selected_text_color : text_color;
 
     SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
 
-    render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 125, 80, 1.4, dark_brown);
+    // level as background
+    render_level(renderer);
+    render_player(renderer, player);
 
-    SDL_Color brown_orange = {175, 90, 40, 255}; // Coklat dengan sedikit oranye
-    SDL_Color red_orange = {210, 60, 30, 255};   // Lebih merah untuk tombol yang diseleksi
+    // overlay
+    SDL_SetRenderDrawColor(renderer, 30, 30, 30, 120);
+    SDL_RenderFillRect(renderer, &(SDL_FRect){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
 
-    // Warna tombol diperbaiki agar sesuai dengan current_selection
-    SDL_Color start_button_color = (current_selection == MENU_START) ? red_orange : brown_orange;
-    SDL_Color exit_button_color = (current_selection == MENU_EXIT) ? red_orange : brown_orange;
-
-    SDL_Color start_text_color = (current_selection == MENU_START) ? yellow : white;
-    SDL_Color exit_text_color = (current_selection == MENU_EXIT) ? yellow : white;
+    render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 100, 80, 1.4, title_text_color);
 
     // Start button
     SDL_SetRenderDrawColor(renderer, start_button_color.r, start_button_color.g, start_button_color.b, 255);
@@ -164,11 +153,10 @@ void menu_render(SDL_Renderer *renderer)
     SDL_SetRenderDrawColor(renderer, exit_button_color.r, exit_button_color.g, exit_button_color.b, 255);
     SDL_RenderFillRect(renderer, &exit_button);
     render_text(renderer, pixelify_font, "Exit Game", exit_button.x + 65, exit_button.y + 5, 1, exit_text_color);
-
-    SDL_RenderPresent(renderer);
 }
 
 void menu_cleanup()
 {
     SDL_Log("Menu State: Cleaned up");
+    stop_music();
 }
