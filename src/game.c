@@ -18,6 +18,7 @@ void create_game_instance(const char *title, int width, int height)
 {
   game.window = SDL_CreateWindow(title, width, height, SDL_WINDOW_OPENGL);
   game.renderer = SDL_CreateRenderer(game.window, NULL);
+  SDL_SetRenderDrawBlendMode(game.renderer, SDL_BLENDMODE_BLEND);
 }
 
 Game *get_game_instance()

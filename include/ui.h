@@ -12,7 +12,7 @@
 extern TTF_Font *sixtyfourconvergence_font;
 extern TTF_Font *pixelify_font;
 
-void load_font();
+void init_font();
 
 void render_text(SDL_Renderer *renderer, TTF_Font *font, const char *text, int x, int y, float scale, SDL_Color color);
 
@@ -29,6 +29,8 @@ void show_pause_ui(SDL_Renderer *renderer);
 void show_level_transition(SDL_Renderer *renderer, int stage, int level);
 
 void show_stage_transition(SDL_Renderer *renderer, int stage);
+
+void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat);
 
 void clean_up_ui();
 

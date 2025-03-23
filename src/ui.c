@@ -1,15 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3/SDL_ttf.h>
 
 #include "ui.h"
 #include "menu_state.h"
 #include "game.h"
 #include "level.h"
 #include "player.h"
-
-#include "ui.h"
-#include "menu_state.h"
+#include "SFX.h"
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;
@@ -17,7 +15,7 @@ TTF_Font *pixelify_font;
 SDL_Surface *text_surface = NULL;
 SDL_Texture *text_texture = NULL;
 
-void load_font()
+void init_font()
 {
     if (!TTF_Init())
     {
@@ -91,6 +89,8 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 
     int rect_height = 0;
 
+    play_sound(gameover_sfx, 6, 0);
+
     skip_physics_frame();
 
     while (!is_exit)
@@ -149,11 +149,9 @@ void show_pause_ui(SDL_Renderer *renderer)
     while (!is_exit)
     {
         // render tampilan saat ini dibelakangnya agar menciptakan efek overlay
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
         current_state->render(renderer);
 
         // render overlay
-        SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
         SDL_SetRenderDrawColor(renderer, 30, 15, 20, 180);
         SDL_RenderFillRect(renderer, &overlay_rect);
 
@@ -215,6 +213,8 @@ void show_level_transition(SDL_Renderer *renderer, int stage, int level)
     snprintf(body_text, sizeof(body_text), "Stage %d", stage);
 
     int rect_width = 0;
+
+    play_sound(gate_sfx, 5, 0);
 
     skip_physics_frame();
 
@@ -316,6 +316,74 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
         // render
         SDL_RenderPresent(renderer);
 
+        SDL_Delay(16);
+    }
+    stop_sound(5);
+}
+
+void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
+{
+    bool is_exit = false;
+    SDL_Event event;
+    Uint64 start = SDL_GetTicks();
+    Uint64 max_time = 2000; // ms (for rectacngle swipe)
+    SDL_Color text_color = {39, 39, 39, 255};
+
+    int rect_height = 0;
+
+    play_sound(gameover_sfx, 6, 0);
+
+    skip_physics_frame();
+
+    while (!is_exit)
+    {
+        Uint64 elapsed = SDL_GetTicks() - start;
+
+        // Update lebar rect (efek swipe)
+        rect_height = (elapsed * SCREEN_HEIGHT) / max_time;
+
+        // Draw swipe effect (rectangle)
+        SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
+        SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, rect_height};
+        SDL_RenderFillRect(renderer, &swipe_rect);
+
+        // render player
+        render_player(renderer, player);
+
+        // Render text
+        render_text(renderer, sixtyfourconvergence_font, "CONGRATULATIONS",
+                    SCREEN_WIDTH / 2 - 330, SCREEN_HEIGHT / 2 - 250,
+                    1.2,
+                    text_color);
+        render_text(renderer, pixelify_font, "Press ENTER to restart",
+                    SCREEN_WIDTH / 2 - 205, SCREEN_HEIGHT / 2 + 20,
+                    1, text_color);
+        render_text(renderer, pixelify_font, "Press ESC to exit to menu",
+                    SCREEN_WIDTH / 2 - 220, SCREEN_HEIGHT / 2 + 100,
+                    1, text_color);
+
+        // render
+        SDL_RenderPresent(renderer);
+
+        SDL_PollEvent(&event);
+
+        if (event.type == SDL_EVENT_QUIT)
+            exit(0);
+
+        if (event.type == SDL_EVENT_KEY_DOWN)
+        {
+            if (event.key.scancode == SDL_SCANCODE_ESCAPE)
+            {
+                is_exit = true;
+                change_game_state(&menu_state);
+            }
+            else if (event.key.scancode == SDL_SCANCODE_RETURN)
+            {
+                is_exit = true;
+            }
+        }
+
+        // Delay untuk smooth animation
         SDL_Delay(16);
     }
 }
