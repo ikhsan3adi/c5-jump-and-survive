@@ -51,13 +51,6 @@ void stage1_handle_input(SDL_Event *event)
 
   if (event->type == SDL_EVENT_KEY_DOWN)
   {
-
-    if (event->key.scancode == SDL_SCANCODE_N)
-    {
-      change_level(current_level + 1);
-      reinitiate_player(player, current_level);
-    }
-
     if (event->key.scancode == SDL_SCANCODE_ESCAPE)
     {
       stop_music();

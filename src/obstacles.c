@@ -179,7 +179,7 @@ void update_saw(Saw *saw, float delta_time) {
 
 void render_saw(SDL_Renderer *renderer, Saw *saw, float angle) {
     int cx = saw->transform.x + saw->transform.w / 2;
-    int cy = saw->transform.y + saw->transform.h;
+    int cy = saw->transform.y + saw->transform.h / 2;
     int radius = saw->transform.w / 2;
     int innerRadius = radius / 3; // Ukuran lubang tengah
     int spikeLength = radius / 2; // Panjang duri diperbesar
@@ -255,8 +255,8 @@ void update_all_saws(SawManager* manager, float delta_time) {
         Saw* saw = manager->saws[i];
         
         // Store previous position for collision resolution
-        float prev_x = saw->transform.x;
-        float prev_y = saw->transform.y;
+        // float prev_x = saw->transform.x;
+        // float prev_y = saw->transform.y;
         
         // Update position based on velocity
         saw->transform.x += saw->physics.velocity_x * delta_time;
@@ -364,9 +364,9 @@ void setup_level_saws(int level) {
 
     if (level == 7) 
     {
-        add_saw(&saw_manager, 20 * TILE_SIZE, 5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
-        add_saw(&saw_manager, 15 * TILE_SIZE, 8 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);     
-        add_saw(&saw_manager, 20 * TILE_SIZE, 11 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   
+        add_saw(&saw_manager, 20 * TILE_SIZE, 5.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
+        add_saw(&saw_manager, 15 * TILE_SIZE, 8.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);     
+        add_saw(&saw_manager, 20 * TILE_SIZE, 11.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);   
     }
 
     if (level == 8)

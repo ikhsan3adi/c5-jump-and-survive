@@ -57,7 +57,7 @@ void update_entity(Entity *entity, float delta_time, Entity *objects[], int obje
 
 void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], int object_count)
 {
-  bool is_alive = true;
+  bool is_alive;
 
   // Simpan Posisi Sebelum Update Entity
   double old_x = entity->transform.x;
