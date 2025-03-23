@@ -27,22 +27,13 @@ int destruct_tiles[] = {
 Vector gate_tiles[10];
 int num_gate_tiles = 0;
 
-Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
+Entity *create_entity(Transform transform, Physics physics, EntityRenderComponent render)
 {
   Entity *e = (Entity *)malloc(sizeof(Entity));
 
-  e->transform.x = x;
-  e->transform.y = y;
-  e->transform.w = w;
-  e->transform.h = h;
-
-  e->render.color = color;
-
-  e->physics.velocity_x = 0;
-  e->physics.velocity_y = 0;
-  e->physics.gravity = 10000.0f;
-  e->physics.speed = 1.0f;
-  e->physics.friction = 1;
+  e->transform = transform;
+  e->physics = physics;
+  e->render = render;
 
   return e;
 }

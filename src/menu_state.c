@@ -35,7 +35,7 @@ void menu_init()
     SDL_Log("Menu State: Initialized");
     play_music(menu_bgm, INT32_MAX);
 
-    player = create_entity(120, 416, 32, 32, (SDL_Color){0, 0, 0, 255});
+    player = create_player((Transform){120, 416, 32, 32}, 10000.0f, 1.0f, 1);
 
     change_level(0);
 }

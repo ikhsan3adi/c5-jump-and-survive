@@ -26,7 +26,7 @@ void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
 
-  player = create_entity(120, 416, 32, 32, (SDL_Color){0, 0, 0, 255});
+  player = create_player((Transform){120, 416, 32, 32}, 10000.0f, 1.0f, 1);
   init_game_stat(&game_stat);
   start_timer(&game_stat);
 

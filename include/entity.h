@@ -40,7 +40,7 @@ typedef struct
     Physics physics;
 } Entity;
 
-Entity *create_entity(double x, double y, double w, double h, SDL_Color color);
+Entity *create_entity(Transform transform, Physics physics, EntityRenderComponent render);
 
 void update_entity(Entity *entity, float delta_time, Entity *objects[], int object_count);
 
