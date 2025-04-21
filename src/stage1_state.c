@@ -26,7 +26,11 @@ void stage1_init()
   SDL_Log("Stage 1 State: Initialized");
 
   // Inisialisasi player
-  player = create_player((Transform){100, 400, 32, 32}, 10000.0f, 1.0f, 1);
+  player = create_player(
+      (Transform){120, 416, 32, 32},
+      TILE_SIZE * 5, // gravity
+      TILE_SIZE * 5, // speed = 5 tile per second
+      1.0f);
 
   if (game_stat.start_time == 0)
   {

@@ -26,7 +26,11 @@ void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
 
-  player = create_player((Transform){120, 416, 32, 32}, 10000.0f, 1.0f, 1);
+  player = create_player(
+      (Transform){120, 416, 32, 32},
+      TILE_SIZE * 5, // gravity
+      TILE_SIZE * 5, // speed = 5 tile per second
+      1.0f);
 
   SDL_Renderer *renderer = get_game_instance()->renderer;
   show_stage_transition(renderer, 0);
