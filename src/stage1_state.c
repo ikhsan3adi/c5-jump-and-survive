@@ -28,8 +28,8 @@ void stage1_init()
   // Inisialisasi player
   player = create_player(
       (Transform){120, 416, 32, 32},
-      TILE_SIZE * 5, // gravity
-      TILE_SIZE * 5, // speed = 5 tile per second
+      TILE_SIZE * 50,   // gravity (50 TILE / s^2)
+      TILE_SIZE * 5.5f, // speed = 5.5 tile per second
       1.0f);
 
   if (game_stat.start_time == 0)
