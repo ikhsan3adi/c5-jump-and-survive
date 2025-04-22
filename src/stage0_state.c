@@ -26,7 +26,11 @@ void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
 
-  player = create_player((Transform){120, 416, 32, 32}, 10000.0f, 1.0f, 1);
+  player = create_player(
+      (Transform){120, 416, 32, 32},
+      TILE_SIZE * 50,   // gravity (50 TILE / s^2)
+      TILE_SIZE * 5.5f, // speed = 5.5 tile per second
+      1.0f);
 
   SDL_Renderer *renderer = get_game_instance()->renderer;
   show_stage_transition(renderer, 0);
@@ -63,7 +67,7 @@ void stage0_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
 
-  game_stat.elapsed_time = get_elapsed_time(&game_stat);
+  add_elapsed_time(&game_stat, delta_time * 1000);
 
   if (is_exit(&player->transform))
   {

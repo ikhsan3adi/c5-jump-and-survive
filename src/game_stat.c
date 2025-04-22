@@ -28,11 +28,14 @@ Uint32 get_elapsed_time(GameStat *stat)
     return SDL_GetTicks() - stat->start_time;
 }
 
-// Pause timer
 void stop_timer(GameStat *stat)
 {
     stat->stop_time = SDL_GetTicks();
-    stat->elapsed_time = get_elapsed_time(stat);
+}
+
+void add_elapsed_time(GameStat *stat, Uint32 time)
+{
+    game_stat.elapsed_time += time;
 }
 
 // Menambah skor berdasarkan multiplier

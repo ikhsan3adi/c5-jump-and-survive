@@ -26,7 +26,11 @@ void stage1_init()
   SDL_Log("Stage 1 State: Initialized");
 
   // Inisialisasi player
-  player = create_player((Transform){100, 400, 32, 32}, 10000.0f, 1.0f, 1);
+  player = create_player(
+      (Transform){120, 416, 32, 32},
+      TILE_SIZE * 50,   // gravity (50 TILE / s^2)
+      TILE_SIZE * 5.5f, // speed = 5.5 tile per second
+      1.0f);
 
   if (game_stat.start_time == 0)
   {
@@ -71,6 +75,8 @@ void stage1_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
 
+  add_elapsed_time(&game_stat, delta_time * 1000);
+
   update_all_saws(&saw_manager, delta_time);
 
   // Check for collision with player
@@ -78,8 +84,6 @@ void stage1_update(double delta_time)
   {
     handle_saw_collision(saw_manager.saws[i]->transform, player->transform);
   }
-
-  game_stat.elapsed_time = get_elapsed_time(&game_stat);
 
   if (is_exit(&player->transform))
   {
