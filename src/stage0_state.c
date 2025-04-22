@@ -67,7 +67,7 @@ void stage0_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
 
-  game_stat.elapsed_time = get_elapsed_time(&game_stat);
+  add_elapsed_time(&game_stat, delta_time * 1000);
 
   if (is_exit(&player->transform))
   {

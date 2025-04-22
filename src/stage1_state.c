@@ -75,6 +75,8 @@ void stage1_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
 
+  add_elapsed_time(&game_stat, delta_time * 1000);
+
   update_all_saws(&saw_manager, delta_time);
 
   // Check for collision with player
@@ -82,8 +84,6 @@ void stage1_update(double delta_time)
   {
     handle_saw_collision(saw_manager.saws[i]->transform, player->transform);
   }
-
-  game_stat.elapsed_time = get_elapsed_time(&game_stat);
 
   if (is_exit(&player->transform))
   {
