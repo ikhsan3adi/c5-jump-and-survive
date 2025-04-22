@@ -26,9 +26,20 @@ void stage1_init()
   SDL_Log("Stage 1 State: Initialized");
 
   // Inisialisasi player
-  player = create_player((Transform){100, 400, 32, 32}, 10000.0f, 1.0f, 1);
-  init_game_stat(&game_stat);
-  start_timer(&game_stat);
+  player = create_player(
+      (Transform){120, 416, 32, 32},
+      TILE_SIZE * 50,   // gravity (50 TILE / s^2)
+      TILE_SIZE * 5.5f, // speed = 5.5 tile per second
+      1.0f);
+
+  if (game_stat.start_time == 0)
+  {
+    init_game_stat(&game_stat);
+    start_timer(&game_stat);
+  }
+
+  // tambah nyawa jika berhasil melewati stage 0
+  add_life(&game_stat);
 
   SDL_Renderer *renderer = get_game_instance()->renderer;
   show_stage_transition(renderer, 1);
@@ -37,10 +48,9 @@ void stage1_init()
   {
     play_music(stage1_bgm, INT32_MAX);
   }
-  if (current_level == 9)
-  {
-    setup_level_saws(current_level);
-  }
+
+  setup_level_saws(current_level);
+
   change_level(current_level);
   initiate_player(player, 570, 330);
 }

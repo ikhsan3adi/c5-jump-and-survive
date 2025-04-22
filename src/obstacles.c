@@ -396,30 +396,30 @@ void setup_level_saws(int level)
 
     if (level == 7)
     {
-        add_saw(&saw_manager, 20 * TILE_SIZE, 5.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
-        add_saw(&saw_manager, 15 * TILE_SIZE, 8.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 11.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 5.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
+        add_saw(&saw_manager, 15 * TILE_SIZE, 8.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 11.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
     }
 
     if (level == 8)
     {
-        add_saw(&saw_manager, 24 * TILE_SIZE, 20 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, 1500);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 10 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, -1500);
-        add_saw(&saw_manager, 16 * TILE_SIZE, 20 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, 1500);
+        add_saw(&saw_manager, 24 * TILE_SIZE, 10 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, (TILE_SIZE * 8));
+        add_saw(&saw_manager, 20 * TILE_SIZE, 11 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, -(TILE_SIZE * 9));
+        add_saw(&saw_manager, 16 * TILE_SIZE, 12 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, (TILE_SIZE * 10));
     }
 
     if (level == 9)
     {
 
-        add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 9.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
+        add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 9.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
     }
 
     if (level == 10)
     {
-        add_saw(&saw_manager, 25 * TILE_SIZE, 4.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 7.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);
-        add_saw(&saw_manager, 25 * TILE_SIZE, 10.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -1000, 0);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 13.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 1000, 0);
+        add_saw(&saw_manager, 25 * TILE_SIZE, 4.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 7.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
+        add_saw(&saw_manager, 25 * TILE_SIZE, 10.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
+        add_saw(&saw_manager, 20 * TILE_SIZE, 13.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
     }
 }

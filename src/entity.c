@@ -173,7 +173,7 @@ bool is_solid(Transform *transform)
 
 bool is_void(Transform *transform)
 {
-  return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT;
+  return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT + TILE_SIZE;
 }
 
 bool is_exit(Transform *transform)

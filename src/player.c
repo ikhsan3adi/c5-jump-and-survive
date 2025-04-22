@@ -85,12 +85,12 @@ void handle_player_input(Entity *player, SDL_Event *event)
     if (key_state[SDL_SCANCODE_LEFT])
     {
       is_facing_right = false;
-      player->physics.velocity_x = -player->physics.speed * PLAYER_MOVE_MULTIPLIER;
+      player->physics.velocity_x = -player->physics.speed;
     }
     else if (key_state[SDL_SCANCODE_RIGHT])
     {
       is_facing_right = true;
-      player->physics.velocity_x = player->physics.speed * PLAYER_MOVE_MULTIPLIER;
+      player->physics.velocity_x = player->physics.speed;
     }
     if ((key_state[SDL_SCANCODE_UP] || key_state[SDL_SCANCODE_SPACE]) && player->physics.velocity_y == 0)
     {
