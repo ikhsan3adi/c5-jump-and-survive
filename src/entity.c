@@ -27,22 +27,13 @@ int destruct_tiles[] = {
 Vector gate_tiles[10];
 int num_gate_tiles = 0;
 
-Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
+Entity *create_entity(Transform transform, Physics physics, EntityRenderComponent render)
 {
   Entity *e = (Entity *)malloc(sizeof(Entity));
 
-  e->transform.x = x;
-  e->transform.y = y;
-  e->transform.w = w;
-  e->transform.h = h;
-
-  e->render.color = color;
-
-  e->physics.velocity_x = 0;
-  e->physics.velocity_y = 0;
-  e->physics.gravity = 10000.0f;
-  e->physics.speed = 1.0f;
-  e->physics.friction = 1;
+  e->transform = transform;
+  e->physics = physics;
+  e->render = render;
 
   return e;
 }
@@ -57,8 +48,6 @@ void update_entity(Entity *entity, float delta_time, Entity *objects[], int obje
 
 void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], int object_count)
 {
-  bool is_alive = true;
-
   // Simpan Posisi Sebelum Update Entity
   double old_x = entity->transform.x;
   double old_y = entity->transform.y;
@@ -89,40 +78,41 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   switch (current_level)
   {
   case 1:
-  interaction_buttons_switch(entity, buttonL1);
+    interaction_buttons_switch(entity, buttonL1);
     break;
 
   case 5:
-  interaction_buttons_switch(entity,buttonL51);
-  interaction_buttons_switch(entity,buttonL52);
+    interaction_buttons_switch(entity, buttonL51);
+    interaction_buttons_switch(entity, buttonL52);
     break;
   case 6:
-  interaction_buttons_switch(entity,buttonL61);
-  interaction_buttons_switch(entity,buttonL62);
+    interaction_buttons_switch(entity, buttonL61);
+    interaction_buttons_switch(entity, buttonL62);
     break;
   case 7:
-  interaction_buttons_obstacles_switch(entity,buttonL7);
+    interaction_buttons_obstacles_switch(entity, buttonL7);
     break;
   case 8:
-  interaction_buttons_obstacles_switch(entity,buttonL81);
-  interaction_buttons_switch(entity,buttonL82);
+    interaction_buttons_obstacles_switch(entity, buttonL81);
+    interaction_buttons_switch(entity, buttonL82);
     break;
   case 9:
-  interaction_buttons_obstacles_switch(entity,buttonL91);
-  interaction_buttons_obstacles_switch(entity,buttonL92);
+    interaction_buttons_obstacles_switch(entity, buttonL91);
+    interaction_buttons_obstacles_switch(entity, buttonL92);
     break;
   case 10:
-  interaction_buttons_obstacles_switch(entity,buttonL101);
-  interaction_buttons_switch(entity,buttonL102);
-  interaction_buttons_obstacles_switch(entity,buttonL103);
-      break;
+    interaction_buttons_obstacles_switch(entity, buttonL101);
+    interaction_buttons_switch(entity, buttonL102);
+    interaction_buttons_obstacles_switch(entity, buttonL103);
+    break;
   default:
     break;
   }
 
   bool coin_status = has_coin_tiles();
-  if (!coin_status) {
-    restore_gate_tiles(); 
+  if (!coin_status)
+  {
+    restore_gate_tiles();
   }
 
   // Menerapkan gesekan
@@ -137,23 +127,16 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   bool destruct = is_destruct(&entity->transform);
   if (destruct)
   {
-    is_alive = sub_life(&game_stat);
+    sub_life(&game_stat);
     reinitiate_player(entity, current_level);
   }
   bool hole = is_void(&entity->transform);
   if (hole)
   {
     play_sound(dead_sfx, 4, 0);
-    is_alive = sub_life(&game_stat);
+    sub_life(&game_stat);
     reinitiate_player(entity, current_level);
   }
-
-  if (!is_alive)
-  {
-    // SDL_Renderer
-    // game_over_render(renderer);
-  }
-  
 }
 
 void destroy_entity(Entity *entity)
@@ -190,7 +173,7 @@ bool is_solid(Transform *transform)
 
 bool is_void(Transform *transform)
 {
-  return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT;
+  return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT + TILE_SIZE;
 }
 
 bool is_exit(Transform *transform)
@@ -263,7 +246,8 @@ bool is_destruct(Transform *transform)
       {
         if (current_level_map[y][x] == destruct_tiles[i])
         {
-          if (destruct_tiles[i] == FAKE_COINS){
+          if (destruct_tiles[i] == FAKE_COINS)
+          {
             current_level_map[y][x] = EMPTY;
           }
           play_sound(dead_sfx, 4, 0);
@@ -341,47 +325,61 @@ void interaction_buttons_obstacles_switch(Entity *player, Switch_Obstacles butto
   }
 }
 
-bool has_coin_tiles() {
-  for (int y = 0; y < MAP_HEIGHT; y++) {
-      for (int x = 0; x < MAP_WIDTH; x++) {
-          if (current_level_map[y][x] == 4) {
-              return true;
-          }
+bool has_coin_tiles()
+{
+  for (int y = 0; y < MAP_HEIGHT; y++)
+  {
+    for (int x = 0; x < MAP_WIDTH; x++)
+    {
+      if (current_level_map[y][x] == 4)
+      {
+        return true;
       }
+    }
   }
   return false;
 }
 
-void find_gate_tiles() {
+void find_gate_tiles()
+{
   num_gate_tiles = 0;
-  for (int y = 0; y < MAP_HEIGHT; y++) {
-      for (int x = 0; x < MAP_WIDTH; x++) {
-          if (current_level_map[y][x] == 9) {
-              if (num_gate_tiles < 10) {
-                  gate_tiles[num_gate_tiles].y = y;
-                  gate_tiles[num_gate_tiles].x = x;
-                  num_gate_tiles++;
-              }
-          }
+  for (int y = 0; y < MAP_HEIGHT; y++)
+  {
+    for (int x = 0; x < MAP_WIDTH; x++)
+    {
+      if (current_level_map[y][x] == 9)
+      {
+        if (num_gate_tiles < 10)
+        {
+          gate_tiles[num_gate_tiles].y = y;
+          gate_tiles[num_gate_tiles].x = x;
+          num_gate_tiles++;
+        }
       }
+    }
   }
 }
 
-void hide_gate_tiles() {
+void hide_gate_tiles()
+{
   bool status = has_coin_tiles();
-  if (status) {
-      for (int i = 0; i < num_gate_tiles; i++) {
-          int y = gate_tiles[i].y;
-          int x = gate_tiles[i].x;
-          current_level_map[y][x] = 0;
-      }
-  }
-}
-
-void restore_gate_tiles() {
-  for (int i = 0; i < num_gate_tiles; i++) {
+  if (status)
+  {
+    for (int i = 0; i < num_gate_tiles; i++)
+    {
       int y = gate_tiles[i].y;
       int x = gate_tiles[i].x;
-      current_level_map[y][x] = 9;
+      current_level_map[y][x] = 0;
+    }
+  }
+}
+
+void restore_gate_tiles()
+{
+  for (int i = 0; i < num_gate_tiles; i++)
+  {
+    int y = gate_tiles[i].y;
+    int x = gate_tiles[i].x;
+    current_level_map[y][x] = 9;
   }
 }

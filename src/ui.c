@@ -8,6 +8,7 @@
 #include "level.h"
 #include "player.h"
 #include "SFX.h"
+#include "util.h"
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;
@@ -73,7 +74,7 @@ void render_game_ui(SDL_Renderer *renderer, GameStat *stat)
 
     char timer_text[50];
     sprintf(timer_text, "Time: %d", stat->elapsed_time / 1000);
-    render_text(renderer, pixelify_font, timer_text, 800, 10, 1, light_brown);
+    render_text(renderer, pixelify_font, timer_text, 775, 10, 1, light_brown);
 }
 
 void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
@@ -86,6 +87,11 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 
     char *title_text = "GAME OVER";
     char *body_text = "Press ESC to exit to menu";
+    char score_text[32];
+    char timer_text[32];
+
+    sprintf(score_text, "Score: %d", stat.score);
+    sprintf(timer_text, "Time: %s", get_time_string(game_stat.elapsed_time / 1000));
 
     int rect_height = 0;
 
@@ -107,9 +113,15 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 
         // Render text
         render_text(renderer, sixtyfourconvergence_font, title_text,
-                    SCREEN_WIDTH / 2 - 240, SCREEN_HEIGHT / 2 - 150,
+                    SCREEN_WIDTH / 2 - 240, SCREEN_HEIGHT / 2 - 250,
                     1.2,
                     text_color);
+        render_text(renderer, pixelify_font, score_text,
+                    SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 100,
+                    1, text_color);
+        render_text(renderer, pixelify_font, timer_text,
+                    SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50,
+                    1, text_color);
         render_text(renderer, pixelify_font, body_text,
                     SCREEN_WIDTH / 2 - 220, SCREEN_HEIGHT / 2 + 80,
                     1, text_color);
@@ -328,6 +340,11 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 2000; // ms (for rectacngle swipe)
     SDL_Color text_color = {39, 39, 39, 255};
+    char score_text[32];
+    char timer_text[32];
+
+    sprintf(score_text, "Score: %d", stat.score);
+    sprintf(timer_text, "Time: %s", get_time_string(game_stat.elapsed_time / 1000));
 
     int rect_height = 0;
 
@@ -355,8 +372,14 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
                     SCREEN_WIDTH / 2 - 330, SCREEN_HEIGHT / 2 - 250,
                     1.2,
                     text_color);
+        render_text(renderer, pixelify_font, score_text,
+                    SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 100,
+                    1, text_color);
+        render_text(renderer, pixelify_font, timer_text,
+                    SCREEN_WIDTH / 2 - 75, SCREEN_HEIGHT / 2 - 50,
+                    1, text_color);
         render_text(renderer, pixelify_font, "Press ENTER to restart",
-                    SCREEN_WIDTH / 2 - 205, SCREEN_HEIGHT / 2 + 20,
+                    SCREEN_WIDTH / 2 - 205, SCREEN_HEIGHT / 2 + 40,
                     1, text_color);
         render_text(renderer, pixelify_font, "Press ESC to exit to menu",
                     SCREEN_WIDTH / 2 - 220, SCREEN_HEIGHT / 2 + 100,

@@ -22,7 +22,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
   init_font();
   init_audio();
 
-  last_time = SDL_GetTicks();
+  last_time = SDL_GetPerformanceCounter();
 
   change_game_state(&menu_state);
 
@@ -50,8 +50,8 @@ SDL_AppResult SDL_AppIterate(void *appstate)
   Game *game = get_game_instance();
 
   // membuat delta time (waktu antara frame saat ini denga frame sebelumnya)
-  Uint64 current_time = SDL_GetTicks();
-  double delta_time;
+  Uint64 current_time = SDL_GetPerformanceCounter();
+  double delta_time; // dalam satuan detik
 
   if (game->is_physics_paused)
   {
@@ -60,7 +60,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
   }
   else
   {
-    delta_time = ((current_time - last_time) * 1000 / (double)SDL_GetPerformanceFrequency());
+    delta_time = (double)((current_time - last_time) / (double)SDL_GetPerformanceFrequency());
   }
 
   last_time = current_time;
@@ -80,5 +80,6 @@ SDL_AppResult SDL_AppIterate(void *appstate)
 void SDL_AppQuit(void *appstate, SDL_AppResult result)
 {
   clean_up_ui();
+  cleanup_audio();
   /* SDL will clean up the window/renderer for us. */
 }

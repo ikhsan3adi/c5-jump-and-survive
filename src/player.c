@@ -11,6 +11,21 @@ bool is_facing_right = true;
 // array untuk menyimpan status tombol
 bool key_state[SDL_SCANCODE_COUNT];
 
+Entity *create_player(Transform transform, double gravity, double speed, double friction)
+{
+  Physics player_physics = {
+      .velocity_x = 0,
+      .velocity_y = 0,
+      .gravity = gravity,
+      .speed = speed,
+      .friction = friction,
+  };
+
+  Entity *player = create_entity(transform, player_physics, (EntityRenderComponent){});
+
+  return player;
+}
+
 void initiate_player(Entity *player, int x, int y)
 {
   player->transform.x = x;
@@ -70,12 +85,12 @@ void handle_player_input(Entity *player, SDL_Event *event)
     if (key_state[SDL_SCANCODE_LEFT])
     {
       is_facing_right = false;
-      player->physics.velocity_x = -player->physics.speed * PLAYER_MOVE_MULTIPLIER;
+      player->physics.velocity_x = -player->physics.speed;
     }
     else if (key_state[SDL_SCANCODE_RIGHT])
     {
       is_facing_right = true;
-      player->physics.velocity_x = player->physics.speed * PLAYER_MOVE_MULTIPLIER;
+      player->physics.velocity_x = player->physics.speed;
     }
     if ((key_state[SDL_SCANCODE_UP] || key_state[SDL_SCANCODE_SPACE]) && player->physics.velocity_y == 0)
     {

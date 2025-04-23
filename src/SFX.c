@@ -57,7 +57,7 @@ Mix_Music *load_music(const char *file)
     return music;
 }
 
-void play_sound(Mix_Chunk *sound, int channel,int loops)
+void play_sound(Mix_Chunk *sound, int channel, int loops)
 {
     if (sound)
     {
