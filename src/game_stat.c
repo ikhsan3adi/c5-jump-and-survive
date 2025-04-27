@@ -25,14 +25,17 @@ void start_timer(GameStat *stat)
 
 Uint32 get_elapsed_time(GameStat *stat)
 {
-    return stat->stop_time - stat->start_time;
+    return SDL_GetTicks() - stat->start_time;
 }
 
-// Pause timer
 void stop_timer(GameStat *stat)
 {
     stat->stop_time = SDL_GetTicks();
-    stat->elapsed_time = get_elapsed_time(stat);
+}
+
+void add_elapsed_time(GameStat *stat, Uint32 time)
+{
+    game_stat.elapsed_time += time;
 }
 
 // Menambah skor berdasarkan multiplier
@@ -68,7 +71,7 @@ bool sub_life(GameStat *stat)
         stat->last_hit_time = now;
 
         if (stat->lives == 0)
-        {   
+        {
             stop_music();
             SDL_Renderer *renderer = get_game_instance()->renderer;
             show_game_over_ui(renderer, *stat);

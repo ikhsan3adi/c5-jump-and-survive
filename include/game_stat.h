@@ -4,12 +4,13 @@
 #include <SDL3/SDL.h>
 #include <stdbool.h> // Untuk tipe data bool
 
-#define DEFAULT_LIVES 3  // Jumlah nyawa awal
+#define DEFAULT_LIVES 3 // Jumlah nyawa awal
 
-typedef struct {
-    int score;   // Skor pemain
-    int lives;   // Jumlah nyawa pemain
-    Uint32 start_time; 
+typedef struct
+{
+    int score;         // Skor pemain
+    int lives;         // Jumlah nyawa pemain
+    Uint32 start_time; // milliseconds
     Uint32 stop_time;
     Uint32 elapsed_time;
     Uint32 last_hit_time;
@@ -23,10 +24,13 @@ void init_game_stat(GameStat *stat);
 // Memulai atau mereset timer permainan
 void start_timer(GameStat *stat);
 
+/// @deprecated Sudah tidak digunakan, digantikan dengan `add_elapsed_time`
 Uint32 get_elapsed_time(GameStat *stat);
 
-// Pause timer
 void stop_timer(GameStat *stat);
+
+// menjalankan timer
+void add_elapsed_time(GameStat *stat, Uint32 time);
 
 // Menambah skor berdasarkan nilai tertentu
 void add_score(GameStat *stat);

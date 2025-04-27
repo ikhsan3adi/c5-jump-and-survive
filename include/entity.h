@@ -6,7 +6,7 @@
 #include "physics.h"
 #include "transform.h"
 #include "game_stat.h"
-#include "obstacle.h"
+#include "obstacles.h"
 
 // Tile Type
 #define EMPTY 0
@@ -19,11 +19,15 @@
 #define SAWS 7
 #define FAKE_COINS 8
 #define EXIT_GATE 9
-#define BUTTON 10
+#define BUTTON 10 
 
 extern int solid_tiles[];
 
 extern int destruct_tiles[];
+
+extern Vector gate_tiles[10];
+
+extern SawManager saw_manager;
 typedef struct
 {
     SDL_Color color;
@@ -36,7 +40,7 @@ typedef struct
     Physics physics;
 } Entity;
 
-Entity *create_entity(double x, double y, double w, double h, SDL_Color color);
+Entity *create_entity(Transform transform, Physics physics, EntityRenderComponent render);
 
 void update_entity(Entity *entity, float delta_time, Entity *objects[], int object_count);
 
@@ -59,4 +63,12 @@ bool is_button(Transform *transform,Vector button);
 void interaction_buttons_switch(Entity *player,Switch button);
 
 void interaction_buttons_obstacles_switch(Entity *player,Switch_Obstacles button);
+
+bool has_coin_tiles();
+
+void find_gate_tiles();
+
+void restore_gate_tiles();
+
+void hide_gate_tiles();
 #endif

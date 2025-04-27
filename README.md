@@ -30,14 +30,13 @@ Jump & Survive adalah game 2D platformer sederhana yang dibuat menggunakan bahas
 
 ### Pembagian Roles
 
-| Modul/Aspek                        | Nama                 |
-| ---------------------------------- | -------------------- |
-| Game State, Integration & Docs     | Ikhsan Satriadi      |
-| Entity, Player & Physics           | Muhamad Syahid       |
-| Stage, Level & Obstacle            | Hisyam Khaeru Umam   |
-| Menu, Assets & UI                  | Helga Athifa Hidayat |
-| Game Stats                         | Hanifidin Ibrahim    |
-| Additional feature may be added... |                      |
+| Modul/Aspek                                | Nama                 |
+| ------------------------------------------ | -------------------- |
+| Game State, Integration & Docs             | Ikhsan Satriadi      |
+| Entity, Player, Physics & Obstacle (Logic) | Muhamad Syahid       |
+| Stage, Level/Map & Audio/SFX               | Hisyam Khaeru Umam   |
+| Menu, Assets, User Interface               | Helga Athifa Hidayat |
+| Game Stats, Obstacle (Visual)              | Hanifidin Ibrahim    |
 
 ---
 

@@ -20,4 +20,6 @@ int check_collision(Transform a, Transform b);
 // Cek collision dengan semua objek dalam level
 Transform *check_collision_all(Transform *entity, Transform *objects[], int object_count);
 
+void handle_saw_collision(Transform saw_transform, Transform player_transform);
+
 #endif

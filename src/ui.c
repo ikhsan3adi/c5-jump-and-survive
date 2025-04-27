@@ -74,7 +74,7 @@ void render_game_ui(SDL_Renderer *renderer, GameStat *stat)
 
     char timer_text[50];
     sprintf(timer_text, "Time: %d", stat->elapsed_time / 1000);
-    render_text(renderer, pixelify_font, timer_text, 800, 10, 1, light_brown);
+    render_text(renderer, pixelify_font, timer_text, 775, 10, 1, light_brown);
 }
 
 void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
@@ -348,7 +348,7 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
 
     int rect_height = 0;
 
-    play_sound(gameover_sfx, 6, 0);
+    play_music(win_bgm, 1);
 
     skip_physics_frame();
 
@@ -409,6 +409,7 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
         // Delay untuk smooth animation
         SDL_Delay(16);
     }
+    stop_music();
 }
 
 void clean_up_ui()
