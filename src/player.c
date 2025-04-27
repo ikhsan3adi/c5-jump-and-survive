@@ -11,12 +11,69 @@ bool is_facing_right = true;
 // array untuk menyimpan status tombol
 bool key_state[SDL_SCANCODE_COUNT];
 
-Entity *player;
+Entity *create_player(Transform transform, double gravity, double speed, double friction)
+{
+  Physics player_physics = {
+      .velocity_x = 0,
+      .velocity_y = 0,
+      .gravity = gravity,
+      .speed = speed,
+      .friction = friction,
+  };
+
+  Entity *player = create_entity(transform, player_physics, (EntityRenderComponent){});
+
+  return player;
+}
 
 void initiate_player(Entity *player, int x, int y)
 {
   player->transform.x = x;
   player->transform.y = y;
+}
+
+void reinitiate_player(Entity *player, int level)
+{
+  if (level == 1 || level == 0)
+  {
+    initiate_player(player, 100, 300);
+  }
+  if (level == 2)
+  {
+    initiate_player(player, 650, 100);
+  }
+  if (level == 3)
+  {
+    initiate_player(player, 70, 170);
+  }
+  if (level == 4)
+  {
+    initiate_player(player, 570, 70);
+  }
+  if (level == 5)
+  {
+    initiate_player(player, 50, 300);
+  }
+  if (level == 6)
+  {
+    initiate_player(player, 80, 300);
+  }
+  if (level == 7)
+  {
+    initiate_player(player, 650, 50);
+  }
+  if (level == 8)
+  {
+    initiate_player(player, 100, 70);
+  }
+  if (level == 9)
+  {
+    initiate_player(player, 75, 500);
+  }
+  if (level == 10)
+  {
+    initiate_player(player, 50, 50);
+  }
 }
 
 void handle_player_input(Entity *player, SDL_Event *event)
@@ -28,17 +85,18 @@ void handle_player_input(Entity *player, SDL_Event *event)
     if (key_state[SDL_SCANCODE_LEFT])
     {
       is_facing_right = false;
-      player->physics.velocity_x = -player->physics.speed * PLAYER_MOVE_MULTIPLIER;
+      player->physics.velocity_x = -player->physics.speed;
     }
     else if (key_state[SDL_SCANCODE_RIGHT])
     {
       is_facing_right = true;
-      player->physics.velocity_x = player->physics.speed * PLAYER_MOVE_MULTIPLIER;
+      player->physics.velocity_x = player->physics.speed;
     }
     if ((key_state[SDL_SCANCODE_UP] || key_state[SDL_SCANCODE_SPACE]) && player->physics.velocity_y == 0)
     {
       player->physics.velocity_y = PLAYER_JUMP;
       play_sound(jump_sfx, 1, 0);
+      key_state[event->key.scancode] = false;
     }
   }
   else if (event->type == SDL_EVENT_KEY_UP)

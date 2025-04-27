@@ -4,6 +4,7 @@
 Mix_Music *stage0_bgm;
 Mix_Music *menu_bgm;
 Mix_Music *stage1_bgm;
+Mix_Music *win_bgm;
 Mix_Chunk *jump_sfx;
 Mix_Chunk *gate_sfx;
 Mix_Chunk *coin_sfx;
@@ -28,9 +29,10 @@ void init_audio()
     stage0_bgm = load_music("assets/SFX/bg-music1.mp3");
     stage1_bgm = load_music("assets/SFX/bg-music2.mp3");
     menu_bgm = load_music("assets/SFX/bg-music-home1.mp3");
+    win_bgm = load_music("assets/SFX/champion.mp3");
     jump_sfx = load_sound("assets/SFX/jump.wav");
     gate_sfx = load_sound("assets/SFX/exit-gate.wav");
-    coin_sfx = load_sound("assets/SFX/coins.wav");
+    coin_sfx = load_sound("assets/SFX/coin.wav");
     dead_sfx = load_sound("assets/SFX/dead.wav");
     gameover_sfx = load_sound("assets/SFX/game-over.wav");
 }
@@ -55,7 +57,7 @@ Mix_Music *load_music(const char *file)
     return music;
 }
 
-void play_sound(Mix_Chunk *sound, int channel,int loops)
+void play_sound(Mix_Chunk *sound, int channel, int loops)
 {
     if (sound)
     {
@@ -69,6 +71,16 @@ void play_music(Mix_Music *sound, int loops)
     {
         Mix_PlayMusic(sound, loops);
     }
+}
+
+void stop_music()
+{
+    Mix_HaltMusic();
+}
+
+void stop_sound(int channel)
+{
+    Mix_HaltChannel(channel);
 }
 
 void cleanup_audio()

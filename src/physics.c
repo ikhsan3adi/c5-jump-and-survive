@@ -1,11 +1,13 @@
 #include "physics.h"
+#include "game_stat.h"
+#include "sfx.h"
+#include "player.h"
+#include "level.h"
 #include <stdlib.h>
-
-#define GRAVITY 15.9f
 
 void apply_gravity(Physics *physics, float delta_time)
 {
-  physics->velocity_y += GRAVITY * physics->gravity * delta_time;
+  physics->velocity_y += physics->gravity * delta_time;
 }
 
 int check_collision(Transform a, Transform b)
@@ -26,4 +28,14 @@ Transform *check_collision_all(Transform *entity, Transform *objects[], int obje
     }
   }
   return NULL; // Tidak ada tabrakan
+}
+
+void handle_saw_collision(Transform saw_transform, Transform player_transform)
+{
+  if (check_collision(saw_transform, player_transform))
+  {
+    play_sound(dead_sfx, 4, 0);
+    sub_life(&game_stat);
+    reinitiate_player(player, current_level);
+  }
 }

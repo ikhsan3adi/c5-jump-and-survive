@@ -2,8 +2,12 @@
 #include <stdio.h>
 #include <math.h>
 #include "entity.h"
+#include "player.h"
 #include "level.h"
 #include "vector.h"
+#include "obstacles.h"
+#include "SFX.h"
+#include "ui.h"
 
 int solid_tiles[] = {
     PLATFORM,
@@ -14,28 +18,22 @@ int solid_tiles[] = {
 };
 
 int destruct_tiles[] = {
-  SAWS,
-  SPIKE,
-  FAKE_COINS
-  // tambahin kalo ada
+    SAWS,
+    SPIKE,
+    FAKE_COINS
+    // tambahin kalo ada
 };
 
-Entity *create_entity(double x, double y, double w, double h, SDL_Color color)
+Vector gate_tiles[10];
+int num_gate_tiles = 0;
+
+Entity *create_entity(Transform transform, Physics physics, EntityRenderComponent render)
 {
   Entity *e = (Entity *)malloc(sizeof(Entity));
 
-  e->transform.x = x;
-  e->transform.y = y;
-  e->transform.w = w;
-  e->transform.h = h;
-
-  e->render.color = color;
-
-  e->physics.velocity_x = 0;
-  e->physics.velocity_y = 0;
-  e->physics.gravity = 10000.0f;
-  e->physics.speed = 1.0f;
-  e->physics.friction = 1;
+  e->transform = transform;
+  e->physics = physics;
+  e->render = render;
 
   return e;
 }
@@ -76,21 +74,46 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
     entity->physics.velocity_y = 0;
   }
 
-  // // Implementasi button di setiap level
-  // switch (current_level)
-  // {
-  // case 1:
-  // interaction_buttons(entity,buttonL1);
-  //   break;
+  // Implementasi button di setiap level
+  switch (current_level)
+  {
+  case 1:
+    interaction_buttons_switch(entity, buttonL1);
+    break;
 
-  // case 5:
-  // interaction_buttons(entity,buttonL51);
-  //   break;
-  
-  // default:
-  //   break;
-  // }
+  case 5:
+    interaction_buttons_switch(entity, buttonL51);
+    interaction_buttons_switch(entity, buttonL52);
+    break;
+  case 6:
+    interaction_buttons_switch(entity, buttonL61);
+    interaction_buttons_switch(entity, buttonL62);
+    break;
+  case 7:
+    interaction_buttons_obstacles_switch(entity, buttonL7);
+    break;
+  case 8:
+    interaction_buttons_obstacles_switch(entity, buttonL81);
+    interaction_buttons_switch(entity, buttonL82);
+    break;
+  case 9:
+    interaction_buttons_obstacles_switch(entity, buttonL91);
+    interaction_buttons_obstacles_switch(entity, buttonL92);
+    break;
+  case 10:
+    interaction_buttons_obstacles_switch(entity, buttonL101);
+    interaction_buttons_switch(entity, buttonL102);
+    interaction_buttons_obstacles_switch(entity, buttonL103);
+    break;
+  default:
+    break;
+  }
 
+  bool coin_status = has_coin_tiles();
+  if (!coin_status)
+  {
+    restore_gate_tiles();
+  }
 
   // Menerapkan gesekan
   entity->physics.velocity_x *= entity->physics.friction;
@@ -105,12 +128,14 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   if (destruct)
   {
     sub_life(&game_stat);
+    reinitiate_player(entity, current_level);
   }
   bool hole = is_void(&entity->transform);
   if (hole)
   {
+    play_sound(dead_sfx, 4, 0);
     sub_life(&game_stat);
-    //tambahkan agar saat masuk lobang bisa kembali lagi ke atas
+    reinitiate_player(entity, current_level);
   }
 }
 
@@ -148,7 +173,7 @@ bool is_solid(Transform *transform)
 
 bool is_void(Transform *transform)
 {
-  return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT;
+  return transform->y + transform->h > TILE_SIZE * MAP_HEIGHT + TILE_SIZE;
 }
 
 bool is_exit(Transform *transform)
@@ -168,6 +193,7 @@ bool is_exit(Transform *transform)
       }
       if (current_level_map[y][x] == EXIT_GATE)
       {
+        play_sound(gate_sfx, 3, 0);
         return true;
       }
     }
@@ -193,6 +219,7 @@ bool is_coin(Transform *transform)
       if (current_level_map[y][x] == COINS)
       {
         current_level_map[y][x] = EMPTY;
+        play_sound(coin_sfx, 2, 0);
         return true;
       }
     }
@@ -219,6 +246,11 @@ bool is_destruct(Transform *transform)
       {
         if (current_level_map[y][x] == destruct_tiles[i])
         {
+          if (destruct_tiles[i] == FAKE_COINS)
+          {
+            current_level_map[y][x] = EMPTY;
+          }
+          play_sound(dead_sfx, 4, 0);
           return true;
         }
       }
@@ -227,43 +259,127 @@ bool is_destruct(Transform *transform)
   return false;
 }
 
-// bool is_button(Transform *transform, Switch buttons)
-// {
-//   int left = transform->x / TILE_SIZE;
-//   int right = (transform->x + transform->w - 1) / TILE_SIZE;
-//   int top = transform->y / TILE_SIZE;
-//   int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
+bool is_button(Transform *transform, Vector buttons)
+{
+  int left = transform->x / TILE_SIZE;
+  int right = (transform->x + transform->w - 1) / TILE_SIZE;
+  int top = transform->y / TILE_SIZE;
+  int bottom = (transform->y + transform->h - 1) / TILE_SIZE;
 
-//   for (int y = top; y <= bottom; y++)
-//   {
-//     for (int x = left; x <= right; x++)
-//     {
-//       if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
-//       {
-//         continue;
-//       }
+  for (int y = top; y <= bottom; y++)
+  {
+    for (int x = left; x <= right; x++)
+    {
+      if (x < 0 || x >= MAP_WIDTH || y < 0 || y >= MAP_HEIGHT)
+      {
+        continue;
+      }
 
-//       if (y+1 == buttons.button.y && x == buttons.button.x)
-//       {
-//         return true;
-//       }
-//     }
-//   }
+      if (y + 1 == buttons.y && x == buttons.x)
+      {
+        return true;
+      }
+    }
+  }
 
-//   return false;
-// }
+  return false;
+}
 
-// void interaction_buttons(Entity *player,Switch button){
-//   bool on_button = is_button(&player->transform, button);
-//   if (on_button)
-//   {
-//     for (int i = 0; i < sizeof(button.switches) / sizeof(Vector); i++)
-//     {
-//       if (button.switches[i].x > 0 && button.switches[i].x < MAP_WIDTH &&
-//           button.switches[i].y > 0 && button.switches[i].y < MAP_HEIGHT)
-//       {
-//         current_level_map[button.switches[i].y][button.switches[i].x] = EMPTY;
-//       }
-//     }
-//   }
-// }
+void interaction_buttons_switch(Entity *player, Switch button)
+{
+  bool on_button = is_button(&player->transform, button.button);
+  if (on_button)
+  {
+    for (int i = 0; i < sizeof(button.switches) / sizeof(Vector); i++)
+    {
+      if (button.switches[i].x > 0 && button.switches[i].x < MAP_WIDTH &&
+          button.switches[i].y > 0 && button.switches[i].y < MAP_HEIGHT)
+      {
+        current_level_map[button.switches[i].y][button.switches[i].x] = EMPTY;
+      }
+    }
+  }
+}
+
+void interaction_buttons_obstacles_switch(Entity *player, Switch_Obstacles button)
+{
+  bool on_button = is_button(&player->transform, button.button);
+  if (on_button)
+  {
+    for (int i = 0; i < sizeof(button.switches) / sizeof(Vector); i++)
+    {
+      if (button.switches[i].x > 0 && button.switches[i].x < MAP_WIDTH &&
+          button.switches[i].y > 0 && button.switches[i].y < MAP_HEIGHT)
+      {
+        current_level_map[button.switches[i].y][button.switches[i].x] = EMPTY;
+      }
+    }
+    for (int i = 0; i < sizeof(button.obstacles) / sizeof(Vector); i++)
+    {
+      if (button.obstacles[i].x > 0 && button.obstacles[i].x < MAP_WIDTH &&
+          button.obstacles[i].y > 0 && button.obstacles[i].y < MAP_HEIGHT)
+      {
+        current_level_map[button.obstacles[i].y][button.obstacles[i].x] = SOLID_OBSTACLE;
+      }
+    }
+  }
+}
+
+bool has_coin_tiles()
+{
+  for (int y = 0; y < MAP_HEIGHT; y++)
+  {
+    for (int x = 0; x < MAP_WIDTH; x++)
+    {
+      if (current_level_map[y][x] == 4)
+      {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+void find_gate_tiles()
+{
+  num_gate_tiles = 0;
+  for (int y = 0; y < MAP_HEIGHT; y++)
+  {
+    for (int x = 0; x < MAP_WIDTH; x++)
+    {
+      if (current_level_map[y][x] == 9)
+      {
+        if (num_gate_tiles < 10)
+        {
+          gate_tiles[num_gate_tiles].y = y;
+          gate_tiles[num_gate_tiles].x = x;
+          num_gate_tiles++;
+        }
+      }
+    }
+  }
+}
+
+void hide_gate_tiles()
+{
+  bool status = has_coin_tiles();
+  if (status)
+  {
+    for (int i = 0; i < num_gate_tiles; i++)
+    {
+      int y = gate_tiles[i].y;
+      int x = gate_tiles[i].x;
+      current_level_map[y][x] = 0;
+    }
+  }
+}
+
+void restore_gate_tiles()
+{
+  for (int i = 0; i < num_gate_tiles; i++)
+  {
+    int y = gate_tiles[i].y;
+    int x = gate_tiles[i].x;
+    current_level_map[y][x] = 9;
+  }
+}
