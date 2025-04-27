@@ -18,8 +18,8 @@ typedef enum
 
 // Variabel untuk melacak pilihan menu
 static MenuOption current_selection = MENU_START;
-static SDL_FRect start_button = {330.0f, 300.0f, 300.0f, 60.0f};
-static SDL_FRect exit_button = {330.0f, 400.0f, 300.0f, 60.0f};
+static SDL_FRect start_button = {330, 300, 300, 60};
+static SDL_FRect exit_button = {330, 400, 300, 60};
 
 // Definisi state menu
 GameState menu_state = {
@@ -145,14 +145,24 @@ void menu_render(SDL_Renderer *renderer)
     render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 100, 80, 1.4, title_text_color);
 
     // Start button
+    start_button.x = (SCREEN_WIDTH / 2) - (start_button.w / 2);  // Tengah horizontal
+    start_button.y = (SCREEN_HEIGHT / 2) - (start_button.h / 2); // Tengah vertikal
     SDL_SetRenderDrawColor(renderer, start_button_color.r, start_button_color.g, start_button_color.b, 255);
     SDL_RenderFillRect(renderer, &start_button);
-    render_text(renderer, pixelify_font, "Start Game", start_button.x + 45, start_button.y + 5, 1, start_text_color);
+    render_text(renderer, pixelify_font, "Start Game",
+                start_button.x + start_button.w / 2 - 100,
+                start_button.y + start_button.h / 2 - 20,
+                1, start_text_color);
 
     // Exit button
+    exit_button.x = (SCREEN_WIDTH / 2) - (exit_button.w / 2); // Tengah horizontal
+    exit_button.y = start_button.y + start_button.h + 20;     // Jarak 20 piksel di bawah tombol Start
     SDL_SetRenderDrawColor(renderer, exit_button_color.r, exit_button_color.g, exit_button_color.b, 255);
     SDL_RenderFillRect(renderer, &exit_button);
-    render_text(renderer, pixelify_font, "Exit Game", exit_button.x + 65, exit_button.y + 5, 1, exit_text_color);
+    render_text(renderer, pixelify_font, "Exit Game",
+                exit_button.x + exit_button.w / 2 - 80,
+                exit_button.y + exit_button.h / 2 - 20,
+                1, exit_text_color);
 }
 
 void menu_cleanup()
