@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "game.h"
 
 // main game instance

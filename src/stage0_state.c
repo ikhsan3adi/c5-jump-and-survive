@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include <SDL3/SDL.h>
 
 #include "stage0_state.h"
@@ -67,7 +68,7 @@ void stage0_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
 
-  add_elapsed_time(&game_stat, delta_time * 1000);
+  add_elapsed_time(&game_stat, round(delta_time * 1000));
 
   if (is_exit(&player->transform))
   {

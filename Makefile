@@ -3,7 +3,7 @@ CC = gcc -Wall -g
 
 # Flags
 CFLAGS = -Iinclude -Llib
-LDFLAGS = -lSDL3 -lSDL3_ttf -lSDL3_mixer
+LDFLAGS = -lm -lSDL3 -lSDL3_ttf -lSDL3_mixer
 
 # Directories
 BUILD_DIR = build
@@ -24,12 +24,14 @@ OBJ_DIRS = $(sort $(dir $(OBJ)))
 # Target executable
 TARGET = $(BUILD_DIR)/main.exe
 
-# DLL to copy
+# DLL to copy (windows only)
 DLL = $(wildcard $(BIN_DIR)/*.dll)
 
 # Default target
 all: $(TARGET)
+ifeq ($(findstring Windows_NT,$(OS)),Windows_NT)
 	cp $(DLL) $(BUILD_DIR)/
+endif
 	./$(TARGET)
 
 create-build-dirs:
