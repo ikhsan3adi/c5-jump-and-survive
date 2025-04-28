@@ -4,6 +4,12 @@
   // tipe string
   "name": "level-10", 
 
+  // nama level sebelumnya
+  "prev": "level-9",
+  
+  // nama level selanjutnya
+  "next": "level-11",
+
   // posisi player [y, x]
   // dari stage0/1_state.c -> stage0/1_update() -> initiate_player()
   "player_spawn" : [2, 2],

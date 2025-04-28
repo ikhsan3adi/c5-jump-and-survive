@@ -10,6 +10,49 @@
 #define MAP_WIDTH 30
 #define MAP_HEIGHT 20
 
+typedef struct LevelNode
+{
+  char name[32];
+
+  Vector player_spawn;
+
+  SDL_Color foreground_color;
+  SDL_Color background_color;
+
+  Switch switches[100];
+  Switch_Obstacles switch_obstacles[100];
+  Saw saws[100];
+
+  short map[MAP_HEIGHT][MAP_WIDTH];
+
+  LevelNode *prev;
+  LevelNode *next;
+} LevelNode;
+
+//! pointer level node paling depan, tidak boleh berubah
+extern LevelNode *level_head;
+
+//! pointer level yang sedang dimuat, boleh berubah
+extern LevelNode *current_level;
+
+// hapus node awal
+void insert_last(LevelNode **head, LevelNode level);
+
+// hapus node terakhir
+void delete_last(LevelNode **head);
+
+// set current_level dengan level node yang mempunyai name
+void goto_level_by_name(LevelNode *head, const char* name);
+
+// set current_level menjadi current_level->next
+void *goto_next_level();
+
+// set current_level menjadi current_level->prev
+void *goto_prev_level();
+
+// bersihkan semua level
+void clear_level(LevelNode *head);
+
 extern short level0_map[MAP_HEIGHT][MAP_WIDTH];
 extern short level1_map[MAP_HEIGHT][MAP_WIDTH];
 extern short level2_map[MAP_HEIGHT][MAP_WIDTH];
