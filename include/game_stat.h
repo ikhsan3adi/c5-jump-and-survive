@@ -41,6 +41,8 @@ void reset_score(GameStat *stat);
 // Menambah satu nyawa (dengan batas maksimum)
 void add_life(GameStat *stat);
 
+void save_score_to_leaderboard(const GameStat *stat);
+
 // Mengurangi satu nyawa (return false jika nyawa abis)
 bool sub_life(GameStat *stat);
 

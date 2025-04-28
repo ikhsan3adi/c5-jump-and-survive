@@ -9,6 +9,7 @@
 #include "player.h"
 #include "SFX.h"
 #include "util.h"
+#include "leaderboard.h"
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;

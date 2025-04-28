@@ -2,6 +2,7 @@
 #include "ui.h"
 #include "game.h"
 #include "SFX.h"
+#include "leaderboard.h"
 #include <stdio.h>
 #define SCORE_PER_COIN 10
 
