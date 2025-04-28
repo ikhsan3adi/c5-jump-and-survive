@@ -3,7 +3,7 @@ CC = gcc -Wall -g
 
 # Flags
 CFLAGS = -Iinclude -Llib
-LDFLAGS = -lm -lSDL3 -lSDL3_ttf -lSDL3_mixer
+LDFLAGS = -lm -lSDL3 -lSDL3_ttf -lSDL3_mixer -lcJSON
 
 # Directories
 BUILD_DIR = build
