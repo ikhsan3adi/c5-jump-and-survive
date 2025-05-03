@@ -15,6 +15,8 @@ typedef struct LevelNode LevelNode;
 struct LevelNode
 {
   char name[32];
+  char prev_name[32]; // name level sebelumnya
+  char next_name[32]; // name level selanjutnya
 
   Vector player_spawn;
 
@@ -29,9 +31,6 @@ struct LevelNode
 
   LevelNode *prev;
   LevelNode *next;
-
-  //! TODO: add subvar prev_name: string
-  //! TODO: add subvar next_name: string
 };
 
 //! pointer level node paling depan, tidak boleh berubah

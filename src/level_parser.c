@@ -57,10 +57,15 @@ void set_level_name_from_json(LevelNode *node, cJSON *json)
   strcpy(node->name, json->valuestring);
 }
 
-//! TODO
-void set_prev_level_from_json(LevelNode *n, cJSON *j) {}
-//! TODO
-void set_next_level_from_json(LevelNode *n, cJSON *j) {}
+void set_prev_level_from_json(LevelNode *node, cJSON *json)
+{
+  strcpy(node->prev_name, json->valuestring);
+}
+
+void set_next_level_from_json(LevelNode *node, cJSON *json)
+{
+  strcpy(node->next_name, json->valuestring);
+}
 
 void set_player_spawn_from_json(LevelNode *node, cJSON *json)
 {
@@ -243,8 +248,8 @@ LevelNode *get_level_from_json(const char *json_str)
   // Urutan berdasarkan key pada file JSON
   void (*actions[])(LevelNode *, cJSON *) = {
       set_level_name_from_json,
-      set_prev_level_from_json, // TODO: add subvar prev_name
-      set_next_level_from_json, // TODO: add subvar next_name
+      set_prev_level_from_json,
+      set_next_level_from_json,
       set_player_spawn_from_json,
       set_fg_color_from_json_array,
       set_bg_color_from_json_array,
