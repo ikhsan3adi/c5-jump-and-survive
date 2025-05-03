@@ -10,7 +10,9 @@
 #define MAP_WIDTH 30
 #define MAP_HEIGHT 20
 
-typedef struct LevelNode
+typedef struct LevelNode LevelNode;
+
+struct LevelNode
 {
   char name[32];
 
@@ -27,13 +29,19 @@ typedef struct LevelNode
 
   LevelNode *prev;
   LevelNode *next;
-} LevelNode;
+
+  //! TODO: add subvar prev_name: string
+  //! TODO: add subvar next_name: string
+};
 
 //! pointer level node paling depan, tidak boleh berubah
 extern LevelNode *level_head;
 
 //! pointer level yang sedang dimuat, boleh berubah
-extern LevelNode *current_level;
+// extern LevelNode *current_level;
+
+// load all levels from directory
+void load_levels(const char *dir);
 
 // hapus node awal
 void insert_last(LevelNode **head, LevelNode level);
@@ -42,7 +50,7 @@ void insert_last(LevelNode **head, LevelNode level);
 void delete_last(LevelNode **head);
 
 // set current_level dengan level node yang mempunyai name
-void goto_level_by_name(LevelNode *head, const char* name);
+void goto_level_by_name(LevelNode *head, const char *name);
 
 // set current_level menjadi current_level->next
 void *goto_next_level();

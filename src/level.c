@@ -1,9 +1,15 @@
 #include "level.h"
+#include "level_parser.h"
 #include "entity.h"
 #include "obstacles.h"
 
 LevelNode *level_head = NULL;
-LevelNode *current_level = NULL;
+// LevelNode *current_level = NULL;
+
+void load_levels(const char *dir)
+{
+  load_json_levels(&level_head, dir);
+}
 
 short level0_map[MAP_HEIGHT][MAP_WIDTH] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
