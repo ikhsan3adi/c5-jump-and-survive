@@ -2,7 +2,18 @@
 CC = gcc -Wall -g
 
 # Flags
-CFLAGS = -Iinclude -Llib
+CFLAGS = -Iinclude
+
+ifeq ($(OS),Windows_NT)
+	CFLAGS += -Llib/windows
+else
+	UNAME_S := $(shell uname -s)
+  ifeq ($(UNAME_S),Linux)
+		CFLAGS += -Llib/linux
+	else ifeq ($(UNAME_S),Darwin)
+		CFLAGS += -Llib/macos
+	endif
+endif
 LDFLAGS = -lm -lSDL3 -lSDL3_ttf -lSDL3_mixer -lcJSON
 
 # Directories
@@ -29,7 +40,7 @@ DLL = $(wildcard $(BIN_DIR)/*.dll)
 
 # Default target
 all: $(TARGET)
-ifeq ($(findstring Windows_NT,$(OS)),Windows_NT)
+ifeq ($(OS),Windows_NT)
 	cp $(DLL) $(BUILD_DIR)/
 endif
 	./$(TARGET)
