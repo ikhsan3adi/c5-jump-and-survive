@@ -5,6 +5,7 @@
 #include <SDL3/SDL_ttf.h>
 
 #include "game_stat.h"
+#include "leaderboard.h"
 
 #define PIXELIFYSANS_FONT "assets/fonts/PixelifySans-Regular.ttf"
 #define SIXTYFOURCONVERGENCE_FONT "assets/fonts/SixtyfourConvergence-Regular.ttf"
@@ -29,6 +30,8 @@ void show_pause_ui(SDL_Renderer *renderer);
 void show_level_transition(SDL_Renderer *renderer, int stage, int level);
 
 void show_stage_transition(SDL_Renderer *renderer, int stage);
+
+void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head);
 
 void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat);
 

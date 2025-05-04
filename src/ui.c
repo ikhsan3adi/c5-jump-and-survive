@@ -13,6 +13,7 @@
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;
+SDL_Renderer *renderer = NULL;
 
 SDL_Surface *text_surface = NULL;
 SDL_Texture *text_texture = NULL;
@@ -332,6 +333,32 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
         SDL_Delay(16);
     }
     stop_sound(5);
+}
+
+void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
+{
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 180);
+    SDL_RenderFillRect(renderer, &(SDL_FRect){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
+
+    SDL_Color text_color = {255, 255, 255, 255};
+    int base_y = 100;
+    int x_offset = 150;
+    int y_spacing = 40;
+    int rank = 1;
+
+    render_text(renderer, pixelify_font, "Leaderboard", x_offset, base_y - 60, 1.5, text_color);
+
+    while (head && rank <= MAX_LEADERBOARD)
+    {
+        char buffer[128];
+        snprintf(buffer, sizeof(buffer), "%d - Score: %d | Time: %d sec",
+                 rank, head->stat.score, head->stat.elapsed_time / 1000.0f);
+
+        render_text(renderer, pixelify_font, buffer, x_offset, base_y + (rank - 1) * y_spacing, 1, text_color);
+
+        head = head->next;
+        rank++;
+    }
 }
 
 void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
