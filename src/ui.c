@@ -337,28 +337,27 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
 
 void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
 {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 180);
-    SDL_RenderFillRect(renderer, &(SDL_FRect){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
+    SDL_SetRenderDrawColor(renderer, 135, 206, 235, 255);
+    SDL_RenderClear(renderer);
 
-    SDL_Color text_color = {255, 255, 255, 255};
-    int base_y = 100;
-    int x_offset = 150;
-    int y_spacing = 40;
-    int rank = 1;
+    SDL_Color title_text_color = {139, 69, 19, 255};
+    SDL_Color text_color = {139, 69, 19, 255};
 
-    render_text(renderer, pixelify_font, "Leaderboard", x_offset, base_y - 60, 1.5, text_color);
+    render_text(renderer, sixtyfourconvergence_font, "LEADERBOARD", 100, 60, 1.2, title_text_color);
+    render_text(renderer, pixelify_font, "SCORE        TIME (s)", 120, 120, 1.0, text_color);
 
-    while (head && rank <= MAX_LEADERBOARD)
+    LeaderboardNode *current = head;
+    int i = 0;
+    while (current != NULL && i < MAX_LEADERBOARD)
     {
-        char buffer[128];
-        snprintf(buffer, sizeof(buffer), "%d - Score: %d | Time: %d sec",
-                 rank, head->stat.score, head->stat.elapsed_time / 1000.0f);
-
-        render_text(renderer, pixelify_font, buffer, x_offset, base_y + (rank - 1) * y_spacing, 1, text_color);
-
-        head = head->next;
-        rank++;
+        char buffer[64];
+        snprintf(buffer, sizeof(buffer), "%d        %u", current->stat.score, current->stat.elapsed_time / 1000);
+        render_text(renderer, pixelify_font, buffer, 120, 160 + i * 40, 1.0, text_color);
+        current = current->next;
+        i++;
     }
+
+    render_text(renderer, pixelify_font, "Press ESC or ENTER to return", 120, 420, 0.8, text_color);
 }
 
 void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
