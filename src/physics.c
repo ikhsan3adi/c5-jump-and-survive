@@ -1,6 +1,6 @@
 #include "physics.h"
 #include "game_stat.h"
-#include "sfx.h"
+#include "SFX.h"
 #include "player.h"
 #include "level.h"
 #include <stdlib.h>

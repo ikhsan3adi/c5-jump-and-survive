@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include <SDL3/SDL.h>
 
 #include "stage1_state.h"
@@ -75,7 +76,7 @@ void stage1_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
 
-  add_elapsed_time(&game_stat, delta_time * 1000);
+  add_elapsed_time(&game_stat, round(delta_time * 1000));
 
   update_all_saws(&saw_manager, delta_time);
 
