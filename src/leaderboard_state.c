@@ -6,7 +6,7 @@
 #include "ui.h"
 #include "leaderboard.h"
 
-static LeaderboardNode *leaderboard_head = NULL;
+
 const char *LEADERBOARD_FILE = "leaderboard.dat";
 
 GameState leaderboard_state = {

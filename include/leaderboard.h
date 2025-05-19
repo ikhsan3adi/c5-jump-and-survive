@@ -13,6 +13,8 @@ typedef struct LeaderboardNode {
     struct LeaderboardNode* next;
 } LeaderboardNode;
 
+extern LeaderboardNode* leaderboard_head;
+
 LeaderboardNode* create_node(GameStat stat);
 bool is_greater(GameStat a, GameStat b);
 void insert_leaderboard(LeaderboardNode** head, GameStat stat);

@@ -10,6 +10,7 @@
 #include "SFX.h"
 #include "util.h"
 #include "leaderboard.h"
+#include "leaderboard_state.h"
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;
@@ -81,6 +82,8 @@ void render_game_ui(SDL_Renderer *renderer, GameStat *stat)
 
 void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 {
+    insert_leaderboard(&leaderboard_head, stat);
+    save_leaderboard("leaderboard.dat", leaderboard_head);
     bool is_exit = false;
     SDL_Event event;
     Uint64 start = SDL_GetTicks();
