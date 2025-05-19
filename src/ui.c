@@ -10,9 +10,12 @@
 #include "player.h"
 #include "SFX.h"
 #include "util.h"
+#include "leaderboard.h"
+#include "leaderboard_state.h"
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;
+SDL_Renderer *renderer = NULL;
 
 SDL_Surface *text_surface = NULL;
 SDL_Texture *text_texture = NULL;
@@ -80,6 +83,8 @@ void render_game_ui(SDL_Renderer *renderer, GameStat *stat)
 
 void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 {
+    insert_leaderboard(&leaderboard_head, stat);
+    save_leaderboard("leaderboard.dat", leaderboard_head);
     bool is_exit = false;
     SDL_Event event;
     Uint64 start = SDL_GetTicks();
@@ -332,6 +337,58 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
         SDL_Delay(16);
     }
     stop_sound(5);
+}
+
+void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
+{
+    // Set background color (soft dark blue for better contrast)
+    SDL_SetRenderDrawColor(renderer, 30, 30, 60, 255);
+    SDL_RenderClear(renderer);
+
+    // Define colors
+    SDL_Color title_color = {255, 215, 0, 255};         // Gold for title
+    SDL_Color text_color = {255, 255, 255, 255};        // White for entries
+    SDL_Color header_color = {100, 200, 255, 255};      // Light blue for headers
+    SDL_Color instruction_color = {200, 200, 200, 255}; // Light gray for instructions
+
+    // Draw semi-transparent background rectangle for leaderboard table
+    SDL_SetRenderDrawColor(renderer, 50, 50, 80, 200); // Darker blue, semi-transparent
+    SDL_FRect table_bg = {75, 100, 810, 450};          // Scaled table size
+    SDL_RenderFillRect(renderer, &table_bg);
+
+    // Draw table border
+    SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255); // Gold border
+    SDL_RenderRect(renderer, &table_bg);
+
+    // Render title (centered, adjusted scale)
+    render_text(renderer, sixtyfourconvergence_font, "LEADERBOARD", 300, 40, 1.0, title_color);
+
+    render_text(renderer, pixelify_font, "RANK", 130, 130, 1.0, header_color);
+    render_text(renderer, pixelify_font, "SCORE", 375, 130, 1.0, header_color);
+    render_text(renderer, pixelify_font, "TIME (s)", 675, 130, 1.0, header_color);
+
+    // Render leaderboard entries with adjusted spacing
+    LeaderboardNode *current = head;
+    int i = 0;
+    while (current != NULL && i < MAX_LEADERBOARD)
+    {
+        char buffer[64];
+        // Format: Rank, Score, Time
+        snprintf(buffer, sizeof(buffer), "%2d", i + 1); // Rank
+        render_text(renderer, pixelify_font, buffer, 175, 190 + i * 45, 0.9, text_color);
+
+        snprintf(buffer, sizeof(buffer), "%d", current->stat.score); // Score
+        render_text(renderer, pixelify_font, buffer, 450, 190 + i * 45, 0.9, text_color);
+
+        snprintf(buffer, sizeof(buffer), "%u", current->stat.elapsed_time / 1000); // Time in seconds
+        render_text(renderer, pixelify_font, buffer, 800, 190 + i * 45, 0.9, text_color);
+
+        current = current->next;
+        i++;
+    }
+
+    // Render instruction text at the bottom (adjusted position)
+    render_text(renderer, pixelify_font, "Press ESC or ENTER to return", 350, 570, 1, instruction_color);
 }
 
 void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
