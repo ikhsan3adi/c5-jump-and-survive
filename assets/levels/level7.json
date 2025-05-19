@@ -1,11 +1,17 @@
 {
     "name": "Level-7",
+    
+    "prev": "level-9",
+
+    "next": "level-8",
 
     "player_spawn": [2, 23],
 
     "foreground_color": [52, 54, 77, 255],
 
     "background_color": [93, 94, 114, 255],
+
+    "background_image" : "bg3.png",
 
     "switches": [],
 
@@ -39,9 +45,6 @@
         }
     ],
 
-    "next": "level-8",
-
-    "prev": "level-9",
 
     "map" : [
         [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],

@@ -1,11 +1,17 @@
 {
     "name": "Level-2",
 
+    "prev": "level-1",
+
+    "next": "level-3",
+
     "player_spawn": [3, 21],
 
     "foreground_color": [10, 55, 58, 255],
 
     "background_color": [124, 162, 142, 255],
+
+    "background_image": "bg2.png",
 
     "switches": [],
 
@@ -13,9 +19,6 @@
 
     "saws": [],
 
-    "next": "level-3",
-
-    "prev": "level-1",
     "map": [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],

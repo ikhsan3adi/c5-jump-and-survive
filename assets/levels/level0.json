@@ -1,5 +1,9 @@
 {
     "name" : "Level-0",
+    
+    "prev": "",
+
+    "next": "level-1",
 
     "player_spawn" : [8, 5],
 
@@ -7,15 +11,14 @@
 
     "background_color" : [124, 162, 142, 255],
 
+    "background_image" : "bg.png",
+
     "switches": [],
 
     "switch_obstacles" : [],
 
     "saws": [],
 
-    "next": "level-1",
-
-    "prev": null,
 
     "map" : [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
