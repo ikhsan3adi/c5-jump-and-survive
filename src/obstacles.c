@@ -2,6 +2,7 @@
 #include <math.h>
 #include "obstacles.h"
 #include "level.h"
+#include "game.h"
 
 // Menggambar Saw (Lingkaran dengan gigi)
 void draw_rotating_saw(SDL_Renderer *renderer, SDL_FRect rect, float angle)
@@ -390,36 +391,49 @@ void cleanup_saw_manager(SawManager *manager)
     manager->count = 0;
 }
 
-void setup_level_saws(int level)
+void setup_level_saws()
 {
     // cleanup_saw_manager(saw_manager);
 
-    if (level == 7)
+    int n = sizeof(current_level->saws) / sizeof(current_level->saws[0]);
+    for (int i = 0; i < n; i++)
     {
-        add_saw(&saw_manager, 20 * TILE_SIZE, 5.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
-        add_saw(&saw_manager, 15 * TILE_SIZE, 8.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 11.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
+        Saw sawT = current_level->saws[i];
+        add_saw(&saw_manager,
+                sawT.transform.x * TILE_SIZE,
+                sawT.transform.y * TILE_SIZE,
+                sawT.transform.w * TILE_SIZE,
+                sawT.transform.h * TILE_SIZE,
+                sawT.physics.velocity_x * TILE_SIZE,
+                sawT.physics.velocity_y * TILE_SIZE);
     }
 
-    if (level == 8)
-    {
-        add_saw(&saw_manager, 24 * TILE_SIZE, 10 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, (TILE_SIZE * 8));
-        add_saw(&saw_manager, 20 * TILE_SIZE, 11 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, -(TILE_SIZE * 9));
-        add_saw(&saw_manager, 16 * TILE_SIZE, 12 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, (TILE_SIZE * 10));
-    }
+    // if (level == 7)
+    // {
+    //     add_saw(&saw_manager, 20 * TILE_SIZE, 5.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
+    //     add_saw(&saw_manager, 15 * TILE_SIZE, 8.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
+    //     add_saw(&saw_manager, 20 * TILE_SIZE, 11.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
+    // }
 
-    if (level == 9)
-    {
+    // if (level == 8)
+    // {
+    //     add_saw(&saw_manager, 24 * TILE_SIZE, 10 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, (TILE_SIZE * 8));
+    //     add_saw(&saw_manager, 20 * TILE_SIZE, 11 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, -(TILE_SIZE * 9));
+    //     add_saw(&saw_manager, 16 * TILE_SIZE, 12 * TILE_SIZE, TILE_SIZE, TILE_SIZE, 0, (TILE_SIZE * 10));
+    // }
 
-        add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 9.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
-    }
+    // if (level == 9)
+    // {
 
-    if (level == 10)
-    {
-        add_saw(&saw_manager, 25 * TILE_SIZE, 4.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 7.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
-        add_saw(&saw_manager, 25 * TILE_SIZE, 10.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
-        add_saw(&saw_manager, 20 * TILE_SIZE, 13.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
-    }
+    //     add_saw(&saw_manager, 12 * TILE_SIZE, 4 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
+    //     add_saw(&saw_manager, 20 * TILE_SIZE, 9.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
+    // }
+
+    // if (level == 10)
+    // {
+    //     add_saw(&saw_manager, 25 * TILE_SIZE, 4.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
+    //     add_saw(&saw_manager, 20 * TILE_SIZE, 7.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
+    //     add_saw(&saw_manager, 25 * TILE_SIZE, 10.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, -(TILE_SIZE * 3), 0);
+    //     add_saw(&saw_manager, 20 * TILE_SIZE, 13.5 * TILE_SIZE, TILE_SIZE, TILE_SIZE, (TILE_SIZE * 3), 0);
+    // }
 }

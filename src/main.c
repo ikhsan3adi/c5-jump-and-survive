@@ -8,6 +8,7 @@
 #include "game_stat.h"
 #include "SFX.h"
 #include "ui.h"
+#include "level.h"
 
 Uint64 last_time;
 
@@ -23,6 +24,8 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
   init_audio();
 
   last_time = SDL_GetPerformanceCounter();
+
+  load_levels("assets/levels/");
 
   change_game_state(&menu_state);
 

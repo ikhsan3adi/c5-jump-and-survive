@@ -27,8 +27,9 @@ void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
 
+  current_level = level_head;
   player = create_player(
-      (Transform){120, 416, 32, 32},
+      (Transform){current_level->player_spawn.x * TILE_SIZE,current_level->player_spawn.y * TILE_SIZE , 32, 32},
       TILE_SIZE * 50,   // gravity (50 TILE / s^2)
       TILE_SIZE * 5.5f, // speed = 5.5 tile per second
       1.0f);
@@ -41,10 +42,10 @@ void stage0_init()
   {
     play_music(stage0_bgm, INT32_MAX);
   }
-
+  setup_level_saws();
   init_game_stat(&game_stat);
   start_timer(&game_stat);
-  change_level(0);
+  change_level();
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -70,27 +71,22 @@ void stage0_update(double delta_time)
 
   add_elapsed_time(&game_stat, round(delta_time * 1000));
 
+  update_all_saws(&saw_manager, delta_time);
+
+  // Check for collision with player
+  for (int i = 0; i < saw_manager.count; i++)
+  {
+    handle_saw_collision(saw_manager.saws[i]->transform, player->transform);
+  }
+
   if (is_exit(&player->transform))
   {
     SDL_Renderer *renderer = get_game_instance()->renderer;
     show_level_transition(renderer, 0, current_level);
-    current_level++;
-
-    change_level(current_level);
-
-    if (current_level == 1 || current_level == 0)
-    {
-      initiate_player(player, 100, 300);
-    }
-    else if (current_level == 2)
-    {
-      initiate_player(player, 650, 100);
-    }
-    else if (current_level == 3)
-    {
-      change_game_state(&stage1_state);
-      initiate_player(player, 70, 170);
-    }
+    goto_next_level();
+    cleanup_saw_manager(&saw_manager);
+    setup_level_saws();
+    reinitiate_player(player, current_level->player_spawn);
   }
 }
 
@@ -102,6 +98,10 @@ void stage0_render(SDL_Renderer *renderer)
   // Render map
   render_level(renderer);
 
+  // Render Saws
+
+  render_all_saws(renderer, &saw_manager);
+
   // Render player
   render_player(renderer, player);
 
@@ -111,5 +111,6 @@ void stage0_render(SDL_Renderer *renderer)
 void stage0_cleanup()
 {
   SDL_Log("Stage 0 State: Cleaned up");
-  destroy_player(player); //
+  destroy_player(player);
+  cleanup_saw_manager(&saw_manager);
 }

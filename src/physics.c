@@ -36,6 +36,6 @@ void handle_saw_collision(Transform saw_transform, Transform player_transform)
   {
     play_sound(dead_sfx, 4, 0);
     sub_life(&game_stat);
-    reinitiate_player(player, current_level);
+    reinitiate_player(player, current_level->player_spawn);
   }
 }

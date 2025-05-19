@@ -44,7 +44,7 @@ void menu_init()
 
     player = create_player((Transform){120, 416, 32, 32}, 0, 0, 0);
 
-    change_level(0);
+    change_level();
 }
 
 void menu_handle_input(SDL_Event *event)
