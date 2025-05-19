@@ -95,6 +95,11 @@ void set_bg_color_from_json_array(LevelNode *node, cJSON *json)
   };
 }
 
+void set_bg_image_from_json(LevelNode *node, cJSON *json)
+{
+  strcpy(node->bg_image, json->valuestring);
+}
+
 void set_switches_from_json(LevelNode *node, cJSON *json)
 {
   int i = 0;                                   // counter
@@ -253,6 +258,7 @@ LevelNode *get_level_from_json(const char *json_str)
       set_player_spawn_from_json,
       set_fg_color_from_json_array,
       set_bg_color_from_json_array,
+      set_bg_image_from_json,
       set_switches_from_json,
       set_switch_obstacles_from_json,
       set_saws_from_json,

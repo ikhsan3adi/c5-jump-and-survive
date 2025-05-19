@@ -23,6 +23,8 @@ struct LevelNode
   SDL_Color foreground_color;
   SDL_Color background_color;
 
+  char bg_image[32];
+
   Switch switches[100];
   Switch_Obstacles switch_obstacles[100];
   Saw saws[100];
