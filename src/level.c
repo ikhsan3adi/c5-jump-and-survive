@@ -292,8 +292,6 @@ void change_level()
   memcpy(current_level_map, current_level->map, sizeof(current_level->map));
   memcpy(current_switches, current_level->switches, sizeof(current_level->switches));
   memcpy(current_switch_obstacles, current_level->switch_obstacles, sizeof(current_level->switch_obstacles));
-
-
   find_gate_tiles();
   hide_gate_tiles();
   SDL_Log("%s", current_level->name);

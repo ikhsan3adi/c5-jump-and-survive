@@ -27,8 +27,9 @@ void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
 
+  current_level = level_head;
   player = create_player(
-      (Transform){120, 416, 32, 32},
+      (Transform){current_level->player_spawn.x * TILE_SIZE,current_level->player_spawn.y * TILE_SIZE , 32, 32},
       TILE_SIZE * 50,   // gravity (50 TILE / s^2)
       TILE_SIZE * 5.5f, // speed = 5.5 tile per second
       1.0f);
@@ -41,7 +42,6 @@ void stage0_init()
   {
     play_music(stage0_bgm, INT32_MAX);
   }
-
   setup_level_saws();
   init_game_stat(&game_stat);
   start_timer(&game_stat);
