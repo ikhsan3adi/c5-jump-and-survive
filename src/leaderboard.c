@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <SDL3/SDL.h>
 
+LeaderboardNode *leaderboard_head = NULL;
+
 // Fungsi pembanding: apakah a lebih unggul dari b?
 bool is_greater(GameStat a, GameStat b) {
     return (a.score > b.score) ||
