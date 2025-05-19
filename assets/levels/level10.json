@@ -11,6 +11,8 @@
 
     "background_color": [93, 94, 114, 255],
 
+    "background_image" : "bg4.png",
+
     "switches": [
         {
             "button": [15, 9],

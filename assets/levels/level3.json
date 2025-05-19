@@ -2,7 +2,7 @@
     "name": "Level-3",
     
     "prev": "level-2",
-    
+
     "next": "level-4",
 
     "player_spawn": [6, 2],
@@ -11,6 +11,8 @@
 
     "background_color": [93, 94, 114, 255],
 
+    "background_image" : "bg5.png",
+    
     "switches": [],
 
     "switch_obstacles" : [],
