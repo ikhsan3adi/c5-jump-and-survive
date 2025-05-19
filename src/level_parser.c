@@ -2,6 +2,8 @@
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include <ctype.h>
 
 #include <cJSON/cJSON.h>
 
@@ -275,39 +277,112 @@ LevelNode *get_level_from_json(const char *json_str)
   return node;
 }
 
+// void load_json_levels(LevelNode **head, const char *dir)
+// {
+//   DIR *d;                // directory
+//   struct dirent *dirent; // directory entry
+
+//   if (!(d = opendir(dir))) // buka directory `dir`
+//   {
+//     return;
+//   }
+
+//   // loop semua file/directory entry di directory
+//   while ((dirent = readdir(d)) != NULL)
+//   {
+//     const char *filename = dirent->d_name;
+//     const char *ext = get_filename_ext(filename);
+
+//     if (strcmp(ext, "json") == 0) // cek file extension adalah .json
+//     {
+//       // buat full path = dir + filename
+//       char full_path[100] = "";
+//       strcat(full_path, dir);
+//       strcat(full_path, filename);
+
+//       // json string
+//       char *json_content = get_json_string(full_path);
+//       // buat node level dari json string
+//       LevelNode *node = get_level_from_json(json_content);
+
+//       //! TODO: insert to head
+//       //! TODO: rearrange by next & prev
+//       insert_level(head, node);
+//     }
+//   }
+
+//   closedir(d);
+// }
+
+
+// Natural order comparator for filenames like "level2" vs "level10"
+int natural_compare(const void *a, const void *b)
+{
+    const char *f1 = *(const char **)a;
+    const char *f2 = *(const char **)b;
+
+    while (*f1 && *f2)
+    {
+        if (isdigit(*f1) && isdigit(*f2))
+        {
+            int n1 = atoi(f1);
+            int n2 = atoi(f2);
+            if (n1 != n2)
+                return n1 - n2;
+
+            // skip the digits
+            while (isdigit(*f1)) f1++;
+            while (isdigit(*f2)) f2++;
+        }
+        else
+        {
+            if (*f1 != *f2)
+                return *f1 - *f2;
+            f1++;
+            f2++;
+        }
+    }
+    return *f1 - *f2;
+}
+
 void load_json_levels(LevelNode **head, const char *dir)
 {
-  DIR *d;                // directory
-  struct dirent *dirent; // directory entry
+    DIR *d;
+    struct dirent *dirent;
+    char *filenames[MAX_LEVELS];
+    int count = 0;
 
-  if (!(d = opendir(dir))) // buka directory `dir`
-  {
-    return;
-  }
-
-  // loop semua file/directory entry di directory
-  while ((dirent = readdir(d)) != NULL)
-  {
-    const char *filename = dirent->d_name;
-    const char *ext = get_filename_ext(filename);
-
-    if (strcmp(ext, "json") == 0) // cek file extension adalah .json
+    if (!(d = opendir(dir)))
     {
-      // buat full path = dir + filename
-      char full_path[100] = "";
-      strcat(full_path, dir);
-      strcat(full_path, filename);
-
-      // json string
-      char *json_content = get_json_string(full_path);
-      // buat node level dari json string
-      LevelNode *node = get_level_from_json(json_content);
-
-      //! TODO: insert to head
-      //! TODO: rearrange by next & prev
-      insert_level(head, node);
+        // perror("Failed to open directory");
+        return;
     }
-  }
 
-  closedir(d);
+    while ((dirent = readdir(d)) != NULL)
+    {
+        const char *filename = dirent->d_name;
+        const char *ext = get_filename_ext(filename);
+        if (strcmp(ext, "json") == 0)
+        {
+            filenames[count] = strdup(filename); // remember to free later
+            count++;
+        }
+    }
+    closedir(d);
+
+    // Sort filenames naturally
+    qsort(filenames, count, sizeof(char *), natural_compare);
+
+    // Parse in order
+    for (int i = 0; i < count; ++i)
+    {
+        char full_path[256];
+        snprintf(full_path, sizeof(full_path), "%s/%s", dir, filenames[i]);
+
+        char *json_content = get_json_string(full_path);
+        LevelNode *node = get_level_from_json(json_content);
+        insert_level(head, node);
+
+        free(filenames[i]); // Clean up
+    }
 }

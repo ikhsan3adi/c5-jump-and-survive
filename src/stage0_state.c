@@ -43,10 +43,9 @@ void stage0_init()
   }
 
   setup_level_saws();
-
   init_game_stat(&game_stat);
   start_timer(&game_stat);
-  change_level(0);
+  change_level();
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -83,10 +82,10 @@ void stage0_update(double delta_time)
   if (is_exit(&player->transform))
   {
     SDL_Renderer *renderer = get_game_instance()->renderer;
-    // show_level_transition(renderer, 0, current_level);
+    show_level_transition(renderer, 0, current_level);
     goto_next_level();
     cleanup_saw_manager(&saw_manager);
-    // setup_level_saws();
+    setup_level_saws();
     reinitiate_player(player, current_level->player_spawn);
   }
 }

@@ -293,6 +293,11 @@ void change_level()
   memcpy(current_switches, current_level->switches, sizeof(current_level->switches));
   memcpy(current_switch_obstacles, current_level->switch_obstacles, sizeof(current_level->switch_obstacles));
 
+
+  find_gate_tiles();
+  hide_gate_tiles();
+  SDL_Log("%s", current_level->name);
+  SDL_Log("%s",current_level->next->name);
   // reinitiate_player(player, current_level->player_spawn);
 }
 

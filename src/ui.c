@@ -6,6 +6,7 @@
 #include "menu_state.h"
 #include "game.h"
 #include "level.h"
+// #include "level_parser.h"
 #include "player.h"
 #include "SFX.h"
 #include "util.h"
@@ -209,7 +210,7 @@ void show_pause_ui(SDL_Renderer *renderer)
     }
 }
 
-void show_level_transition(SDL_Renderer *renderer, int stage, int level)
+void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current)
 {
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 1500; // ms
@@ -220,9 +221,9 @@ void show_level_transition(SDL_Renderer *renderer, int stage, int level)
     char body_text[32];
 
     // buat string
-    snprintf(title_text, sizeof(title_text), "Level %d Completed!", level);
-    snprintf(subtitle_text, sizeof(subtitle_text), "Next Level: %d", level + 1);
-    snprintf(body_text, sizeof(body_text), "Stage %d", stage);
+    snprintf(title_text, sizeof(title_text), "%s Completed!", current->name);
+    snprintf(subtitle_text, sizeof(subtitle_text), "Next Level: %s", current->next_name);
+    snprintf(body_text, sizeof(body_text), "Stage 0 ");
 
     int rect_width = 0;
 

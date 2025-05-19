@@ -3,6 +3,8 @@
 
 #include "level.h"
 
+#define MAX_LEVELS 1000
+
 // get file extension
 const char *get_filename_ext(const char *filename);
 
@@ -11,6 +13,8 @@ char *get_json_string(const char *file);
 
 // convert json to LevelNode
 LevelNode *get_level_from_json(const char *json_str);
+
+int natural_compare(const void *a, const void *b);
 
 // load levels from json from directory
 void load_json_levels(LevelNode **head, const char *dir);
