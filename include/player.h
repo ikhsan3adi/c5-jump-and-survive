@@ -13,7 +13,7 @@ Entity *create_player(Transform transform, double gravity, double speed, double 
 
 void initiate_player(Entity *player, int x, int y);
 
-void reinitiate_player(Entity *player, int level);
+void reinitiate_player(Entity *player, Vector pos);
 
 void handle_player_input(Entity *player, SDL_Event *event);
 

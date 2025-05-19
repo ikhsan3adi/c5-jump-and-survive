@@ -305,8 +305,7 @@ void load_json_levels(LevelNode **head, const char *dir)
 
       //! TODO: insert to head
       //! TODO: rearrange by next & prev
-
-      (*head);
+      insert_level(head, node);
     }
   }
 

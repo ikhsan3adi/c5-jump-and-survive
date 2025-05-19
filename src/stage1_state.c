@@ -97,7 +97,7 @@ void stage1_update(double delta_time)
       return;
     }
 
-    show_level_transition(renderer, 1, current_level);
+    // show_level_transition(renderer, 1, current_level);
     current_level++;
     change_level(current_level);
     cleanup_saw_manager(&saw_manager);
