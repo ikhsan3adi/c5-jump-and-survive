@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
@@ -360,7 +359,7 @@ void load_json_levels(LevelNode **head, const char *dir)
 
     if (!(d = opendir(dir)))
     {
-        // perror("Failed to open directory");
+        perror("Failed to open directory");
         return;
     }
 
@@ -382,13 +381,11 @@ void load_json_levels(LevelNode **head, const char *dir)
     // Parse in order
     for (int i = 0; i < count; ++i)
     {
-        char full_path[256];
+        char full_path[200];
         snprintf(full_path, sizeof(full_path), "%s/%s", dir, filenames[i]);
 
         char *json_content = get_json_string(full_path);
         LevelNode *node = get_level_from_json(json_content);
         insert_level(head, node);
-
-        free(filenames[i]); // Clean up
     }
 }
