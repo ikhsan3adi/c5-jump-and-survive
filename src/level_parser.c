@@ -106,6 +106,17 @@ void set_switches_from_json(LevelNode *node, cJSON *json)
   int i = 0;                                   // counter
   cJSON *cursor = cJSON_GetArrayItem(json, 0); // pointer untuk looping elemen array (cursor luar)
 
+  int switches_count = cJSON_GetArraySize(json); // jumlah switches
+
+  // alokasi memori untuk switches
+  node->switches = malloc(sizeof(Switch) * switches_count);
+  if (node->switches == NULL)
+  {
+    SDL_Log("Failed to allocate memory for switches!");
+    exit(1);
+  }
+  node->switches_count = switches_count;
+
   while (cursor != NULL)
   {
     int j = 0;                    // counter dalam
@@ -141,6 +152,17 @@ void set_switch_obstacles_from_json(LevelNode *node, cJSON *json)
 {
   int i = 0;                                   // counter
   cJSON *cursor = cJSON_GetArrayItem(json, 0); // pointer untuk looping elemen array (cursor luar)
+
+  int switch_obstacles_count = cJSON_GetArraySize(json); // jumlah switch_obstacles
+
+  // alokasi memori untuk switch_obstacles
+  node->switch_obstacles = malloc(sizeof(Switch_Obstacles) * switch_obstacles_count);
+  if (node->switch_obstacles == NULL)
+  {
+    SDL_Log("Failed to allocate memory for switch_obstacles!");
+    exit(1);
+  }
+  node->switch_obstacles_count = switch_obstacles_count;
 
   while (cursor != NULL)
   {
@@ -192,6 +214,17 @@ void set_saws_from_json(LevelNode *node, cJSON *json)
 {
   int i = 0;                                   // counter
   cJSON *cursor = cJSON_GetArrayItem(json, 0); // pointer untuk looping elemen array (cursor luar)
+
+  int saw_count = cJSON_GetArraySize(json); // jumlah saws
+
+  // alokasi memori untuk saws
+  node->saws = malloc(sizeof(Saw) * saw_count);
+  if (node->saws == NULL)
+  {
+    SDL_Log("Failed to allocate memory for saws!");
+    exit(1);
+  }
+  node->saws_count = saw_count;
 
   while (cursor != NULL)
   {
@@ -319,73 +352,74 @@ LevelNode *get_level_from_json(const char *json_str)
 //   closedir(d);
 // }
 
-
 // Natural order comparator for filenames like "level2" vs "level10"
 int natural_compare(const void *a, const void *b)
 {
-    const char *f1 = *(const char **)a;
-    const char *f2 = *(const char **)b;
+  const char *f1 = *(const char **)a;
+  const char *f2 = *(const char **)b;
 
-    while (*f1 && *f2)
+  while (*f1 && *f2)
+  {
+    if (isdigit(*f1) && isdigit(*f2))
     {
-        if (isdigit(*f1) && isdigit(*f2))
-        {
-            int n1 = atoi(f1);
-            int n2 = atoi(f2);
-            if (n1 != n2)
-                return n1 - n2;
+      int n1 = atoi(f1);
+      int n2 = atoi(f2);
+      if (n1 != n2)
+        return n1 - n2;
 
-            // skip the digits
-            while (isdigit(*f1)) f1++;
-            while (isdigit(*f2)) f2++;
-        }
-        else
-        {
-            if (*f1 != *f2)
-                return *f1 - *f2;
-            f1++;
-            f2++;
-        }
+      // skip the digits
+      while (isdigit(*f1))
+        f1++;
+      while (isdigit(*f2))
+        f2++;
     }
-    return *f1 - *f2;
+    else
+    {
+      if (*f1 != *f2)
+        return *f1 - *f2;
+      f1++;
+      f2++;
+    }
+  }
+  return *f1 - *f2;
 }
 
 void load_json_levels(LevelNode **head, const char *dir)
 {
-    DIR *d;
-    struct dirent *dirent;
-    char *filenames[MAX_LEVELS];
-    int count = 0;
+  DIR *d;
+  struct dirent *dirent;
+  char *filenames[MAX_LEVELS];
+  int count = 0;
 
-    if (!(d = opendir(dir)))
+  if (!(d = opendir(dir)))
+  {
+    perror("Failed to open directory");
+    return;
+  }
+
+  while ((dirent = readdir(d)) != NULL)
+  {
+    const char *filename = dirent->d_name;
+    const char *ext = get_filename_ext(filename);
+    if (strcmp(ext, "json") == 0)
     {
-        perror("Failed to open directory");
-        return;
+      filenames[count] = strdup(filename); // remember to free later
+      count++;
     }
+  }
+  closedir(d);
 
-    while ((dirent = readdir(d)) != NULL)
-    {
-        const char *filename = dirent->d_name;
-        const char *ext = get_filename_ext(filename);
-        if (strcmp(ext, "json") == 0)
-        {
-            filenames[count] = strdup(filename); // remember to free later
-            count++;
-        }
-    }
-    closedir(d);
+  // Sort filenames naturally
+  qsort(filenames, count, sizeof(char *), natural_compare);
 
-    // Sort filenames naturally
-    qsort(filenames, count, sizeof(char *), natural_compare);
+  // Parse in order
+  for (int i = 0; i < count; ++i)
+  {
+    char full_path[200];
+    snprintf(full_path, sizeof(full_path), "%s/%s", dir, filenames[i]);
 
-    // Parse in order
-    for (int i = 0; i < count; ++i)
-    {
-        char full_path[200];
-        snprintf(full_path, sizeof(full_path), "%s/%s", dir, filenames[i]);
-
-        char *json_content = get_json_string(full_path);
-        LevelNode *node = get_level_from_json(json_content);
-        insert_level(head, node);
-    }
+    char *json_content = get_json_string(full_path);
+    LevelNode *node = get_level_from_json(json_content);
+    insert_level(head, node);
+  }
 }

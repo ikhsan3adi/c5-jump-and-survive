@@ -3,7 +3,6 @@
 #include <SDL3/SDL.h>
 
 #include "stage0_state.h"
-#include "stage1_state.h"
 #include "game.h"
 #include "game_state.h"
 #include "player.h"
@@ -29,7 +28,7 @@ void stage0_init()
 
   current_level = level_head;
   player = create_player(
-      (Transform){current_level->player_spawn.x * TILE_SIZE,current_level->player_spawn.y * TILE_SIZE , 32, 32},
+      (Transform){current_level->player_spawn.x * TILE_SIZE, current_level->player_spawn.y * TILE_SIZE, 32, 32},
       TILE_SIZE * 50,   // gravity (50 TILE / s^2)
       TILE_SIZE * 5.5f, // speed = 5.5 tile per second
       1.0f);

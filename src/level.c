@@ -7,8 +7,10 @@
 
 LevelNode *level_head = NULL;
 LevelNode *current_level = NULL;
-Switch current_switches[100];
-Switch_Obstacles current_switch_obstacles[100];
+Switch *current_switches;
+Switch_Obstacles *current_switch_obstacles;
+int current_switches_count = 0;
+int current_switch_obstacles_count = 0;
 
 void load_levels(const char *dir)
 {
@@ -290,12 +292,12 @@ short current_level_map[MAP_HEIGHT][MAP_WIDTH]; // default Stage 0
 void change_level()
 {
   memcpy(current_level_map, current_level->map, sizeof(current_level->map));
-  memcpy(current_switches, current_level->switches, sizeof(current_level->switches));
-  memcpy(current_switch_obstacles, current_level->switch_obstacles, sizeof(current_level->switch_obstacles));
+  memcpy(current_switches, current_level->switches, current_level->switches_count);
+  memcpy(current_switch_obstacles, current_level->switch_obstacles, current_level->switch_obstacles_count);
   find_gate_tiles();
   hide_gate_tiles();
   SDL_Log("%s", current_level->name);
-  SDL_Log("%s",current_level->next->name);
+  SDL_Log("%s", current_level->next->name);
   // reinitiate_player(player, current_level->player_spawn);
 }
 

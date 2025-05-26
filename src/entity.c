@@ -76,8 +76,8 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   }
 
   // Implementasi button di setiap level;
-  int switch_size = sizeof(current_switches) / sizeof(current_switches[0]);
-  int obstacle_size = sizeof(current_switch_obstacles) / sizeof(current_switch_obstacles[0]);
+  int switch_size = current_switches_count;
+  int obstacle_size = current_switch_obstacles_count;
   for (int i = 0; i < switch_size; i++)
   {
     interaction_buttons_switch(entity, current_switches[i]);
