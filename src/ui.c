@@ -83,8 +83,6 @@ void render_game_ui(SDL_Renderer *renderer, GameStat *stat)
 
 void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 {
-    insert_leaderboard(&leaderboard_head, stat);
-    save_leaderboard("leaderboard.dat", leaderboard_head);
     bool is_exit = false;
     SDL_Event event;
     Uint64 start = SDL_GetTicks();
@@ -393,6 +391,13 @@ void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
 
 void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
 {
+
+    if (leaderboard_head == NULL)
+    {
+        leaderboard_head = load_leaderboard("leaderboard.dat");
+    }
+    insert_leaderboard(&leaderboard_head, stat);
+    save_leaderboard("leaderboard.dat", leaderboard_head);
     bool is_exit = false;
     SDL_Event event;
     Uint64 start = SDL_GetTicks();

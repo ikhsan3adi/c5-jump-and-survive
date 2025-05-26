@@ -22,9 +22,15 @@ struct LevelNode
   SDL_Color foreground_color;
   SDL_Color background_color;
 
-  Switch switches[100];
-  Switch_Obstacles switch_obstacles[100];
-  Saw saws[100];
+  char bg_image[32];
+
+  Switch *switches;
+  Switch_Obstacles *switch_obstacles;
+  Saw *saws;
+
+  int switches_count;
+  int switch_obstacles_count;
+  int saws_count;
 
   short map[MAP_HEIGHT][MAP_WIDTH];
 
@@ -69,23 +75,25 @@ void clear_level(LevelNode *head);
 // extern short level5_map[MAP_HEIGHT][MAP_WIDTH];
 
 // extern int current_level;
-extern Switch buttonL1;
-extern Switch buttonL51;
-extern Switch buttonL52;
-extern Switch buttonL61;
-extern Switch buttonL62;
-extern Switch_Obstacles buttonL7;
-extern Switch_Obstacles buttonL81;
-extern Switch buttonL82;
-extern Switch_Obstacles buttonL91;
-extern Switch_Obstacles buttonL92;
-extern Switch_Obstacles buttonL101;
-extern Switch buttonL102;
-extern Switch_Obstacles buttonL103;
+// extern Switch buttonL1;
+// extern Switch buttonL51;
+// extern Switch buttonL52;
+// extern Switch buttonL61;
+// extern Switch buttonL62;
+// extern Switch_Obstacles buttonL7;
+// extern Switch_Obstacles buttonL81;
+// extern Switch buttonL82;
+// extern Switch_Obstacles buttonL91;
+// extern Switch_Obstacles buttonL92;
+// extern Switch_Obstacles buttonL101;
+// extern Switch buttonL102;
+// extern Switch_Obstacles buttonL103;
 
 extern short current_level_map[MAP_HEIGHT][MAP_WIDTH];
-extern Switch current_switches[100];
-extern Switch_Obstacles current_switch_obstacles[100];
+extern Switch *current_switches;
+extern Switch_Obstacles *current_switch_obstacles;
+extern int current_switches_count;
+extern int current_switch_obstacles_count;
 
 void change_level();
 

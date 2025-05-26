@@ -1,11 +1,17 @@
 {
     "name": "Level-6",
+    
+    "prev": "level-5",
+
+    "next": "level-7",
 
     "player_spawn": [9, 3],
 
     "foreground_color": [52, 54, 77, 255],
 
     "background_color": [93, 94, 114, 255],
+
+    "background_image" : "bg6.png",
 
     "switches": [
         {
@@ -26,9 +32,6 @@
 
     "saws": [],
 
-    "next": "level-7",
-
-    "prev": "level-5",
 
     "map" : [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],

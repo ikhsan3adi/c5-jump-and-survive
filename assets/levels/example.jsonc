@@ -22,6 +22,9 @@
   // warna background/sky. [r,g,b,a]
   // dari stage0/1_state.c -> stage0/1_render()
   "background_color": [93, 94, 114, 255],
+
+  // background: string
+  "background_image": "",
   
   // tipe: array of objek
   // cek level.c -> change_level()
