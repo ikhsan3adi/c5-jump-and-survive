@@ -155,9 +155,19 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 void show_pause_ui(SDL_Renderer *renderer)
 {
     bool is_exit = false;
+    bool is_previous_level_pressed = false;
+
     SDL_Event event;
     SDL_Color text_color = {255, 255, 0, 255};
     SDL_FRect overlay_rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+
+    // Define colors consistent with other UI elements for button prev
+    SDL_Color button_text_color = {255, 255, 255, 255}; // White text for button
+    SDL_Color button_bg_color = {50, 50, 80, 200};      // Darker blue, semi-transparent (matches leaderboard table)
+    SDL_Color button_border_color = {255, 215, 0, 255}; // Gold border (matches leaderboard)
+
+    // Define button dimensions and position (adjustable based on your UI layout)
+    SDL_FRect button_rect = {SCREEN_WIDTH / 2 - 230, SCREEN_HEIGHT / 2 + 180, 500, 60}; // Centered, below other UI elements
 
     skip_physics_frame();
 
@@ -169,6 +179,14 @@ void show_pause_ui(SDL_Renderer *renderer)
         // render overlay
         SDL_SetRenderDrawColor(renderer, 30, 15, 20, 180);
         SDL_RenderFillRect(renderer, &overlay_rect);
+
+        // Draw button background
+        SDL_SetRenderDrawColor(renderer, button_bg_color.r, button_bg_color.g, button_bg_color.b, button_bg_color.a);
+        SDL_RenderFillRect(renderer, &button_rect);
+
+        // Draw button border
+        SDL_SetRenderDrawColor(renderer, button_border_color.r, button_border_color.g, button_border_color.b, button_border_color.a);
+        SDL_RenderRect(renderer, &button_rect);
 
         // Render text
         render_text(renderer, sixtyfourconvergence_font, "PAUSED",
@@ -182,6 +200,9 @@ void show_pause_ui(SDL_Renderer *renderer)
 
         render_text(renderer, pixelify_font, "Press ESC to exit to menu",
                     SCREEN_WIDTH / 2 - 220, SCREEN_HEIGHT / 2 + 100,
+                    1, text_color);
+        render_text(renderer, pixelify_font, "Press P to Previous Level",
+                    SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 + 180,
                     1, text_color);
 
         // render
@@ -203,23 +224,27 @@ void show_pause_ui(SDL_Renderer *renderer)
                     is_exit = true;
                     change_game_state(&menu_state);
                 }
-            }
-            else if (event.type == SDL_EVENT_KEY_UP)
-            {
-                key_state[event.key.scancode] = false;
+                if (event.key.scancode == SDL_SCANCODE_P)
+                {
+                    is_previous_level_pressed = true;
+                    is_exit = true;
+                }
+                else if (event.type == SDL_EVENT_KEY_UP)
+                {
+                    key_state[event.key.scancode] = false;
+                }
             }
         }
     }
 }
-
 void show_level_transition(SDL_Renderer *renderer, int stage, int level)
 {
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 1500; // ms
     SDL_Color text_color;
 
-    char title_text[32];
-    char subtitle_text[32];
+    char title_text[43];
+    char subtitle_text[44];
     char body_text[32];
 
     // buat string
@@ -390,6 +415,16 @@ void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
 
 void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
 {
+    bool is_exit = false;
+    bool is_previous_level_pressed = false;
+
+    // Define colors consistent with other UI elements for button prev
+    SDL_Color button_text_color = {255, 255, 255, 255}; // White text for button
+    SDL_Color button_bg_color = {50, 50, 80, 200};      // Darker blue, semi-transparent (matches leaderboard table)
+    SDL_Color button_border_color = {255, 215, 0, 255}; // Gold border (matches leaderboard)
+
+    // Define button dimensions and position (adjustable based on your UI layout)
+    SDL_FRect button_rect = {SCREEN_WIDTH / 2 - 230, SCREEN_HEIGHT / 2 + 180, 500, 60}; // Centered, below other UI elements
 
     if (leaderboard_head == NULL)
     {
@@ -421,6 +456,14 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
         // Update lebar rect (efek swipe)
         rect_height = (elapsed * SCREEN_HEIGHT) / max_time;
 
+        // Draw button background
+        SDL_SetRenderDrawColor(renderer, button_bg_color.r, button_bg_color.g, button_bg_color.b, button_bg_color.a);
+        SDL_RenderFillRect(renderer, &button_rect);
+
+        // Draw button border
+        SDL_SetRenderDrawColor(renderer, button_border_color.r, button_border_color.g, button_border_color.b, button_border_color.a);
+        SDL_RenderRect(renderer, &button_rect);
+
         // Draw swipe effect (rectangle)
         SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
         SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, rect_height};
@@ -446,6 +489,9 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
         render_text(renderer, pixelify_font, "Press ESC to exit to menu",
                     SCREEN_WIDTH / 2 - 220, SCREEN_HEIGHT / 2 + 100,
                     1, text_color);
+        render_text(renderer, pixelify_font, "Press P to Previous Level",
+                    SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 + 180,
+                    1, text_color);
 
         // render
         SDL_RenderPresent(renderer);
@@ -461,6 +507,11 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
             {
                 is_exit = true;
                 change_game_state(&menu_state);
+            }
+            if (event.key.scancode == SDL_SCANCODE_P)
+            {
+                is_previous_level_pressed = true;
+                is_exit = true;
             }
             else if (event.key.scancode == SDL_SCANCODE_RETURN)
             {
