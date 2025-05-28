@@ -1,6 +1,6 @@
 # Cara Menjalankan Program
 
-> ⚠ _Baru teruji untuk platform Windows saja_
+> ⚠ _Baru teruji untuk platform Windows & Linux saja_
 
 ## Instal Persyaratan
 
@@ -16,6 +16,24 @@ pacman -S mingw-w64-x86_64-gcc make
 ```
 
 > ⚠ Pastikan `gcc` dan `make` sudah terdaftar di environment variables di sistem Anda.
+
+### Linux
+
+1. Install _compiler_ GCC, GNU Make, `SDL3`, `SDL3_ttf`, `SDL3_mixer`, dan `SDL3_image`  menggunakan manajer paket distribusi Linux Anda.
+
+    - Untuk Debian/Ubuntu, gunakan:
+
+        ```sh
+        sudo apt install build-essential libsdl3-dev libsdl3-ttf-dev libsdl3-mixer-dev libsdl3-image-dev
+        ```
+
+    - Untuk Arch Linux, gunakan:
+
+        ```sh  
+        sudo pacman -S base-devel sdl3 sdl3_ttf sdl3_mixer sdl3_image
+        ```
+
+    Untuk distribusi lain, silakan sesuaikan dengan manajer paket yang digunakan.
 
 ## Download Proyek
 

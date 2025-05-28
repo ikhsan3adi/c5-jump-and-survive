@@ -22,7 +22,11 @@ Halaman ini memberikan penjelasan terperinci tentang modul-modul utama dalam gam
 
 - [Modul `player`](./player.md)
 
+- [Modul `leaderboard`](./leaderboard.md)
+
 - [Modul `level`](./level.md)
+
+- [Modul `level_parser`](./level_parser.md)
 
 - [Modul `obstacle`](./obstacle.md)
 
@@ -38,6 +42,6 @@ Halaman ini memberikan penjelasan terperinci tentang modul-modul utama dalam gam
 
 - [Stage 0 (`stage0_state`)](./stage0_state.md)
 
-- [Stage 1 (`stage1_state`)](./stage1_state.md)
+- [Leaderboard State (`leaderboard_state`)](./leaderboard_state.md)
 
 ---

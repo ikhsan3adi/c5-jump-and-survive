@@ -38,6 +38,7 @@ Selamat Datang di Jump & Survive Documentation!
     - C
 - **Library**:
     - [**Simple DirectMedia Layer 3 (SDL3)**](https://wiki.libsdl.org/SDL3/FrontPage)
+    - [**cJSON**](https://github.com/DaveGamble/cJSON)
 - **Build Tools**:
     - [**GNU Make**](https://www.gnu.org/software/make/)
     - [**GNU Compiler Collection (GCC)**](https://packages.msys2.org/packages/mingw-w64-x86_64-gcc)

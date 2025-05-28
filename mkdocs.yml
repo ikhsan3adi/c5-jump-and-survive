@@ -33,7 +33,9 @@ nav:
           - Modul entity: development/modules/entity.md
           - Modul physics: development/modules/physics.md
           - Modul player: development/modules/player.md
+          - Modul leaderboard: development/modules/leaderboard.md
           - Modul level: development/modules/level.md
+          - Modul level_parser: development/modules/level_parser.md
           - Modul obstacle: development/modules/obstacle.md
           - Modul game_stat: development/modules/game_stat.md
           - Modul UI: development/modules/ui.md
@@ -41,7 +43,7 @@ nav:
           - Modul util: development/modules/util.md
           - Start Menu (menu_state): development/modules/menu_state.md
           - Stage 0 (stage0_state): development/modules/stage0_state.md
-          - Stage 1 (stage1_state): development/modules/stage1_state.md
+          - Leaderboard (leaderboard_state): development/modules/leaderboard_state.md
   - Penggunaan:
       - Cara Menjalankan Program: usage.md
       - Cara Memainkan: how-to-play.md

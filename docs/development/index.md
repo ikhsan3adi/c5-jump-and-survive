@@ -72,8 +72,8 @@ _Tile system_ digunakan untuk mendesain map, rintangan, dan mendukung deteksi ta
 Implementasi dan penggunaan _level_ dan _tile system_ dapat dilihat pada:
 
 - [Modul `level`](./modules/level.md)
+- [Modul `level_parser`](./modules/level_parser.md)
 - [Modul `stage0_state`](./modules/stage0_state.md)
-- [Modul `stage1_state`](./modules/stage1_state.md)
 
 ### Entity System untuk Player dan Objek dinamis lainnya
 
@@ -95,15 +95,17 @@ Implementasi _entity_, _player_ dan modul pendukungnya dapat dilihat pada:
 - **Bahasa Pemrograman**:
     - **C** Programing Language (GCC v14.2.0)
 - **Library**:
-    - [**SDL3**](https://www.libsdl.org/) v3.3.0 untuk rendering grafis dan handling event.
-        - [SDL_ttf](https://wiki.libsdl.org/SDL3_ttf/FrontPage) v3.2.0 untuk menangani teks dan font.
-        - [SDL_mixer](https://wiki.libsdl.org/SDL3_mixer/FrontPage) v3.0.0 untuk menangani audio.
+    - [**SDL3**](https://www.libsdl.org/) untuk rendering grafis dan handling event.
+        - [SDL_ttf](https://wiki.libsdl.org/SDL3_ttf/FrontPage) untuk menangani teks dan font.
+        - [SDL_mixer](https://wiki.libsdl.org/SDL3_mixer/FrontPage) untuk menangani audio.
 
         Kami menggunakan build SDL dari: <https://github.com/mmozeiko/build-sdl3>
 
+    - [**cJSON**](https://github.com/DaveGamble/cJSON) untuk parsing file JSON, digunakan untuk menyimpan data level.
+
 - **Build Tools**:
     - [**GNU Make**](https://www.gnu.org/software/make/) untuk otomatisasi proses build.
-    - [**GCC**](https://packages.msys2.org/packages/mingw-w64-x86_64-gcc) v14.2.0 (MSYS2) untuk kompilasi _source code_.
+    - [**GCC**](https://packages.msys2.org/packages/mingw-w64-x86_64-gcc) (MSYS2) untuk kompilasi _source code_.
 - **Version Control System**:
     - [**Git**](https://git-scm.com/) untuk pengelolaan kode dan kolaborasi.
 - **Dokumentasi**:
