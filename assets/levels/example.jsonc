@@ -25,6 +25,9 @@
 
   // background: string
   "background_image": "",
+
+  // bgm: string
+  "background_music": "",
   
   // tipe: array of objek
   // cek level.c -> change_level()
