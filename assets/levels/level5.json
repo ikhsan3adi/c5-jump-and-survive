@@ -13,6 +13,8 @@
 
     "background_image" : "bg6.png",
 
+    "background_music": "bg-music2.mp3",
+
     "switches": [
         {
             "button": [9, 8],

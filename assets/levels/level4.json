@@ -13,6 +13,8 @@
 
     "background_image" : "bg5.png",
 
+    "background_music": "bg-music2.mp3",
+
     "switches": [],
 
     "switch_obstacles" : [],

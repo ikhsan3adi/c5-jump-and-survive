@@ -12,6 +12,8 @@
     "background_color": [93, 94, 114, 255],
 
     "background_image" : "bg5.png",
+
+    "background_music": "bg-music2.mp3",
     
     "switches": [],
 
