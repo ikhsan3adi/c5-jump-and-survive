@@ -23,6 +23,7 @@ struct LevelNode
   SDL_Color background_color;
 
   char bg_image[32];
+  char bg_music[32];
 
   Switch switches[100];
   Switch_Obstacles switch_obstacles[100];
