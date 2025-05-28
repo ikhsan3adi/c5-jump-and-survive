@@ -24,6 +24,11 @@ LeaderboardNode* create_node(GameStat stat) {
 void insert_leaderboard(LeaderboardNode** head, GameStat stat) {
     if (!head) return;
 
+    if (stat.nickname[0] == '\0') {
+        strncpy(stat.nickname, "Anonymous", MAX_NAME - 1);
+        stat.nickname[MAX_NAME - 1] = '\0'; // Pastikan null-terminated
+    }
+    
     LeaderboardNode* new_node = create_node(stat);
     if (!new_node) return;
 
