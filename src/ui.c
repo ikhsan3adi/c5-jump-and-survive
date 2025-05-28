@@ -14,6 +14,7 @@
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;
+SDL_Window *window;
 SDL_Renderer *renderer = NULL;
 
 SDL_Surface *text_surface = NULL;
@@ -80,8 +81,104 @@ void render_game_ui(SDL_Renderer *renderer, GameStat *stat)
     render_text(renderer, pixelify_font, timer_text, 775, 10, 1, light_brown);
 }
 
+// Fungsi untuk menangkap input nama pemain dan menyimpannya ke GameStat
+// Mengembalikan true jika input berhasil, false jika gagal (misalnya, window ditutup)
+bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font *font, GameStat *stat) {
+    if (!renderer || !font || !stat) {
+        SDL_Log("Parameter input_player_name tidak valid");
+        return false;
+    }
+
+    char input_text[MAX_NAME] = ""; // Buffer untuk input nama
+    bool done = false; // Status input selesai
+    SDL_Color text_color = {255, 255, 255, 255}; // Warna teks putih
+    SDL_Color bg_color = {30, 30, 60, 255}; // Warna latar seperti leaderboard
+    SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, 0}; // Untuk efek swipe
+    Uint64 start = SDL_GetTicks();
+    Uint64 max_time = 1000; // 1 detik untuk animasi swipe
+    float rect_height = 0;
+
+    // Aktifkan input teks
+    SDL_StartTextInput(window); // Window diatur oleh SDL secara default
+
+    while (!done) {
+        // Animasi swipe
+        Uint64 elapsed = SDL_GetTicks() - start;
+        rect_height = (elapsed * SCREEN_HEIGHT) / max_time;
+        if (rect_height > SCREEN_HEIGHT) rect_height = SCREEN_HEIGHT;
+
+        // Proses event
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            switch (event.type) {
+                case SDL_EVENT_QUIT:
+                    SDL_StopTextInput(window);
+                    return false; // Gagal jika window ditutup
+                case SDL_EVENT_KEY_DOWN:
+                    if (event.key.scancode == SDL_SCANCODE_RETURN && strlen(input_text) > 0) {
+                        // Simpan nama ke GameStat
+                        strncpy(stat->nickname, input_text, MAX_NAME - 1);
+                        stat->nickname[MAX_NAME - 1] = '\0'; // Pastikan null-terminated
+                        done = true;
+                    } else if (event.key.scancode == SDL_SCANCODE_BACKSPACE && strlen(input_text) > 0) {
+                        // Hapus karakter terakhir
+                        input_text[strlen(input_text) - 1] = '\0';
+                    }
+                    break;
+                case SDL_EVENT_TEXT_INPUT:
+                    // Tambahkan teks jika tidak melebihi batas
+                    if (strlen(input_text) + strlen(event.text.text) < MAX_NAME - 1) {
+                        strcat(input_text, event.text.text);
+                    }
+                    break;
+            }
+        }
+
+        // Bersihkan layar
+        SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
+        SDL_RenderClear(renderer);
+
+        // Render efek swipe
+        swipe_rect.h = rect_height;
+        SDL_SetRenderDrawColor(renderer, 255, 18, 53, 255); // Warna merah seperti game over
+        SDL_RenderFillRect(renderer, &swipe_rect);
+
+        // Render teks petunjuk dan input
+        render_text(renderer, sixtyfourconvergence_font, "MASUKKAN NAMA", 
+                    SCREEN_WIDTH / 2 - 300, SCREEN_HEIGHT / 2 - 150, 1.2, text_color);
+        render_text(renderer, pixelify_font, input_text[0] ? input_text : " ", 
+                    SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 2 - 50, 1.0, text_color);
+        render_text(renderer, pixelify_font, "Tekan ENTER untuk lanjut", 
+                    SCREEN_WIDTH / 2 - 220, SCREEN_HEIGHT / 2 + 50, 1.0, text_color);
+
+        // Gambar kotak input
+        SDL_FRect input_rect = {SCREEN_WIDTH / 2 - 160, SCREEN_HEIGHT / 2 - 60, 320, 50};
+        SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255); // Warna border emas
+        SDL_RenderRect(renderer, &input_rect);
+
+        SDL_RenderPresent(renderer);
+        SDL_Delay(16); // Smooth animation
+    }
+
+    SDL_StopTextInput(window);
+    return true; // Input berhasil
+}
+
+
 void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 {
+    if (!show_input_player_name(window, renderer, pixelify_font, &stat)) {
+        // Jika input gagal, gunakan nama default
+        strncpy(stat.nickname, "Anonymous", MAX_NAME - 1);
+        stat.nickname[MAX_NAME - 1] = '\0';
+    }
+
+    if(leaderboard_head == NULL){
+        leaderboard_head = load_leaderboard("leaderboard.dat");
+    }
+    insert_leaderboard(&leaderboard_head, stat);
+    save_leaderboard("leaderboard.dat", leaderboard_head);
+
     bool is_exit = false;
     SDL_Event event;
     Uint64 start = SDL_GetTicks();
@@ -92,7 +189,9 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
     char *body_text = "Press ESC to exit to menu";
     char score_text[32];
     char timer_text[32];
+    char name_text[32];
 
+    sprintf(name_text, "name; %s", stat.nickname);
     sprintf(score_text, "Score: %d", stat.score);
     sprintf(timer_text, "Time: %s", get_time_string(game_stat.elapsed_time / 1000));
 
@@ -386,6 +485,7 @@ void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
     render_text(renderer, sixtyfourconvergence_font, "LEADERBOARD", 300, 40, 1.0, title_color);
 
     render_text(renderer, pixelify_font, "RANK", 130, 130, 1.0, header_color);
+    render_text(renderer, pixelify_font, "NAME", 230, 130, 1.0, header_color);
     render_text(renderer, pixelify_font, "SCORE", 375, 130, 1.0, header_color);
     render_text(renderer, pixelify_font, "TIME (s)", 675, 130, 1.0, header_color);
 
@@ -398,6 +498,9 @@ void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
         // Format: Rank, Score, Time
         snprintf(buffer, sizeof(buffer), "%2d", i + 1); // Rank
         render_text(renderer, pixelify_font, buffer, 175, 190 + i * 45, 0.9, text_color);
+
+        snprintf(buffer, sizeof(buffer), "%s", current->stat.nickname[0] ? current->stat.nickname : "Anonymous");
+        render_text(renderer, pixelify_font, buffer, 200, 190 + i * 45, 0.9, text_color);
 
         snprintf(buffer, sizeof(buffer), "%d", current->stat.score); // Score
         render_text(renderer, pixelify_font, buffer, 450, 190 + i * 45, 0.9, text_color);
