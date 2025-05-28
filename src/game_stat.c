@@ -76,6 +76,13 @@ bool sub_life(GameStat *stat)
         {
             stop_music();
             SDL_Renderer *renderer = get_game_instance()->renderer;
+
+            if (leaderboard_head == NULL)
+            {
+                leaderboard_head = load_leaderboard("leaderboard.dat");
+            }
+            insert_leaderboard(&leaderboard_head, *stat);
+            save_leaderboard("leaderboard.dat", leaderboard_head);
             show_game_over_ui(renderer, *stat);
             return false;
         }
