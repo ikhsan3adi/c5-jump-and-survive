@@ -6,18 +6,18 @@
 #include "physics.h"
 #include "transform.h"
 
-#define MAX_SAWS 20
+#define MAX_SAWS 101
 
 #define PI 3.14159265
 
-typedef struct 
+typedef struct
 {
     Vector button;
     Vector switches[100];
-    
+
 } Switch;
 
-typedef struct 
+typedef struct
 {
     Vector button;
     Vector switches[100];
@@ -25,13 +25,15 @@ typedef struct
 
 } Switch_Obstacles;
 
-typedef struct {
+typedef struct
+{
     Transform transform;
     Physics physics;
 } Saw;
 
-typedef struct {
-    Saw* saws[MAX_SAWS];
+typedef struct
+{
+    Saw *saws[MAX_SAWS];
     int count;
 } SawManager;
 
@@ -43,25 +45,22 @@ void draw_triangle(SDL_Renderer *renderer, SDL_FRect rect);
 void draw_coin(SDL_Renderer *renderer, SDL_FRect rect, int type);
 void draw_gate(SDL_Renderer *renderer, SDL_FRect exit_rect);
 
-
 Saw *create_saw(float x, float y, float w, float h, float velocity_x, float velocity_y);
 
 void update_saw(Saw *saw, float delta_time);
 
 void render_saw(SDL_Renderer *renderer, Saw *saw, float angle);
 
-void init_saw_manager(SawManager* manager);
+void init_saw_manager(SawManager *manager);
 
-void add_saw(SawManager* manager, float x, float y, float w, float h, float velocity_x, float velocity_y);
+void add_saw(SawManager *manager, float x, float y, float w, float h, float velocity_x, float velocity_y);
 
-void update_all_saws(SawManager* manager, float delta_time);
+void update_all_saws(SawManager *manager, float delta_time);
 
-void render_all_saws(SDL_Renderer* renderer, SawManager* manager);
+void render_all_saws(SDL_Renderer *renderer, SawManager *manager);
 
-void cleanup_saw_manager(SawManager* manager);
+void cleanup_saw_manager(SawManager *manager);
 
-void setup_level_saws(int level_number);
-
-int is_wall_at(int level, int tile_x, int tile_y);
+void setup_level_saws();
 
 #endif

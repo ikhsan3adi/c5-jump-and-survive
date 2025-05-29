@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <SDL3/SDL.h>
 #include "player.h"
-#include "level.h"
 #include "SFX.h"
+#include "game.h"
 
 Entity *player;
 
@@ -32,48 +32,9 @@ void initiate_player(Entity *player, int x, int y)
   player->transform.y = y;
 }
 
-void reinitiate_player(Entity *player, int level)
+void reinitiate_player(Entity *player, Vector pos)
 {
-  if (level == 1 || level == 0)
-  {
-    initiate_player(player, 100, 300);
-  }
-  if (level == 2)
-  {
-    initiate_player(player, 650, 100);
-  }
-  if (level == 3)
-  {
-    initiate_player(player, 70, 170);
-  }
-  if (level == 4)
-  {
-    initiate_player(player, 570, 70);
-  }
-  if (level == 5)
-  {
-    initiate_player(player, 50, 300);
-  }
-  if (level == 6)
-  {
-    initiate_player(player, 80, 300);
-  }
-  if (level == 7)
-  {
-    initiate_player(player, 650, 50);
-  }
-  if (level == 8)
-  {
-    initiate_player(player, 100, 70);
-  }
-  if (level == 9)
-  {
-    initiate_player(player, 75, 500);
-  }
-  if (level == 10)
-  {
-    initiate_player(player, 50, 50);
-  }
+  initiate_player(player, pos.x * TILE_SIZE, pos.y * TILE_SIZE);
 }
 
 void handle_player_input(Entity *player, SDL_Event *event)

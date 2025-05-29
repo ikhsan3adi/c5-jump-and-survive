@@ -1,5 +1,8 @@
+#include <stdlib.h>
+
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_ttf.h>
+
 #include "menu_state.h"
 #include "stage0_state.h"
 #include "leaderboard.h"
@@ -41,7 +44,7 @@ void menu_init()
 
     player = create_player((Transform){120, 416, 32, 32}, 0, 0, 0);
 
-    change_level(0);
+    change_level();
 }
 
 void menu_handle_input(SDL_Event *event)
