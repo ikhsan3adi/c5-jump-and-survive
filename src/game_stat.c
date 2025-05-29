@@ -11,6 +11,7 @@ GameStat game_stat; // Deklarasi variabel global
 // Inisialisasi GameStat dengan jumlah nyawa awal dan waktu maksimal per level
 void init_game_stat(GameStat *stat)
 {
+    stat->nickname[0] = '\0';    // nickname sebagai string kosong
     stat->score = 0;             // score mulai dari 0
     stat->lives = DEFAULT_LIVES; // default nyawa (3)
     stat->start_time = 0;        // Timer juga
