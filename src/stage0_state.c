@@ -81,17 +81,21 @@ void stage0_update(double delta_time)
   if (is_exit(&player->transform))
   {
     SDL_Renderer *renderer = get_game_instance()->renderer;
+    cleanup_saw_manager(&saw_manager);
     if(current_level->next == NULL)
     {
       show_congratulations_ui(renderer, game_stat);
-      cleanup_saw_manager(&saw_manager);
-      return;
+    } else {
+      show_level_transition(renderer, 0, current_level);
+      goto_next_level();
     }
-    show_level_transition(renderer, 0, current_level);
-    goto_next_level();
-    cleanup_saw_manager(&saw_manager);
-    setup_level_saws();
-    reinitiate_player(player, current_level->player_spawn);
+    
+    if (current_state == &stage0_state) // not exited after congrats
+    {
+      reinitiate_player(player, current_level->player_spawn);
+      setup_level_saws();
+    } 
+    
   }
 
 }
