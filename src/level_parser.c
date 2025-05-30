@@ -55,18 +55,28 @@ char *get_json_string(const char *file)
 
 void set_level_name_from_json(LevelNode *node, cJSON *json)
 {
-  strcpy(node->name, json->valuestring);
+  if (json && cJSON_IsString(json) && json->valuestring)
+    strcpy(node->name, json->valuestring);
+  else
+    node->name[0] = '\0'; // fallback to empty string
 }
 
 void set_prev_level_from_json(LevelNode *node, cJSON *json)
 {
-  strcpy(node->prev_name, json->valuestring);
+  if (json && cJSON_IsString(json) && json->valuestring)
+    strcpy(node->prev_name, json->valuestring);
+  else
+    node->prev_name[0] = '\0';
 }
 
 void set_next_level_from_json(LevelNode *node, cJSON *json)
 {
-  strcpy(node->next_name, json->valuestring);
+  if (json && cJSON_IsString(json) && json->valuestring)
+    strcpy(node->next_name, json->valuestring);
+  else
+    node->next_name[0] = '\0';
 }
+
 
 void set_player_spawn_from_json(LevelNode *node, cJSON *json)
 {
@@ -279,7 +289,8 @@ LevelNode *get_level_from_json(const char *json_str)
   // urai json string ke dalam struktur cJSON
   cJSON *json = cJSON_Parse(json_str);
   // alokasi node level baru
-  LevelNode *node = malloc(sizeof(LevelNode));
+  // LevelNode *node = malloc(sizeof(LevelNode));
+  LevelNode *node = calloc(1, sizeof(LevelNode));
 
   json = json->child; // point to first child of json object ("name")
 
@@ -352,74 +363,88 @@ LevelNode *get_level_from_json(const char *json_str)
 //   closedir(d);
 // }
 
-// Natural order comparator for filenames like "level2" vs "level10"
-int natural_compare(const void *a, const void *b)
-{
-  const char *f1 = *(const char **)a;
-  const char *f2 = *(const char **)b;
-
-  while (*f1 && *f2)
-  {
-    if (isdigit(*f1) && isdigit(*f2))
-    {
-      int n1 = atoi(f1);
-      int n2 = atoi(f2);
-      if (n1 != n2)
-        return n1 - n2;
-
-      // skip the digits
-      while (isdigit(*f1))
-        f1++;
-      while (isdigit(*f2))
-        f2++;
-    }
-    else
-    {
-      if (*f1 != *f2)
-        return *f1 - *f2;
-      f1++;
-      f2++;
-    }
-  }
-  return *f1 - *f2;
-}
-
 void load_json_levels(LevelNode **head, const char *dir)
 {
   DIR *d;
   struct dirent *dirent;
-  char *filenames[MAX_LEVELS];
-  int count = 0;
 
   if (!(d = opendir(dir)))
   {
-    perror("Failed to open directory");
     return;
   }
 
+  // Temporary storage
+  LevelNode *levels[MAX_LEVELS];
+  int count = 0;
+
+  // --------- Stage 1: Parse all level files ---------
   while ((dirent = readdir(d)) != NULL)
   {
     const char *filename = dirent->d_name;
     const char *ext = get_filename_ext(filename);
     if (strcmp(ext, "json") == 0)
     {
-      filenames[count] = strdup(filename); // remember to free later
-      count++;
+      char full_path[256] = "";
+      strcat(full_path, dir);
+      strcat(full_path, filename);
+
+      char *json_content = get_json_string(full_path);
+      LevelNode *node = get_level_from_json(json_content);
+
+      if (node && count < MAX_LEVELS)
+      {
+        levels[count++] = node;
+      }
     }
   }
   closedir(d);
 
-  // Sort filenames naturally
-  qsort(filenames, count, sizeof(char *), natural_compare);
+  // --------- Stage 2: Build the linked list ---------
 
-  // Parse in order
-  for (int i = 0; i < count; ++i)
+  // Step 1: Find the head (where prev == "")
+  LevelNode *head_node = NULL;
+  for (int i = 0; i < count; i++)
   {
-    char full_path[200];
-    snprintf(full_path, sizeof(full_path), "%s/%s", dir, filenames[i]);
+    if (strlen(levels[i]->prev_name) == 0)
+    {
+      head_node = levels[i];
+      break;
+    }
+  }
 
-    char *json_content = get_json_string(full_path);
-    LevelNode *node = get_level_from_json(json_content);
-    insert_level(head, node);
+  if (!head_node)
+    return; // Can't find head level
+
+  *head = head_node;
+  LevelNode *current = head_node;
+
+  // Step 2: Link based on 'next'
+  while (strlen(current->next_name) > 0)
+  {
+    LevelNode *next = NULL;
+    for (int i = 0; i < count; i++)
+    {
+      if (strcmp(levels[i]->name, current->next_name) == 0)
+      {
+        next = levels[i];
+        break;
+      }
+    }
+
+    if (!next)
+    {
+      break; // broken chain
+    }
+
+    current->next = next;
+    next->prev = current;
+    current = next;
+  }
+
+  LevelNode *tmp = head_node;
+  while (tmp)
+  {
+      printf("Level loaded: %s (prev: %s, next: %s)\n", tmp->name, tmp->prev_name, tmp->next_name);
+      tmp = tmp->next;
   }
 }
