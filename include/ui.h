@@ -5,6 +5,7 @@
 #include <SDL3/SDL_ttf.h>
 
 #include "game_stat.h"
+#include "level.h"
 #include "leaderboard.h"
 
 #define PIXELIFYSANS_FONT "assets/fonts/PixelifySans-Regular.ttf"
@@ -30,7 +31,7 @@ void show_pause_ui(SDL_Renderer *renderer);
  * @param stage next level's stage
  * @param level next level
  */
-void show_level_transition(SDL_Renderer *renderer, int stage, int level);
+void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current);
 
 void show_stage_transition(SDL_Renderer *renderer, int stage);
 

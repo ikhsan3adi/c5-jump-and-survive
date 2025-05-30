@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "game.h"
 
 // main game instance
@@ -17,13 +19,22 @@ void initialize(const char *appname, const char *appversion, const char *appiden
 void create_game_instance(const char *title, int width, int height)
 {
   game.window = SDL_CreateWindow(title, width, height, SDL_WINDOW_OPENGL);
+  game.event = SDL_malloc(sizeof(SDL_Event));
   game.renderer = SDL_CreateRenderer(game.window, NULL);
+  game.is_exit = false;
+
+  if (game.window == NULL || game.renderer == NULL || game.event == NULL)
+  {
+    SDL_Log("Couldn't create game instance: %s", SDL_GetError());
+    game.is_exit = true;
+  }
+
   SDL_SetRenderDrawBlendMode(game.renderer, SDL_BLENDMODE_BLEND);
 }
 
 Game *get_game_instance()
 {
-  if (!game.window)
+  if (game.window == NULL || game.renderer == NULL || game.event == NULL)
   {
     SDL_Log("Game instance has not been initialized!, call `create_game_instance` first.");
   }

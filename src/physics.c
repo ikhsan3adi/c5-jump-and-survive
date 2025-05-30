@@ -1,6 +1,6 @@
 #include "physics.h"
 #include "game_stat.h"
-#include "sfx.h"
+#include "SFX.h"
 #include "player.h"
 #include "level.h"
 #include <stdlib.h>
@@ -36,6 +36,6 @@ void handle_saw_collision(Transform saw_transform, Transform player_transform)
   {
     play_sound(dead_sfx, 4, 0);
     sub_life(&game_stat);
-    reinitiate_player(player, current_level);
+    reinitiate_player(player, current_level->player_spawn);
   }
 }
