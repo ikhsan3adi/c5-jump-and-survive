@@ -6,6 +6,7 @@
 
 #include <cJSON/cJSON.h>
 
+#include "game.h"
 #include "level_parser.h"
 
 const char *get_filename_ext(const char *filename)
@@ -139,7 +140,7 @@ void set_switches_from_json(LevelNode *node, cJSON *json)
   if (node->switches == NULL)
   {
     SDL_Log("Failed to allocate memory for switches!");
-    exit(1);
+    exit_game(EXIT_FAILURE);
   }
   node->switches_count = switches_count;
 
@@ -186,7 +187,7 @@ void set_switch_obstacles_from_json(LevelNode *node, cJSON *json)
   if (node->switch_obstacles == NULL)
   {
     SDL_Log("Failed to allocate memory for switch_obstacles!");
-    exit(1);
+    exit_game(EXIT_FAILURE);
   }
   node->switch_obstacles_count = switch_obstacles_count;
 
@@ -248,7 +249,7 @@ void set_saws_from_json(LevelNode *node, cJSON *json)
   if (node->saws == NULL)
   {
     SDL_Log("Failed to allocate memory for saws!");
-    exit(1);
+    exit_game(EXIT_FAILURE);
   }
   node->saws_count = saw_count;
 

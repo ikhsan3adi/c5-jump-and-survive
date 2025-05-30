@@ -24,20 +24,20 @@ void init_font()
     if (!TTF_Init())
     {
         SDL_Log("Failed to initialize SDL_ttf: %s", SDL_GetError());
-        exit(1);
+        exit_game(EXIT_FAILURE);
     }
     sixtyfourconvergence_font = TTF_OpenFont(SIXTYFOURCONVERGENCE_FONT, 36);
     if (!sixtyfourconvergence_font)
     {
         SDL_Log("Failed to load title font: %s", SDL_GetError());
-        exit(1);
+        exit_game(EXIT_FAILURE);
     }
 
     pixelify_font = TTF_OpenFont(PIXELIFYSANS_FONT, 36);
     if (!pixelify_font)
     {
         SDL_Log("Failed to load menu font: %s", SDL_GetError());
-        exit(1);
+        exit_game(EXIT_FAILURE);
     }
 }
 
@@ -117,7 +117,7 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
             {
             case SDL_EVENT_QUIT:
                 SDL_StopTextInput(window);
-                exit(1);
+                exit_game(EXIT_FAILURE);
             case SDL_EVENT_KEY_DOWN:
                 if (event.key.scancode == SDL_SCANCODE_RETURN)
                 {
@@ -249,7 +249,7 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
         SDL_PollEvent(&event);
 
         if (event.type == SDL_EVENT_QUIT)
-            exit(0);
+            exit_game(EXIT_SUCCESS);
 
         if (event.type == SDL_EVENT_KEY_DOWN)
         {
@@ -278,13 +278,6 @@ void show_pause_ui(SDL_Renderer *renderer)
     SDL_Color text_color = {255, 255, 0, 255};
     SDL_FRect overlay_rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
-    // Define colors consistent with other UI elements for button prev
-    SDL_Color button_bg_color = {50, 50, 80, 200};      // Darker blue, semi-transparent (matches leaderboard table)
-    SDL_Color button_border_color = {255, 215, 0, 255}; // Gold border (matches leaderboard)
-
-    // Define button dimensions and position (adjustable based on your UI layout)
-    SDL_FRect button_rect = {SCREEN_WIDTH / 2 - 230, SCREEN_HEIGHT / 2 + 180, 500, 60}; // Centered, below other UI elements
-
     skip_physics_frame();
 
     while (!is_exit)
@@ -295,14 +288,6 @@ void show_pause_ui(SDL_Renderer *renderer)
         // render overlay
         SDL_SetRenderDrawColor(renderer, 30, 15, 20, 180);
         SDL_RenderFillRect(renderer, &overlay_rect);
-
-        // Draw button background
-        SDL_SetRenderDrawColor(renderer, button_bg_color.r, button_bg_color.g, button_bg_color.b, button_bg_color.a);
-        SDL_RenderFillRect(renderer, &button_rect);
-
-        // Draw button border
-        SDL_SetRenderDrawColor(renderer, button_border_color.r, button_border_color.g, button_border_color.b, button_border_color.a);
-        SDL_RenderRect(renderer, &button_rect);
 
         // Render text
         render_text(renderer, sixtyfourconvergence_font, "PAUSED",
@@ -327,7 +312,7 @@ void show_pause_ui(SDL_Renderer *renderer)
         if (SDL_PollEvent(&event))
         {
             if (event.type == SDL_EVENT_QUIT)
-                exit(0);
+                exit_game(EXIT_SUCCESS);
 
             if (event.type == SDL_EVENT_KEY_DOWN)
             {
@@ -518,13 +503,6 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
     char score_text[32];
     char timer_text[32];
 
-    // Define colors consistent with other UI elements for button prev
-    SDL_Color button_bg_color = {50, 50, 80, 200};      // Dark Blue, semi-transparent (matches leaderboard table)
-    SDL_Color button_border_color = {255, 215, 0, 255}; // Gold border (matches leaderboard)
-
-    // Define button dimensions and position (adjustable based on your UI layout)
-    SDL_FRect button_rect = {SCREEN_WIDTH / 2 - 230, SCREEN_HEIGHT / 2 + 180, 500, 60}; // Centered, below other UI elements
-
     if (!show_input_player_name(get_game_instance()->window, renderer, pixelify_font, &stat))
     {
         // Jika input gagal, gunakan nama default
@@ -556,14 +534,6 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
 
         // Update lebar rect (efek swipe)
         rect_height = (elapsed * SCREEN_HEIGHT) / max_time;
-
-        // Draw button background
-        SDL_SetRenderDrawColor(renderer, button_bg_color.r, button_bg_color.g, button_bg_color.b, button_bg_color.a);
-        SDL_RenderFillRect(renderer, &button_rect);
-
-        // Draw button border
-        SDL_SetRenderDrawColor(renderer, button_border_color.r, button_border_color.g, button_border_color.b, button_border_color.a);
-        SDL_RenderRect(renderer, &button_rect);
 
         // Draw swipe effect (rectangle)
         SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
@@ -600,7 +570,7 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
         SDL_PollEvent(&event);
 
         if (event.type == SDL_EVENT_QUIT)
-            exit(0);
+            exit_game(EXIT_SUCCESS);
 
         if (event.type == SDL_EVENT_KEY_DOWN)
         {

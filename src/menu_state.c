@@ -78,15 +78,13 @@ void menu_handle_input(SDL_Event *event)
             {
                 SDL_Log("Exit Game Triggered!");
                 menu_cleanup();
-                SDL_Quit();
-                exit(0);
+                exit_game(EXIT_SUCCESS);
             }
             break;
         case SDLK_ESCAPE:
             SDL_Log("Escape Key Pressed! Exiting Game...");
             menu_cleanup();
-            SDL_Quit();
-            exit(0);
+            exit_game(EXIT_SUCCESS);
         }
     }
     else if (event->type == SDL_EVENT_MOUSE_MOTION)
@@ -131,8 +129,7 @@ void menu_handle_input(SDL_Event *event)
         {
             SDL_Log("Exit Game Clicked!");
             menu_cleanup();
-            SDL_Quit();
-            exit(0);
+            exit_game(EXIT_SUCCESS);
         }
     }
 }

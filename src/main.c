@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <SDL3/SDL.h>
 
 #include "game.h"
@@ -84,7 +85,7 @@ int main()
 
   current_state->cleanup();
 
-  exit_game(0);
+  exit_game(EXIT_SUCCESS);
 
   return 0;
 }
