@@ -556,6 +556,11 @@ void goto_next_level()
 
 void goto_prev_level()
 {
+  if (current_level->prev == NULL)
+  {
+    SDL_Log("Already at the first level.");
+    return;
+  }
   current_level = current_level->prev;
   change_level();
 }

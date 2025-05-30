@@ -204,7 +204,6 @@ bool is_exit(Transform *transform)
       }
       if (current_level_map[y][x] == EXIT_GATE)
       {
-        play_sound(gate_sfx, 3, 0);
         return true;
       }
     }
