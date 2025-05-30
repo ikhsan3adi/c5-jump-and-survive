@@ -6,7 +6,7 @@
 #include "menu_state.h"
 #include "game.h"
 #include "level.h"
-// #include "level_parser.h"
+#include "level_parser.h"
 #include "player.h"
 #include "SFX.h"
 #include "util.h"
