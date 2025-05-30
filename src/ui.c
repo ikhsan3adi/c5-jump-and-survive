@@ -129,8 +129,7 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
                     }
                     else
                     {
-                        // nama default
-                        strncpy(stat->nickname, "Tanpa Nama", MAX_NAME - 1);
+                        return false; // Jika tidak ada input, anggap gagal
                     }
                     stat->nickname[MAX_NAME - 1] = '\0'; // Pastikan null-terminated
                     done = true;
