@@ -173,7 +173,7 @@ void menu_render(SDL_Renderer *renderer)
     SDL_SetRenderDrawColor(renderer, start_button_color.r, start_button_color.g, start_button_color.b, 255);
     SDL_RenderFillRect(renderer, &start_button);
     render_text(renderer, pixelify_font, "Start Game",
-                start_button.x + start_button.w / 2 - 100,
+                start_button.x + start_button.w / 2 - 105,
                 start_button.y + start_button.h / 2 - 20,
                 1, start_text_color);
 
@@ -181,7 +181,7 @@ void menu_render(SDL_Renderer *renderer)
     SDL_SetRenderDrawColor(renderer, leaderboard_button_color.r, leaderboard_button_color.g, leaderboard_button_color.b, 255);
     SDL_RenderFillRect(renderer, &leaderboard_button);
     render_text(renderer, pixelify_font, "Leaderboard",
-                leaderboard_button.x + leaderboard_button.w / 2 - 100,
+                leaderboard_button.x + leaderboard_button.w / 2 - 115,
                 leaderboard_button.y + leaderboard_button.h / 2 - 20,
                 1, leaderboard_text_color);
 
