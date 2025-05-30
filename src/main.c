@@ -82,11 +82,9 @@ int main()
   /** ========== QUIT ========== */
   SDL_Log("Exiting game...");
 
-  // membersihkan resource
   current_state->cleanup();
-  clean_up_ui();
-  cleanup_audio();
-  SDL_Quit();
+
+  exit_game(0);
 
   return 0;
 }

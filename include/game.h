@@ -34,4 +34,7 @@ void skip_physics_frame();
 // resume physics updates
 void resume_physics();
 
+/// destroy & exit game
+void exit_game(int code);
+
 #endif

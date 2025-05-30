@@ -1,6 +1,8 @@
 #include <stdlib.h>
 
 #include "game.h"
+#include "ui.h"
+#include "SFX.h"
 
 // main game instance
 static Game game;
@@ -49,4 +51,21 @@ void skip_physics_frame()
 void resume_physics()
 {
   game.is_physics_paused = false;
+}
+
+void exit_game(int code)
+{
+  clean_up_ui();
+  cleanup_audio();
+
+  SDL_DestroyWindow(game.window);
+  SDL_DestroyRenderer(game.renderer);
+  free(game.event);
+
+  game.window = NULL;
+  game.renderer = NULL;
+  game.event = NULL;
+
+  SDL_Quit();
+  exit(code);
 }
