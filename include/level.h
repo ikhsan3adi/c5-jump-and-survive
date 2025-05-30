@@ -86,6 +86,8 @@ extern Switch_Obstacles buttonL101;
 extern Switch buttonL102;
 extern Switch_Obstacles buttonL103;
 
+extern SDL_Texture *current_bg_texture;
+
 extern short current_level_map[MAP_HEIGHT][MAP_WIDTH];
 extern Switch current_switches[100];
 extern Switch_Obstacles current_switch_obstacles[100];

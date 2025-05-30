@@ -21,7 +21,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 
   // load assets (fonts, sfx)
   init_font();
-  init_audio();
+  // init_audio();
 
   last_time = SDL_GetPerformanceCounter();
 

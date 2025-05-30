@@ -14,7 +14,7 @@ else
 		CFLAGS += -Llib/macos
 	endif
 endif
-LDFLAGS = -lm -lSDL3 -lSDL3_ttf -lSDL3_mixer -lcJSON
+LDFLAGS = -lm -lSDL3 -lSDL3_ttf -lSDL3_mixer -lSDL3_image -lcJSON
 
 # Directories
 BUILD_DIR = build

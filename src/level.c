@@ -4,6 +4,8 @@
 #include "player.h"
 #include "obstacles.h"
 #include "game.h"
+#include <SDL3/SDL_image.h>
+#include <stdlib.h>
 
 LevelNode *level_head = NULL;
 LevelNode *current_level = NULL;
@@ -287,12 +289,21 @@ short current_level_map[MAP_HEIGHT][MAP_WIDTH]; // default Stage 0
 // Switch buttonL102;
 // Switch_Obstacles buttonL103;
 
+SDL_Texture *current_bg_texture = NULL;
+
 void change_level()
 {
+  char dir[] = "assets/images/";
+  char* img_path = malloc(sizeof(char) * (strlen(current_level->bg_image) + strlen(dir) + 1));
+  strcpy(img_path, dir);
+  strcat(img_path, current_level->bg_image);
+  current_bg_texture = IMG_LoadTexture(get_game_instance()->renderer, img_path);
+
   memcpy(current_level_map, current_level->map, sizeof(current_level->map));
   memcpy(current_switches, current_level->switches, sizeof(current_level->switches));
   memcpy(current_switch_obstacles, current_level->switch_obstacles, sizeof(current_level->switch_obstacles));
 
+  SDL_Log("%s", img_path);
   // reinitiate_player(player, current_level->player_spawn);
 }
 
@@ -377,6 +388,9 @@ void change_level()
 void render_level(SDL_Renderer *renderer)
 {
   bool gate_found = false;
+
+  SDL_RenderTexture(renderer, current_bg_texture, NULL, NULL);
+  
   for (int y = 0; y < MAP_HEIGHT; y++)
   {
     for (int x = 0; x < MAP_WIDTH; x++)

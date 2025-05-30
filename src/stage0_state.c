@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_image.h>
 
 #include "stage0_state.h"
 #include "stage1_state.h"
@@ -93,7 +94,7 @@ void stage0_update(double delta_time)
 
 void stage0_render(SDL_Renderer *renderer)
 {
-  SDL_SetRenderDrawColor(renderer, 124, 162, 142, 255);
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
 
   // Render map
