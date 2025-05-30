@@ -56,27 +56,38 @@ char *get_json_string(const char *file)
 void set_level_name_from_json(LevelNode *node, cJSON *json)
 {
   if (json && cJSON_IsString(json) && json->valuestring)
+  {
     strcpy(node->name, json->valuestring);
+  }
   else
+  {
     node->name[0] = '\0'; // fallback to empty string
+  }
 }
 
 void set_prev_level_from_json(LevelNode *node, cJSON *json)
 {
   if (json && cJSON_IsString(json) && json->valuestring)
+  {
     strcpy(node->prev_name, json->valuestring);
+  }
   else
+  {
     node->prev_name[0] = '\0';
+  }
 }
 
 void set_next_level_from_json(LevelNode *node, cJSON *json)
 {
   if (json && cJSON_IsString(json) && json->valuestring)
+  {
     strcpy(node->next_name, json->valuestring);
+  }
   else
+  {
     node->next_name[0] = '\0';
+  }
 }
-
 
 void set_player_spawn_from_json(LevelNode *node, cJSON *json)
 {
@@ -291,6 +302,12 @@ void set_maps_from_json(LevelNode *node, cJSON *json)
 
 LevelNode *get_level_from_json(const char *json_str)
 {
+  if (json_str == NULL || strlen(json_str) == 0)
+  {
+    SDL_Log("JSON string is empty or NULL");
+    return NULL;
+  }
+
   // urai json string ke dalam struktur cJSON
   cJSON *json = cJSON_Parse(json_str);
   // alokasi node level baru
@@ -331,43 +348,6 @@ LevelNode *get_level_from_json(const char *json_str)
 
   return node;
 }
-
-// void load_json_levels(LevelNode **head, const char *dir)
-// {
-//   DIR *d;                // directory
-//   struct dirent *dirent; // directory entry
-
-//   if (!(d = opendir(dir))) // buka directory `dir`
-//   {
-//     return;
-//   }
-
-//   // loop semua file/directory entry di directory
-//   while ((dirent = readdir(d)) != NULL)
-//   {
-//     const char *filename = dirent->d_name;
-//     const char *ext = get_filename_ext(filename);
-
-//     if (strcmp(ext, "json") == 0) // cek file extension adalah .json
-//     {
-//       // buat full path = dir + filename
-//       char full_path[100] = "";
-//       strcat(full_path, dir);
-//       strcat(full_path, filename);
-
-//       // json string
-//       char *json_content = get_json_string(full_path);
-//       // buat node level dari json string
-//       LevelNode *node = get_level_from_json(json_content);
-
-//       //! TODO: insert to head
-//       //! TODO: rearrange by next & prev
-//       insert_level(head, node);
-//     }
-//   }
-
-//   closedir(d);
-// }
 
 void load_json_levels(LevelNode **head, const char *dir)
 {
@@ -450,7 +430,7 @@ void load_json_levels(LevelNode **head, const char *dir)
   LevelNode *tmp = head_node;
   while (tmp)
   {
-      printf("Level loaded: %s (prev: %s, next: %s)\n", tmp->name, tmp->prev_name, tmp->next_name);
-      tmp = tmp->next;
+    printf("Level loaded: %s (prev: %s, next: %s)\n", tmp->name, tmp->prev_name, tmp->next_name);
+    tmp = tmp->next;
   }
 }
