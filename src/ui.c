@@ -15,7 +15,6 @@
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;
-SDL_Renderer *renderer = NULL;
 
 SDL_Surface *text_surface = NULL;
 SDL_Texture *text_texture = NULL;
@@ -651,9 +650,10 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
 
 void clean_up_ui()
 {
-    if (sixtyfourconvergence_font)
-        TTF_CloseFont(sixtyfourconvergence_font);
-    if (pixelify_font)
-        TTF_CloseFont(pixelify_font);
+    TTF_CloseFont(sixtyfourconvergence_font);
+    TTF_CloseFont(pixelify_font);
+    SDL_DestroyTexture(text_texture);
+    SDL_DestroySurface(text_surface);
+
     TTF_Quit();
 }
