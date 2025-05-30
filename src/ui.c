@@ -93,7 +93,6 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
     char input_text[MAX_NAME] = "";                 // Buffer untuk input nama
     bool done = false;                              // Status input selesai
     SDL_Color text_color = {255, 255, 255, 255};    // Warna teks putih
-    SDL_Color bg_color = {123, 168, 147, 255};      // Warna latar seperti leaderboard
     SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, 0}; // Untuk efek swipe
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 1000; // 1 detik untuk animasi swipe
@@ -153,13 +152,9 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
             }
         }
 
-        // Bersihkan layar
-        SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
-        SDL_RenderClear(renderer);
-
         // Render efek swipe
         swipe_rect.h = rect_height;
-        SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255); // Warna merah seperti game over
+        SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255); // Warna latar seperti leaderboard
         SDL_RenderFillRect(renderer, &swipe_rect);
 
         // Render teks petunjuk dan input
@@ -229,7 +224,7 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
         rect_height = (elapsed * SCREEN_HEIGHT) / max_time;
 
         // Draw swipe effect (rectangle)
-        SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 18, 53, 255);
         SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, rect_height};
         SDL_RenderFillRect(renderer, &swipe_rect);
 
@@ -359,7 +354,7 @@ void show_pause_ui(SDL_Renderer *renderer)
     }
 }
 
-void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current)
+void show_level_transition(SDL_Renderer *renderer, LevelNode *current)
 {
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 1500; // ms
@@ -380,17 +375,8 @@ void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current
 
     skip_physics_frame();
 
-    switch (stage)
-    {
-    case 0:
-        text_color = (SDL_Color){255, 255, 255, 255};
-        SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
-        break;
-    case 1:
-        text_color = (SDL_Color){255, 255, 255, 255};
-        SDL_SetRenderDrawColor(renderer, 52, 54, 77, 255);
-        break;
-    }
+    text_color = (SDL_Color){255, 255, 255, 255};
+    SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
 
     while (SDL_GetTicks() - start < max_time)
     {
@@ -424,7 +410,7 @@ void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current
     }
 }
 
-void show_stage_transition(SDL_Renderer *renderer, int stage)
+void show_stage_transition(SDL_Renderer *renderer)
 {
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 1500; // ms
@@ -432,35 +418,18 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
     SDL_FRect swipe_rect;
     SDL_Color text_color;
     int rect_width = 0;
-    char title_text[32];
+    char *title_text = "Are You Ready?";
 
     skip_physics_frame();
-
-    snprintf(title_text, sizeof(title_text), "Stage %d", stage);
 
     while (elapsed < max_time)
     {
         elapsed = SDL_GetTicks() - start;
 
-        switch (stage)
-        {
-        case 0:
-            text_color = (SDL_Color){245, 255, 245, 255};
+        text_color = (SDL_Color){245, 255, 245, 255};
 
-            // stage 0 bg color
-            SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
-            break;
-        case 1:
-            text_color = (SDL_Color){255, 255, 220, 255};
-
-            // stage 0 bg color
-            SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
-            SDL_RenderClear(renderer);
-
-            // stage 1 bg color
-            SDL_SetRenderDrawColor(renderer, 52, 54, 77, 255);
-            break;
-        }
+        // stage 0 bg color
+        SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
 
         // Update lebar rect (efek swipe)
         rect_width = (elapsed * SCREEN_WIDTH) / max_time;
@@ -471,7 +440,7 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
 
         // Render text
         render_text(renderer, sixtyfourconvergence_font, title_text,
-                    SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 - 150,
+                    SCREEN_WIDTH / 2 - 320, SCREEN_HEIGHT / 2 - 120,
                     1.2,
                     text_color);
 
@@ -480,7 +449,6 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
 
         SDL_Delay(16);
     }
-    stop_sound(5);
 }
 
 void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
@@ -544,7 +512,7 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
     bool is_exit = false;
 
     SDL_Event event;
-    Uint64 start = SDL_GetTicks();
+    Uint64 start;
     Uint64 max_time = 2000; // ms (for rectacngle swipe)
     SDL_Color text_color = {39, 39, 39, 255};
     char score_text[32];
@@ -571,6 +539,8 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
     insert_leaderboard(&leaderboard_head, stat);
     save_leaderboard("leaderboard.dat", leaderboard_head);
 
+    start = SDL_GetTicks();
+
     sprintf(score_text, "Score: %d", stat.score);
     sprintf(timer_text, "Time: %s", get_time_string(game_stat.elapsed_time / 1000));
 
@@ -596,7 +566,7 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
         SDL_RenderRect(renderer, &button_rect);
 
         // Draw swipe effect (rectangle)
-        SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
         SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, rect_height};
         SDL_RenderFillRect(renderer, &swipe_rect);
 

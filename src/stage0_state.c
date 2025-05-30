@@ -28,7 +28,13 @@ char *current_level_name = NULL;
 
 void set_current_level_name(const char *name)
 {
+  free(current_level_name);
   current_level_name = malloc(sizeof(char) * (strlen(name) + 1));
+  if (current_level_name == NULL)
+  {
+    SDL_Log("Failed to allocate memory for current_level_name");
+    exit_game(EXIT_FAILURE);
+  }
   strcpy(current_level_name, name);
 }
 
@@ -44,16 +50,15 @@ void stage0_init()
       1.0f);
 
   SDL_Renderer *renderer = get_game_instance()->renderer;
-  show_stage_transition(renderer, 0);
+  show_stage_transition(renderer);
 
   // Memainkan musik latar belakang
-  if (stage0_bgm)
-  {
-    play_music(stage0_bgm, INT32_MAX);
-  }
-  setup_level_saws();
+  play_music(stage0_bgm, INT32_MAX);
+
   init_game_stat(&game_stat);
   start_timer(&game_stat);
+
+  setup_level_saws();
   change_level();
   set_current_level_name(current_level->name);
 }
@@ -110,13 +115,14 @@ void stage0_update(double delta_time)
     }
     else
     {
-      show_level_transition(renderer, 0, current_level);
+      show_level_transition(renderer, current_level);
       goto_next_level();
       set_current_level_name(current_level->name);
     }
 
     if (current_state == &stage0_state) // not exited after congrats
     {
+      change_level(); // restore current_level (coins, switches, etc.)
       reinitiate_player(player, current_level->player_spawn);
       setup_level_saws();
     }

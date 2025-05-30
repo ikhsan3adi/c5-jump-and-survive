@@ -26,13 +26,9 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat);
 
 void show_pause_ui(SDL_Renderer *renderer);
 
-/**
- * @param stage next level's stage
- * @param level next level
- */
-void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current);
+void show_level_transition(SDL_Renderer *renderer, LevelNode *current);
 
-void show_stage_transition(SDL_Renderer *renderer, int stage);
+void show_stage_transition(SDL_Renderer *renderer);
 
 void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head);
 
