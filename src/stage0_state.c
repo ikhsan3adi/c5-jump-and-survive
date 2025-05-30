@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SDL3/SDL.h>
 
@@ -21,6 +22,15 @@ GameState stage0_state = {
     .render = stage0_render,
     .cleanup = stage0_cleanup,
 };
+
+// Berfungsi saat pergi ke level sebelumnya
+char *current_level_name = NULL;
+
+void set_current_level_name(const char *name)
+{
+  current_level_name = malloc(sizeof(char) * (strlen(name) + 1));
+  strcpy(current_level_name, name);
+}
 
 void stage0_init()
 {
@@ -45,6 +55,7 @@ void stage0_init()
   init_game_stat(&game_stat);
   start_timer(&game_stat);
   change_level();
+  set_current_level_name(current_level->name);
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -59,6 +70,17 @@ void stage0_handle_input(SDL_Event *event)
       stop_music();
       SDL_Renderer *renderer = get_game_instance()->renderer;
       show_pause_ui(renderer);
+
+      if (current_state == &stage0_state &&
+          strcmp(current_level_name, current_level->name) != 0)
+      {
+        // Jika level berubah, reset player dan saws
+        set_current_level_name(current_level->name);
+        cleanup_saw_manager(&saw_manager);
+        reinitiate_player(player, current_level->player_spawn);
+        setup_level_saws();
+      }
+
       play_music(stage0_bgm, INT32_MAX);
     }
   }
@@ -82,22 +104,23 @@ void stage0_update(double delta_time)
   {
     SDL_Renderer *renderer = get_game_instance()->renderer;
     cleanup_saw_manager(&saw_manager);
-    if(current_level->next == NULL)
+    if (current_level->next == NULL)
     {
       show_congratulations_ui(renderer, game_stat);
-    } else {
+    }
+    else
+    {
       show_level_transition(renderer, 0, current_level);
       goto_next_level();
+      set_current_level_name(current_level->name);
     }
-    
+
     if (current_state == &stage0_state) // not exited after congrats
     {
       reinitiate_player(player, current_level->player_spawn);
       setup_level_saws();
-    } 
-    
+    }
   }
-
 }
 
 void stage0_render(SDL_Renderer *renderer)
@@ -123,4 +146,6 @@ void stage0_cleanup()
   SDL_Log("Stage 0 State: Cleaned up");
   destroy_player(player);
   cleanup_saw_manager(&saw_manager);
+  free(current_level_name);
+  current_level_name = NULL;
 }

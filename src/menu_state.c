@@ -42,9 +42,10 @@ void menu_init()
     SDL_Log("Menu State: Initialized");
     play_music(menu_bgm, INT32_MAX);
 
-    player = create_player((Transform){120, 416, 32, 32}, 0, 0, 0);
+    player = create_player((Transform){0, 0, TILE_SIZE, TILE_SIZE}, 0, 0, 0);
 
     change_level();
+    reinitiate_player(player, current_level->player_spawn);
 }
 
 void menu_handle_input(SDL_Event *event)

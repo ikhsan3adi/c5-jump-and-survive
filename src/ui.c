@@ -147,6 +147,9 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
                     strcat(input_text, event.text.text);
                 }
                 break;
+            case SDL_EVENT_KEY_UP:
+                key_state[event.key.scancode] = false;
+                break;
             }
         }
 
@@ -260,6 +263,10 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
                 is_exit = true;
             }
         }
+        else if (event.type == SDL_EVENT_KEY_UP)
+        {
+            key_state[event.key.scancode] = false;
+        }
 
         // Delay untuk smooth animation
         SDL_Delay(16);
@@ -341,11 +348,12 @@ void show_pause_ui(SDL_Renderer *renderer)
                 if (event.key.scancode == SDL_SCANCODE_P) // untuk tombol
                 {
                     is_exit = true;
+                    goto_prev_level();
                 }
-                else if (event.type == SDL_EVENT_KEY_UP)
-                {
-                    key_state[event.key.scancode] = false;
-                }
+            }
+            else if (event.type == SDL_EVENT_KEY_UP)
+            {
+                key_state[event.key.scancode] = false;
             }
         }
     }
@@ -634,11 +642,16 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
             if (event.key.scancode == SDL_SCANCODE_P)
             {
                 is_exit = true;
+                goto_prev_level();
             }
             else if (event.key.scancode == SDL_SCANCODE_RETURN)
             {
                 is_exit = true;
             }
+        }
+        else if (event.type == SDL_EVENT_KEY_UP)
+        {
+            key_state[event.key.scancode] = false;
         }
 
         // Delay untuk smooth animation
