@@ -364,7 +364,7 @@ void load_json_levels(LevelNode **head, const char *dir)
   LevelNode *levels[MAX_LEVELS];
   int count = 0;
 
-  // --------- Stage 1: Parse all level files ---------
+  // --------- Step 1: Parse all level files ---------
   while ((dirent = readdir(d)) != NULL)
   {
     const char *filename = dirent->d_name;
@@ -386,52 +386,17 @@ void load_json_levels(LevelNode **head, const char *dir)
   }
   closedir(d);
 
-  // --------- Stage 2: Build the linked list ---------
+  // --------- Step 2: Build the linked list ---------
+  build_level_list_from_array(head, levels, count);
 
-  // Step 1: Find the head (where prev == "")
-  LevelNode *head_node = NULL;
-  for (int i = 0; i < count; i++)
-  {
-    if (strlen(levels[i]->prev_name) == 0)
-    {
-      head_node = levels[i];
-      break;
-    }
-  }
-
-  if (!head_node)
-    return; // Can't find head level
-
-  *head = head_node;
-  LevelNode *current = head_node;
-
-  // Step 2: Link based on 'next'
-  while (strlen(current->next_name) > 0)
-  {
-    LevelNode *next = NULL;
-    for (int i = 0; i < count; i++)
-    {
-      if (strcmp(levels[i]->name, current->next_name) == 0)
-      {
-        next = levels[i];
-        break;
-      }
-    }
-
-    if (!next)
-    {
-      break; // broken chain
-    }
-
-    current->next = next;
-    next->prev = current;
-    current = next;
-  }
-
-  LevelNode *tmp = head_node;
+  // -------- Step 3: Print loaded levels --------
+  LevelNode *tmp = *head;
   while (tmp)
   {
-    printf("Level loaded: %s (prev: %s, next: %s)\n", tmp->name, tmp->prev_name, tmp->next_name);
+    printf("Level loaded: %s (prev: %s, next: %s)\n",
+           tmp->name,
+           tmp->prev != NULL ? tmp->prev->name : "NULL",
+           tmp->next != NULL ? tmp->next->name : "NULL");
     tmp = tmp->next;
   }
 }

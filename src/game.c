@@ -58,6 +58,8 @@ void exit_game(int code)
   clean_up_ui();
   cleanup_audio();
 
+  clear_level();
+
   SDL_DestroyWindow(game.window);
   SDL_DestroyRenderer(game.renderer);
   free(game.event);
