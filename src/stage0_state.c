@@ -40,6 +40,10 @@ void set_current_level_name(const char *name)
 
 void check_previous_level()
 {
+  if (current_level->next == NULL) // is last level
+  {
+    return; // no previous level to check
+  }
   if (strcmp(current_level_name, current_level->next->name) == 0) // is prev
   {
     // coins previous level + coins current level
