@@ -2,7 +2,9 @@
 #include "ui.h"
 #include "game.h"
 #include "SFX.h"
+
 #include <stdio.h>
+
 #define SCORE_PER_COIN 10
 
 GameStat game_stat; // Deklarasi variabel global
@@ -10,6 +12,7 @@ GameStat game_stat; // Deklarasi variabel global
 // Inisialisasi GameStat dengan jumlah nyawa awal dan waktu maksimal per level
 void init_game_stat(GameStat *stat)
 {
+    stat->nickname[0] = '\0';    // nickname sebagai string kosong
     stat->score = 0;             // score mulai dari 0
     stat->lives = DEFAULT_LIVES; // default nyawa (3)
     stat->start_time = 0;        // Timer juga
@@ -74,6 +77,7 @@ bool sub_life(GameStat *stat)
         {
             stop_music();
             SDL_Renderer *renderer = get_game_instance()->renderer;
+
             show_game_over_ui(renderer, *stat);
             return false;
         }

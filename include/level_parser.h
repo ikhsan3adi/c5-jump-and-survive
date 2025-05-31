@@ -3,6 +3,8 @@
 
 #include "level.h"
 
+#define MAX_LEVELS 1000
+
 // get file extension
 const char *get_filename_ext(const char *filename);
 

@@ -5,9 +5,11 @@
 #include <stdbool.h> // Untuk tipe data bool
 
 #define DEFAULT_LIVES 3 // Jumlah nyawa awal
+#define MAX_NAME 20
 
 typedef struct
 {
+    char nickname[MAX_NAME]; // Nama pemain
     int score;         // Skor pemain
     int lives;         // Jumlah nyawa pemain
     Uint32 start_time; // milliseconds
@@ -40,6 +42,7 @@ void reset_score(GameStat *stat);
 
 // Menambah satu nyawa (dengan batas maksimum)
 void add_life(GameStat *stat);
+
 
 // Mengurangi satu nyawa (return false jika nyawa abis)
 bool sub_life(GameStat *stat);

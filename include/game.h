@@ -11,6 +11,8 @@ typedef struct
 {
   SDL_Window *window;
   SDL_Renderer *renderer;
+  SDL_Event *event;
+  bool is_exit;
   bool is_physics_paused; // untuk memberhentikan update physics (set delta_time ke 0)
 } Game;
 
@@ -31,5 +33,8 @@ void skip_physics_frame();
 
 // resume physics updates
 void resume_physics();
+
+/// destroy & exit game
+void exit_game(int code);
 
 #endif

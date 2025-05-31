@@ -1,10 +1,12 @@
-#include <stdio.h>
 #include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
+#include <ctype.h>
 
 #include <cJSON/cJSON.h>
 
+#include "game.h"
 #include "level_parser.h"
 
 const char *get_filename_ext(const char *filename)
@@ -54,17 +56,38 @@ char *get_json_string(const char *file)
 
 void set_level_name_from_json(LevelNode *node, cJSON *json)
 {
-  strcpy(node->name, json->valuestring);
+  if (json && cJSON_IsString(json) && json->valuestring)
+  {
+    strcpy(node->name, json->valuestring);
+  }
+  else
+  {
+    node->name[0] = '\0'; // fallback to empty string
+  }
 }
 
 void set_prev_level_from_json(LevelNode *node, cJSON *json)
 {
-  strcpy(node->prev_name, json->valuestring);
+  if (json && cJSON_IsString(json) && json->valuestring)
+  {
+    strcpy(node->prev_name, json->valuestring);
+  }
+  else
+  {
+    node->prev_name[0] = '\0';
+  }
 }
 
 void set_next_level_from_json(LevelNode *node, cJSON *json)
 {
-  strcpy(node->next_name, json->valuestring);
+  if (json && cJSON_IsString(json) && json->valuestring)
+  {
+    strcpy(node->next_name, json->valuestring);
+  }
+  else
+  {
+    node->next_name[0] = '\0';
+  }
 }
 
 void set_player_spawn_from_json(LevelNode *node, cJSON *json)
@@ -110,6 +133,17 @@ void set_switches_from_json(LevelNode *node, cJSON *json)
   int i = 0;                                   // counter
   cJSON *cursor = cJSON_GetArrayItem(json, 0); // pointer untuk looping elemen array (cursor luar)
 
+  int switches_count = cJSON_GetArraySize(json); // jumlah switches
+
+  // alokasi memori untuk switches
+  node->switches = malloc(sizeof(Switch) * switches_count);
+  if (node->switches == NULL)
+  {
+    SDL_Log("Failed to allocate memory for switches!");
+    exit_game(EXIT_FAILURE);
+  }
+  node->switches_count = switches_count;
+
   while (cursor != NULL)
   {
     int j = 0;                    // counter dalam
@@ -145,6 +179,17 @@ void set_switch_obstacles_from_json(LevelNode *node, cJSON *json)
 {
   int i = 0;                                   // counter
   cJSON *cursor = cJSON_GetArrayItem(json, 0); // pointer untuk looping elemen array (cursor luar)
+
+  int switch_obstacles_count = cJSON_GetArraySize(json); // jumlah switch_obstacles
+
+  // alokasi memori untuk switch_obstacles
+  node->switch_obstacles = malloc(sizeof(Switch_Obstacles) * switch_obstacles_count);
+  if (node->switch_obstacles == NULL)
+  {
+    SDL_Log("Failed to allocate memory for switch_obstacles!");
+    exit_game(EXIT_FAILURE);
+  }
+  node->switch_obstacles_count = switch_obstacles_count;
 
   while (cursor != NULL)
   {
@@ -197,6 +242,17 @@ void set_saws_from_json(LevelNode *node, cJSON *json)
   int i = 0;                                   // counter
   cJSON *cursor = cJSON_GetArrayItem(json, 0); // pointer untuk looping elemen array (cursor luar)
 
+  int saw_count = cJSON_GetArraySize(json); // jumlah saws
+
+  // alokasi memori untuk saws
+  node->saws = malloc(sizeof(Saw) * saw_count);
+  if (node->saws == NULL)
+  {
+    SDL_Log("Failed to allocate memory for saws!");
+    exit_game(EXIT_FAILURE);
+  }
+  node->saws_count = saw_count;
+
   while (cursor != NULL)
   {
     cJSON *child = cursor->child; // json
@@ -247,10 +303,17 @@ void set_maps_from_json(LevelNode *node, cJSON *json)
 
 LevelNode *get_level_from_json(const char *json_str)
 {
+  if (json_str == NULL || strlen(json_str) == 0)
+  {
+    SDL_Log("JSON string is empty or NULL");
+    return NULL;
+  }
+
   // urai json string ke dalam struktur cJSON
   cJSON *json = cJSON_Parse(json_str);
   // alokasi node level baru
-  LevelNode *node = malloc(sizeof(LevelNode));
+  // LevelNode *node = malloc(sizeof(LevelNode));
+  LevelNode *node = calloc(1, sizeof(LevelNode));
 
   json = json->child; // point to first child of json object ("name")
 
@@ -289,37 +352,51 @@ LevelNode *get_level_from_json(const char *json_str)
 
 void load_json_levels(LevelNode **head, const char *dir)
 {
-  DIR *d;                // directory
-  struct dirent *dirent; // directory entry
+  DIR *d;
+  struct dirent *dirent;
 
-  if (!(d = opendir(dir))) // buka directory `dir`
+  if (!(d = opendir(dir)))
   {
     return;
   }
 
-  // loop semua file/directory entry di directory
+  // Temporary storage
+  LevelNode *levels[MAX_LEVELS];
+  int count = 0;
+
+  // --------- Step 1: Parse all level files ---------
   while ((dirent = readdir(d)) != NULL)
   {
     const char *filename = dirent->d_name;
     const char *ext = get_filename_ext(filename);
-
-    if (strcmp(ext, "json") == 0) // cek file extension adalah .json
+    if (strcmp(ext, "json") == 0)
     {
-      // buat full path = dir + filename
-      char full_path[100] = "";
+      char full_path[256] = "";
       strcat(full_path, dir);
       strcat(full_path, filename);
 
-      // json string
       char *json_content = get_json_string(full_path);
-      // buat node level dari json string
       LevelNode *node = get_level_from_json(json_content);
 
-      //! TODO: insert to head
-      //! TODO: rearrange by next & prev
-      insert_level(head, node);
+      if (node && count < MAX_LEVELS)
+      {
+        levels[count++] = node;
+      }
     }
   }
-
   closedir(d);
+
+  // --------- Step 2: Build the linked list ---------
+  build_level_list_from_array(head, levels, count);
+
+  // -------- Step 3: Print loaded levels --------
+  LevelNode *tmp = *head;
+  while (tmp)
+  {
+    printf("Level loaded: %s (prev: %s, next: %s)\n",
+           tmp->name,
+           tmp->prev != NULL ? tmp->prev->name : "NULL",
+           tmp->next != NULL ? tmp->next->name : "NULL");
+    tmp = tmp->next;
+  }
 }

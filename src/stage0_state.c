@@ -1,10 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <SDL3/SDL.h>
-#include <SDL3/SDL_image.h>
 
 #include "stage0_state.h"
-#include "stage1_state.h"
 #include "game.h"
 #include "game_state.h"
 #include "player.h"
@@ -24,30 +23,44 @@ GameState stage0_state = {
     .cleanup = stage0_cleanup,
 };
 
+// Berfungsi saat pergi ke level sebelumnya
+char *current_level_name = NULL;
+
+void set_current_level_name(const char *name)
+{
+  free(current_level_name);
+  current_level_name = malloc(sizeof(char) * (strlen(name) + 1));
+  if (current_level_name == NULL)
+  {
+    SDL_Log("Failed to allocate memory for current_level_name");
+    exit_game(EXIT_FAILURE);
+  }
+  strcpy(current_level_name, name);
+}
+
 void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
 
+  current_level = level_head;
   player = create_player(
-      (Transform){120, 416, 32, 32},
+      (Transform){current_level->player_spawn.x * TILE_SIZE, current_level->player_spawn.y * TILE_SIZE, 32, 32},
       TILE_SIZE * 50,   // gravity (50 TILE / s^2)
       TILE_SIZE * 5.5f, // speed = 5.5 tile per second
       1.0f);
 
   SDL_Renderer *renderer = get_game_instance()->renderer;
-  show_stage_transition(renderer, 0);
+  show_stage_transition(renderer);
 
   // Memainkan musik latar belakang
-  if (stage0_bgm)
-  {
-    play_music(stage0_bgm, INT32_MAX);
-  }
-
-  setup_level_saws();
+  play_music(stage0_bgm, INT32_MAX);
 
   init_game_stat(&game_stat);
   start_timer(&game_stat);
-  change_level(0);
+
+  setup_level_saws();
+  change_level();
+  set_current_level_name(current_level->name);
 }
 
 void stage0_handle_input(SDL_Event *event)
@@ -62,6 +75,17 @@ void stage0_handle_input(SDL_Event *event)
       stop_music();
       SDL_Renderer *renderer = get_game_instance()->renderer;
       show_pause_ui(renderer);
+
+      if (current_state == &stage0_state &&
+          strcmp(current_level_name, current_level->name) != 0)
+      {
+        // Jika level berubah, reset player dan saws
+        set_current_level_name(current_level->name);
+        cleanup_saw_manager(&saw_manager);
+        reinitiate_player(player, current_level->player_spawn);
+        setup_level_saws();
+      }
+
       play_music(stage0_bgm, INT32_MAX);
     }
   }
@@ -84,17 +108,30 @@ void stage0_update(double delta_time)
   if (is_exit(&player->transform))
   {
     SDL_Renderer *renderer = get_game_instance()->renderer;
-    // show_level_transition(renderer, 0, current_level);
-    goto_next_level();
     cleanup_saw_manager(&saw_manager);
-    // setup_level_saws();
-    reinitiate_player(player, current_level->player_spawn);
+    if (current_level->next == NULL)
+    {
+      show_congratulations_ui(renderer, game_stat);
+    }
+    else
+    {
+      show_level_transition(renderer, current_level);
+      goto_next_level();
+      set_current_level_name(current_level->name);
+    }
+
+    if (current_state == &stage0_state) // not exited after congrats
+    {
+      change_level(); // restore current_level (coins, switches, etc.)
+      reinitiate_player(player, current_level->player_spawn);
+      setup_level_saws();
+    }
   }
 }
 
 void stage0_render(SDL_Renderer *renderer)
 {
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_SetRenderDrawColor(renderer, 124, 162, 142, 255);
   SDL_RenderClear(renderer);
 
   // Render map
@@ -115,4 +152,6 @@ void stage0_cleanup()
   SDL_Log("Stage 0 State: Cleaned up");
   destroy_player(player);
   cleanup_saw_manager(&saw_manager);
+  free(current_level_name);
+  current_level_name = NULL;
 }

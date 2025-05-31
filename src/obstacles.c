@@ -393,9 +393,9 @@ void cleanup_saw_manager(SawManager *manager)
 
 void setup_level_saws()
 {
-    // cleanup_saw_manager(saw_manager);
+    saw_manager.count = 0;
 
-    int n = sizeof(current_level->saws) / sizeof(current_level->saws[0]);
+    int n = current_level->saws_count;
     for (int i = 0; i < n; i++)
     {
         Saw sawT = current_level->saws[i];
