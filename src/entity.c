@@ -8,21 +8,18 @@
 #include "obstacles.h"
 #include "SFX.h"
 #include "ui.h"
+#include "game.h"
 
 int solid_tiles[] = {
     PLATFORM,
     SOLID_OBSTACLE,
     BUTTON,
-    SWITCH
-    // tambahin kalo ada
-};
+    SWITCH};
 
 int destruct_tiles[] = {
     SAWS,
     SPIKE,
-    FAKE_COINS
-    // tambahin kalo ada
-};
+    FAKE_COINS};
 
 Vector gate_tiles[10];
 int num_gate_tiles = 0;
@@ -74,39 +71,16 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
     entity->physics.velocity_y = 0;
   }
 
-  // Implementasi button di setiap level
-  switch (current_level)
+  // Implementasi button di setiap level;
+  int switch_size = current_switches_count;
+  int obstacle_size = current_switch_obstacles_count;
+  for (int i = 0; i < switch_size; i++)
   {
-  case 1:
-    interaction_buttons_switch(entity, buttonL1);
-    break;
-
-  case 5:
-    interaction_buttons_switch(entity, buttonL51);
-    interaction_buttons_switch(entity, buttonL52);
-    break;
-  case 6:
-    interaction_buttons_switch(entity, buttonL61);
-    interaction_buttons_switch(entity, buttonL62);
-    break;
-  case 7:
-    interaction_buttons_obstacles_switch(entity, buttonL7);
-    break;
-  case 8:
-    interaction_buttons_obstacles_switch(entity, buttonL81);
-    interaction_buttons_switch(entity, buttonL82);
-    break;
-  case 9:
-    interaction_buttons_obstacles_switch(entity, buttonL91);
-    interaction_buttons_obstacles_switch(entity, buttonL92);
-    break;
-  case 10:
-    interaction_buttons_obstacles_switch(entity, buttonL101);
-    interaction_buttons_switch(entity, buttonL102);
-    interaction_buttons_obstacles_switch(entity, buttonL103);
-    break;
-  default:
-    break;
+    interaction_buttons_switch(entity, current_switches[i]);
+  }
+  for (int i = 0; i < obstacle_size; i++)
+  {
+    interaction_buttons_obstacles_switch(entity, current_switch_obstacles[i]);
   }
 
   bool coin_status = has_coin_tiles();
@@ -128,14 +102,14 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   if (destruct)
   {
     sub_life(&game_stat);
-    reinitiate_player(entity, current_level);
+    reinitiate_player(entity, current_level->player_spawn);
   }
   bool hole = is_void(&entity->transform);
   if (hole)
   {
     play_sound(dead_sfx, 4, 0);
     sub_life(&game_stat);
-    reinitiate_player(entity, current_level);
+    reinitiate_player(entity, current_level->player_spawn);
   }
 }
 
@@ -193,7 +167,6 @@ bool is_exit(Transform *transform)
       }
       if (current_level_map[y][x] == EXIT_GATE)
       {
-        play_sound(gate_sfx, 3, 0);
         return true;
       }
     }
