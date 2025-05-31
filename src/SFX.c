@@ -73,6 +73,16 @@ void play_music(Mix_Music *sound, int loops)
     }
 }
 
+void pause_music()
+{
+    Mix_PauseMusic();
+}
+
+void resume_music()
+{
+    Mix_ResumeMusic();
+}
+
 void stop_music()
 {
     Mix_HaltMusic();

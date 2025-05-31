@@ -6,6 +6,8 @@
 #include "player.h"
 #include "obstacles.h"
 #include "game.h"
+#include <SDL3/SDL_image.h>
+#include <stdlib.h>
 
 LevelNode *level_head = NULL;
 LevelNode *current_level = NULL;
@@ -15,6 +17,8 @@ int current_switches_count = 0;
 int current_switch_obstacles_count = 0;
 
 short current_level_map[MAP_HEIGHT][MAP_WIDTH];
+
+SDL_Texture *current_bg_texture = NULL;
 
 void load_levels(const char *dir)
 {
@@ -42,6 +46,12 @@ void change_level()
     SDL_Log("Memory allocation failed for switches or switch obstacles.");
     return;
   }
+  
+  char dir[] = "assets/images/";
+  char* img_path = malloc(sizeof(char) * (strlen(current_level->bg_image) + strlen(dir) + 1));
+  strcpy(img_path, dir);
+  strcat(img_path, current_level->bg_image);
+  current_bg_texture = IMG_LoadTexture(get_game_instance()->renderer, img_path);
 
   memcpy(current_level_map, current_level->map, sizeof(current_level->map));
   memcpy(current_switches, current_level->switches, sizeof(Switch) * current_level->switches_count);
@@ -57,6 +67,9 @@ void change_level()
 void render_level(SDL_Renderer *renderer)
 {
   bool gate_found = false;
+
+  SDL_RenderTexture(renderer, current_bg_texture, NULL, NULL);
+  
   for (int y = 0; y < MAP_HEIGHT; y++)
   {
     for (int x = 0; x < MAP_WIDTH; x++)

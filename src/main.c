@@ -27,7 +27,7 @@ int main()
 
   // load assets (fonts, sfx)
   init_font();
-  init_audio();
+  // init_audio();
 
   load_levels("assets/levels/");
 

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <SDL3/SDL_image.h>
 
 #include "game.h"
 #include "ui.h"
@@ -11,7 +12,7 @@ void initialize(const char *appname, const char *appversion, const char *appiden
 {
   SDL_SetAppMetadata(appname, appversion, appidentifier);
 
-  if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
+  if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO ))
   {
     SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
     exit(2);
