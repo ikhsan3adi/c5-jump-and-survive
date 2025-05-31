@@ -46,9 +46,9 @@ void change_level()
     SDL_Log("Memory allocation failed for switches or switch obstacles.");
     return;
   }
-  
+
   char dir[] = "assets/images/";
-  char* img_path = malloc(sizeof(char) * (strlen(current_level->bg_image) + strlen(dir) + 1));
+  char *img_path = malloc(sizeof(char) * (strlen(current_level->bg_image) + strlen(dir) + 1));
   strcpy(img_path, dir);
   strcat(img_path, current_level->bg_image);
   current_bg_texture = IMG_LoadTexture(get_game_instance()->renderer, img_path);
@@ -69,7 +69,7 @@ void render_level(SDL_Renderer *renderer)
   bool gate_found = false;
 
   SDL_RenderTexture(renderer, current_bg_texture, NULL, NULL);
-  
+
   for (int y = 0; y < MAP_HEIGHT; y++)
   {
     for (int x = 0; x < MAP_WIDTH; x++)
@@ -190,6 +190,11 @@ void goto_level_by_name(LevelNode *head, const char *name)
 
 void goto_next_level()
 {
+  if (current_level->next == NULL)
+  {
+    SDL_Log("Already at the last level.");
+    return;
+  }
   current_level = current_level->next;
   change_level();
 }
@@ -232,4 +237,20 @@ void clear_level()
   current_level = NULL;
 
   SDL_Log("All levels cleared.");
+}
+
+int count_level_coins()
+{
+  int count = 0;
+  for (int y = 0; y < MAP_HEIGHT; y++)
+  {
+    for (int x = 0; x < MAP_WIDTH; x++)
+    {
+      if (current_level_map[y][x] == COINS)
+      {
+        count++;
+      }
+    }
+  }
+  return count;
 }

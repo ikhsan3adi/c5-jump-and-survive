@@ -1,9 +1,9 @@
 {
-    "name": "Level-4",
+    "name": "Level 4",
 
-    "prev": "level-3",
+    "prev": "Level 3",
 
-    "next": "level-5",
+    "next": "Level 5",
 
     "player_spawn": [3, 19],
 
