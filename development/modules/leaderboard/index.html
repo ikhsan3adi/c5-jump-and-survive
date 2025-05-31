@@ -1,0 +1,1426 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../player/">
+      
+      
+        <link rel="next" href="../level/">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Modul leaderboard - Jump & Survive Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#modul-leaderboard" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Jump &amp; Survive Documentation" class="md-header__button md-logo" aria-label="Jump & Survive Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5m-1-14c-1.36-.6-3.16-1-4.5-1-1.2 0-2.4.15-3.5.5v11.5c1.1-.35 2.3-.5 3.5-.5 1.34 0 3.14.4 4.5 1zM13 19c1.36-.6 3.16-1 4.5-1 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.34 0-3.14.4-4.5 1z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jump & Survive Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Modul leaderboard
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jump &amp; Survive Documentation" class="md-nav__button md-logo" aria-label="Jump & Survive Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5m-1-14c-1.36-.6-3.16-1-4.5-1-1.2 0-2.4.15-3.5.5v11.5c1.1-.35 2.3-.5 3.5-.5 1.34 0 3.14.4 4.5 1zM13 19c1.36-.6 3.16-1 4.5-1 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.34 0-3.14.4-4.5 1z"/></svg>
+
+    </a>
+    Jump & Survive Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Beranda
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Teknis Pengembangan
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Teknis Pengembangan
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gambaran Umum
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Struktur Kode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Penjelasan Modul-modul
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Penjelasan Modul-modul
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Daftar Modul
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Main Program
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul game
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul game_state
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul transform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul vector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../entity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul entity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../physics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul physics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../player/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul player
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Modul leaderboard
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul leaderboard
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#struktur-leaderboardnode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Struktur LeaderboardNode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variabel-dan-konstanta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variabel dan Konstanta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variabel dan Konstanta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#max_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAX_LEADERBOARD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leaderboard_head" class="md-nav__link">
+    <span class="md-ellipsis">
+      leaderboard_head
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-setiap-fungsi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Penjelasan Setiap Fungsi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Penjelasan Setiap Fungsi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create_node" class="md-nav__link">
+    <span class="md-ellipsis">
+      create_node
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_greater" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_greater
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      insert_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      free_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      print_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      save_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interaksi-dengan-modul-lain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interaksi dengan modul lain
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul level
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level_parser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul level_parser
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../obstacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul obstacle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game_stat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul game_stat
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul UI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sfx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul SFX
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../util/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul util
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../menu_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Start Menu (menu_state)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stage0_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Stage 0 (stage0_state)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leaderboard_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Leaderboard (leaderboard_state)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Penggunaan
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Penggunaan
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cara Menjalankan Program
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to-play/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cara Memainkan
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#struktur-leaderboardnode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Struktur LeaderboardNode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variabel-dan-konstanta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variabel dan Konstanta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variabel dan Konstanta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#max_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      MAX_LEADERBOARD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leaderboard_head" class="md-nav__link">
+    <span class="md-ellipsis">
+      leaderboard_head
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-setiap-fungsi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Penjelasan Setiap Fungsi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Penjelasan Setiap Fungsi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create_node" class="md-nav__link">
+    <span class="md-ellipsis">
+      create_node
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is_greater" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_greater
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      insert_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#free_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      free_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      print_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      save_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load_leaderboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      load_leaderboard
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interaksi-dengan-modul-lain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interaksi dengan modul lain
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="modul-leaderboard">Modul <code>leaderboard</code></h1>
+<p><strong>Pembuat:</strong> <a href="https://github.com/Hanif13579">Hanifidin Ibrahim (241511076)</a></p>
+<p><strong>File:</strong> <code>leaderboard.h</code> &amp; <code>leaderboard.c</code></p>
+<h2 id="struktur-leaderboardnode">Struktur <code>LeaderboardNode</code></h2>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">LeaderboardNode</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="n">GameStat</span><span class="w"> </span><span class="n">stat</span><span class="p">;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">LeaderboardNode</span><span class="o">*</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="p">}</span><span class="w"> </span><span class="n">LeaderboardNode</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Struktur <code>LeaderboardNode</code> merepresentasikan sebuah entri dalam leaderboard, berfungsi sebagai node dalam sebuah linked list. Setiap node menyimpan statistik permainan (<code>GameStat</code>) dan sebuah pointer ke node berikutnya dalam daftar.</p>
+<ul>
+<li><code>stat</code>: Berisi statistik permainan untuk entri leaderboard tertentu (misalnya, skor dan waktu yang berlalu).</li>
+<li><code>next</code>: Pointer ke <code>LeaderboardNode</code> berikutnya dalam linked list, atau <code>NULL</code> jika ini adalah node terakhir.</li>
+</ul>
+<hr />
+<h2 id="variabel-dan-konstanta">Variabel dan Konstanta</h2>
+<h3 id="max_leaderboard"><strong>MAX_LEADERBOARD</strong></h3>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#define MAX_LEADERBOARD 10</span>
+</span></code></pre></div>
+<p>Konstanta <code>MAX_LEADERBOARD</code> mendefinisikan jumlah maksimum entri yang akan disimpan dalam leaderboard. Dalam kasus ini, leaderboard akan menyimpan hingga 10 entri skor tertinggi.</p>
+<h3 id="leaderboard_head"><strong>leaderboard_head</strong></h3>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">extern</span><span class="w"> </span><span class="n">LeaderboardNode</span><span class="o">*</span><span class="w"> </span><span class="n">leaderboard_head</span><span class="p">;</span>
+</span></code></pre></div>
+<div class="language-c highlight"><span class="filename">leaderboard.c</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">LeaderboardNode</span><span class="w"> </span><span class="o">*</span><span class="n">leaderboard_head</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Variabel global <code>leaderboard_head</code> adalah pointer yang menunjuk ke node pertama (head) dari linked list leaderboard. Variabel ini digunakan untuk mengelola akses ke seluruh data leaderboard. Ini diinisialisasi ke <code>NULL</code> yang menunjukkan leaderboard kosong pada awalnya.</p>
+<hr />
+<h2 id="penjelasan-setiap-fungsi">Penjelasan Setiap Fungsi</h2>
+<h3 id="create_node"><strong>create_node</strong></h3>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">LeaderboardNode</span><span class="o">*</span><span class="w"> </span><span class="nf">create_node</span><span class="p">(</span><span class="n">GameStat</span><span class="w"> </span><span class="n">stat</span><span class="p">);</span>
+</span></code></pre></div>
+<div class="language-c highlight"><span class="filename">leaderboard.c</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">LeaderboardNode</span><span class="o">*</span><span class="w"> </span><span class="nf">create_node</span><span class="p">(</span><span class="n">GameStat</span><span class="w"> </span><span class="n">stat</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">LeaderboardNode</span><span class="o">*</span><span class="w"> </span><span class="n">new_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">LeaderboardNode</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">LeaderboardNode</span><span class="p">));</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">new_node</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">new_node</span><span class="o">-&gt;</span><span class="n">stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stat</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">new_node</span><span class="o">-&gt;</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">new_node</span><span class="p">;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Fungsi <code>create_node</code> membuat dan menginisialisasi node <code>LeaderboardNode</code> baru. Fungsi ini menerima satu parameter <code>stat</code> (tipe <code>GameStat</code>) yang akan disimpan dalam node baru. Fungsi ini mengalokasikan memori untuk node baru, menetapkan statistik permainan yang diberikan, dan mengatur pointer <code>next</code> ke <code>NULL</code>. Mengembalikan pointer ke node yang baru dibuat, atau <code>NULL</code> jika alokasi memori gagal.</p>
+<hr />
+<h3 id="is_greater"><strong>is_greater</strong></h3>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">is_greater</span><span class="p">(</span><span class="n">GameStat</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">GameStat</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>is_greater</code> adalah fungsi pembanding yang menentukan apakah satu <code>GameStat</code> lebih unggul dari yang lain untuk tujuan peringkat leaderboard. Fungsi ini menerima dua parameter <code>a</code> dan <code>b</code>, keduanya bertipe <code>GameStat</code>. Prioritas pertama adalah skor yang lebih tinggi. Jika skornya sama, maka waktu yang lebih rendah (elapsed time) dianggap lebih baik. Mengembalikan <code>true</code> jika <code>a</code> lebih unggul dari <code>b</code>, <code>false</code> sebaliknya.</p>
+<div class="language-c highlight"><span class="filename">leaderboard.c</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">is_greater</span><span class="p">(</span><span class="n">GameStat</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">GameStat</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">score</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">score</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">           </span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">score</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">score</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">elapsed_time</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">elapsed_time</span><span class="p">);</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="insert_leaderboard"><strong>insert_leaderboard</strong></h3>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">insert_leaderboard</span><span class="p">(</span><span class="n">LeaderboardNode</span><span class="o">**</span><span class="w"> </span><span class="n">head</span><span class="p">,</span><span class="w"> </span><span class="n">GameStat</span><span class="w"> </span><span class="n">stat</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>insert_leaderboard</code> menyisipkan entri <code>GameStat</code> baru ke dalam leaderboard yang diurutkan secara menurun berdasarkan skor dan kemudian waktu yang berlalu. Fungsi ini menerima pointer ke pointer head leaderboard (<code>head</code>) dan statistik permainan (<code>stat</code>) yang akan disisipkan. Jika <code>nickname</code> kosong, akan diatur menjadi "Anonymous". Fungsi ini juga memastikan bahwa leaderboard tidak melebihi <code>MAX_LEADERBOARD</code> entri dengan menghapus node ke-11 jika ada.</p>
+<hr />
+<h3 id="free_leaderboard"><strong>free_leaderboard</strong></h3>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">free_leaderboard</span><span class="p">(</span><span class="n">LeaderboardNode</span><span class="o">*</span><span class="w"> </span><span class="n">head</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>free_leaderboard</code> membebaskan semua memori yang dialokasikan untuk node-node dalam linked list leaderboard. Fungsi ini menerima pointer ke head leaderboard (<code>head</code>).</p>
+<hr />
+<h3 id="print_leaderboard"><strong>print_leaderboard</strong></h3>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">print_leaderboard</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">LeaderboardNode</span><span class="o">*</span><span class="w"> </span><span class="n">head</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>print_leaderboard</code> mencetak isi leaderboard ke konsol. Fungsi ini menerima pointer ke head leaderboard (<code>head</code>). Fungsi ini bersifat opsional dan berguna untuk debugging.</p>
+<hr />
+<h3 id="save_leaderboard"><strong>save_leaderboard</strong></h3>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">save_leaderboard</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">LeaderboardNode</span><span class="o">*</span><span class="w"> </span><span class="n">head</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>save_leaderboard</code> menyimpan data leaderboard ke dalam file biner. Fungsi ini menerima nama file (<code>filename</code>) dan pointer ke head leaderboard (<code>head</code>). Hanya <code>MAX_LEADERBOARD</code> entri pertama yang disimpan.</p>
+<hr />
+<h3 id="load_leaderboard"><strong>load_leaderboard</strong></h3>
+<div class="language-c highlight"><span class="filename">leaderboard.h</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">LeaderboardNode</span><span class="o">*</span><span class="w"> </span><span class="nf">load_leaderboard</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">filename</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>load_leaderboard</code> memuat data leaderboard dari file biner. Fungsi ini menerima nama file (<code>filename</code>). Fungsi ini membaca setiap <code>GameStat</code> dari file dan menyisipkannya ke dalam linked list leaderboard menggunakan <code>insert_leaderboard</code>, sehingga memastikan urutan yang benar. Mengembalikan pointer ke head leaderboard yang dimuat, atau <code>NULL</code> jika file tidak dapat dibuka.</p>
+<hr />
+<h2 id="interaksi-dengan-modul-lain">Interaksi dengan modul lain</h2>
+<p>Modul <code>leaderboard</code> ini memiliki interaksi dengan modul lain sebagai berikut:</p>
+<ul>
+<li>
+<p><strong><code>game_stat.h</code></strong>: Modul <code>leaderboard</code> bergantung pada struktur <code>GameStat</code> yang didefinisikan dalam <code>game_stat.h</code> untuk menyimpan statistik pemain (skor dan waktu).</p>
+</li>
+<li>
+<p><strong><code>leaderboard_state.h</code> dan <code>leaderboard_state.c</code></strong>: Kemungkinan besar, modul <code>leaderboard_state</code> akan menggunakan fungsi-fungsi dari <code>leaderboard.h</code> (seperti <code>load_leaderboard</code>, <code>insert_leaderboard</code>, dan <code>print_leaderboard</code> atau fungsi untuk rendering) untuk menampilkan dan mengelola data leaderboard di dalam state permainan leaderboard.</p>
+</li>
+<li>
+<p><strong><code>main.c</code> (atau modul state game lainnya)</strong>: Fungsi <code>insert_leaderboard</code> mungkin dipanggil setelah permainan berakhir untuk menyimpan skor pemain ke leaderboard. Fungsi <code>save_leaderboard</code> dan <code>load_leaderboard</code> kemungkinan akan dipanggil pada saat startup dan shutdown game untuk mempertahankan data leaderboard.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

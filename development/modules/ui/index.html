@@ -1,0 +1,1527 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../game_stat/">
+      
+      
+        <link rel="next" href="../sfx/">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Modul UI - Jump & Survive Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#modul-ui" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Jump &amp; Survive Documentation" class="md-header__button md-logo" aria-label="Jump & Survive Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5m-1-14c-1.36-.6-3.16-1-4.5-1-1.2 0-2.4.15-3.5.5v11.5c1.1-.35 2.3-.5 3.5-.5 1.34 0 3.14.4 4.5 1zM13 19c1.36-.6 3.16-1 4.5-1 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.34 0-3.14.4-4.5 1z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jump & Survive Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Modul UI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="cyan"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jump &amp; Survive Documentation" class="md-nav__button md-logo" aria-label="Jump & Survive Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.5c-1.35-.85-3.8-1.5-5.5-1.5-1.65 0-3.35.3-4.75 1.05-.1.05-.15.05-.25.05-.25 0-.5-.25-.5-.5V6c.6-.45 1.25-.75 2-1 1.11-.35 2.33-.5 3.5-.5 1.95 0 4.05.4 5.5 1.5 1.45-1.1 3.55-1.5 5.5-1.5 1.17 0 2.39.15 3.5.5.75.25 1.4.55 2 1v14.6c0 .25-.25.5-.5.5-.1 0-.15 0-.25-.05-1.4-.75-3.1-1.05-4.75-1.05-1.7 0-4.15.65-5.5 1.5m-1-14c-1.36-.6-3.16-1-4.5-1-1.2 0-2.4.15-3.5.5v11.5c1.1-.35 2.3-.5 3.5-.5 1.34 0 3.14.4 4.5 1zM13 19c1.36-.6 3.16-1 4.5-1 1.2 0 2.4.15 3.5.5V7c-1.1-.35-2.3-.5-3.5-.5-1.34 0-3.14.4-4.5 1z"/></svg>
+
+    </a>
+    Jump & Survive Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Beranda
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Teknis Pengembangan
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Teknis Pengembangan
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gambaran Umum
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Struktur Kode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Penjelasan Modul-modul
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Penjelasan Modul-modul
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Daftar Modul
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Main Program
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul game
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul game_state
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul transform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul vector
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../entity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul entity
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../physics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul physics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../player/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul player
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leaderboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul leaderboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul level
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level_parser/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul level_parser
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../obstacle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul obstacle
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game_stat/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul game_stat
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Modul UI
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul UI
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variabel-dan-konstanta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variabel dan Konstanta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variabel dan Konstanta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pixelifysans_font" class="md-nav__link">
+    <span class="md-ellipsis">
+      PIXELIFYSANS_FONT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sixtyfourconvergence_font" class="md-nav__link">
+    <span class="md-ellipsis">
+      SIXTYFOURCONVERGENCE_FONT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sixtyfourconvergence_font_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      sixtyfourconvergence_font
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pixelify_font" class="md-nav__link">
+    <span class="md-ellipsis">
+      pixelify_font
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-setiap-fungsi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Penjelasan Setiap Fungsi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Penjelasan Setiap Fungsi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init_font" class="md-nav__link">
+    <span class="md-ellipsis">
+      init_font
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render_text" class="md-nav__link">
+    <span class="md-ellipsis">
+      render_text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render_game_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      render_game_ui
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_game_over_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_game_over_ui
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_pause_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_pause_ui
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_level_transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_level_transition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_stage_transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_stage_transition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_congratulations_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_congratulations_ui
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clean_up_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      clean_up_ui
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interaksi-dengan-modul-lain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interaksi dengan modul lain
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sfx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul SFX
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../util/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Modul util
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../menu_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Start Menu (menu_state)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stage0_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Stage 0 (stage0_state)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leaderboard_state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Leaderboard (leaderboard_state)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Penggunaan
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Penggunaan
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cara Menjalankan Program
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../how-to-play/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cara Memainkan
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#variabel-dan-konstanta" class="md-nav__link">
+    <span class="md-ellipsis">
+      Variabel dan Konstanta
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variabel dan Konstanta">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pixelifysans_font" class="md-nav__link">
+    <span class="md-ellipsis">
+      PIXELIFYSANS_FONT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sixtyfourconvergence_font" class="md-nav__link">
+    <span class="md-ellipsis">
+      SIXTYFOURCONVERGENCE_FONT
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sixtyfourconvergence_font_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      sixtyfourconvergence_font
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pixelify_font" class="md-nav__link">
+    <span class="md-ellipsis">
+      pixelify_font
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#penjelasan-setiap-fungsi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Penjelasan Setiap Fungsi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Penjelasan Setiap Fungsi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init_font" class="md-nav__link">
+    <span class="md-ellipsis">
+      init_font
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render_text" class="md-nav__link">
+    <span class="md-ellipsis">
+      render_text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#render_game_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      render_game_ui
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_game_over_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_game_over_ui
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_pause_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_pause_ui
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_level_transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_level_transition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_stage_transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_stage_transition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#show_congratulations_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      show_congratulations_ui
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clean_up_ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      clean_up_ui
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interaksi-dengan-modul-lain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interaksi dengan modul lain
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="modul-ui">Modul <code>UI</code></h1>
+<p><strong>Pembuat:</strong> <a href="https://github.com/helga1406">Helga Athifa Hidayat (241511077)</a> &amp; <a href="https://github.com/ikhsan3adi">Ikhsan Satriadi (241511080)</a></p>
+<p><strong>File:</strong> <code>ui.c</code> &amp; <code>ui.h</code></p>
+<h2 id="variabel-dan-konstanta">Variabel dan Konstanta</h2>
+<h3 id="pixelifysans_font"><strong>PIXELIFYSANS_FONT</strong></h3>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">#define PIXELIFYSANS_FONT &quot;assets/fonts/PixelifySans-Regular.ttf&quot;</span>
+</span></code></pre></div>
+<p>Konstanta string yang mendefinisikan path file font yang digunakan untuk teks piksel.</p>
+<h3 id="sixtyfourconvergence_font"><strong>SIXTYFOURCONVERGENCE_FONT</strong></h3>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#define SIXTYFOURCONVERGENCE_FONT &quot;assets/fonts/SixtyfourConvergence-Regular.ttf&quot;</span>
+</span></code></pre></div>
+<p>Konstanta string yang mendefinisikan path file font yang digunakan untuk judul atau teks yang lebih besar.</p>
+<h3 id="sixtyfourconvergence_font_1"><strong>sixtyfourconvergence_font</strong></h3>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">extern</span><span class="w"> </span><span class="n">TTF_Font</span><span class="w"> </span><span class="o">*</span><span class="n">sixtyfourconvergence_font</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Variabel global yang menyimpan pointer ke font yang dimuat dari file <code>SIXTYFOURCONVERGENCE_FONT</code>.</p>
+<h3 id="pixelify_font"><strong>pixelify_font</strong></h3>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">extern</span><span class="w"> </span><span class="n">TTF_Font</span><span class="w"> </span><span class="o">*</span><span class="n">pixelify_font</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Variabel global yang menyimpan pointer ke font yang dimuat dari file <code>PIXELIFYSANS_FONT</code>.</p>
+<hr />
+<h2 id="penjelasan-setiap-fungsi">Penjelasan Setiap Fungsi</h2>
+<h3 id="init_font"><strong>init_font</strong></h3>
+<div class="language-c highlight"><span class="filename">ui.h</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">init_font</span><span class="p">();</span>
+</span></code></pre></div>
+<p>Fungsi <code>init_font</code> menginisialisasi library SDL_ttf yang digunakan untuk rendering font. Kemudian, fungsi ini memuat dua file font yang ditentukan oleh konstanta <code>SIXTYFOURCONVERGENCE_FONT</code> dan <code>PIXELIFYSANS_FONT</code> dan menyimpan pointer ke font-font tersebut dalam variabel global <code>sixtyfourconvergence_font</code> dan <code>pixelify_font</code>. Jika inisialisasi SDL_ttf atau pemuatan font gagal, fungsi akan mencetak pesan error dan keluar dari program.</p>
+<div class="language-c highlight"><span class="filename">ui.c</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SDL3/SDL_ttf.h&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;ui.h&quot;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">TTF_Font</span><span class="w"> </span><span class="o">*</span><span class="n">sixtyfourconvergence_font</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">TTF_Font</span><span class="w"> </span><span class="o">*</span><span class="n">pixelify_font</span><span class="p">;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">...</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="kt">void</span><span class="w"> </span><span class="n">init_font</span><span class="p">()</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">{</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">TTF_Init</span><span class="p">())</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">        </span><span class="n">SDL_Log</span><span class="p">(</span><span class="s">&quot;Failed to initialize SDL_ttf: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">SDL_GetError</span><span class="p">());</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="n">sixtyfourconvergence_font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TTF_OpenFont</span><span class="p">(</span><span class="n">SIXTYFOURCONVERGENCE_FONT</span><span class="p">,</span><span class="w"> </span><span class="mi">36</span><span class="p">);</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="n">pixelify_font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TTF_OpenFont</span><span class="p">(</span><span class="n">PIXELIFYSANS_FONT</span><span class="p">,</span><span class="w"> </span><span class="mi">36</span><span class="p">);</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="render_text"><strong>render_text</strong></h3>
+<div class="language-c highlight"><span class="filename">ui.h</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">render_text</span><span class="p">(</span><span class="n">SDL_Renderer</span><span class="w"> </span><span class="o">*</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="n">TTF_Font</span><span class="w"> </span><span class="o">*</span><span class="n">font</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">SDL_Color</span><span class="w"> </span><span class="n">color</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>render_text</code> menerima renderer SDL, font yang akan digunakan, teks yang akan dirender, posisi (x, y), skala, dan warna sebagai input. Fungsi ini membuat surface dari teks menggunakan font dan warna yang diberikan, kemudian membuat texture dari surface tersebut. Texture teks kemudian dirender ke layar pada posisi yang ditentukan dengan skala yang diberikan.</p>
+<div class="language-c highlight"><span class="filename">ui.c</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">render_text</span><span class="p">(</span><span class="n">SDL_Renderer</span><span class="w"> </span><span class="o">*</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="n">TTF_Font</span><span class="w"> </span><span class="o">*</span><span class="n">font</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">SDL_Color</span><span class="w"> </span><span class="n">color</span><span class="p">)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="n">text_surface</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TTF_RenderText_Solid</span><span class="p">(</span><span class="n">font</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">text</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="p">);</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="n">text_texture</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SDL_CreateTextureFromSurface</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="n">text_surface</span><span class="p">);</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="n">SDL_FRect</span><span class="w"> </span><span class="n">dest_rect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">text_surface</span><span class="o">-&gt;</span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">text_surface</span><span class="o">-&gt;</span><span class="n">h</span><span class="p">};</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="n">SDL_SetRenderScale</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="p">);</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="n">SDL_RenderTexture</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="n">text_texture</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dest_rect</span><span class="p">);</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="n">SDL_SetRenderScale</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="render_game_ui"><strong>render_game_ui</strong></h3>
+<div class="language-c highlight"><span class="filename">ui.h</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">render_game_ui</span><span class="p">(</span><span class="n">SDL_Renderer</span><span class="w"> </span><span class="o">*</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="n">GameStat</span><span class="w"> </span><span class="o">*</span><span class="n">stat</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>render_game_ui</code> bertanggung jawab untuk menampilkan elemen-elemen antarmuka pengguna selama permainan berlangsung. Fungsi ini menerima renderer SDL dan pointer ke struktur <code>GameStat</code> sebagai input. Berdasarkan isi dari <code>GameStat</code>, fungsi ini akan menampilkan informasi seperti skor, level, atau health player di layar.</p>
+<hr />
+<h3 id="show_game_over_ui"><strong>show_game_over_ui</strong></h3>
+<div class="language-c highlight"><span class="filename">ui.h</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">show_game_over_ui</span><span class="p">(</span><span class="n">SDL_Renderer</span><span class="w"> </span><span class="o">*</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="n">GameStat</span><span class="w"> </span><span class="n">stat</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>show_game_over_ui</code> menampilkan layar "Game Over" kepada pemain. Fungsi ini menerima renderer SDL dan struktur <code>GameStat</code> sebagai input. Fungsi ini akan menampilkan teks "Game Over" dan juga skor akhir pemain, serta opsi untuk kembali ke menu utama.</p>
+<hr />
+<h3 id="show_pause_ui"><strong>show_pause_ui</strong></h3>
+<div class="language-c highlight"><span class="filename">ui.h</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">show_pause_ui</span><span class="p">(</span><span class="n">SDL_Renderer</span><span class="w"> </span><span class="o">*</span><span class="n">renderer</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>show_pause_ui</code> menampilkan layar "Pause" ketika pemain menjeda permainan. Fungsi ini menerima renderer SDL sebagai input. Fungsi ini akan menampilkan teks "Paused" dan opsi untuk melanjutkan permainan atau kembali ke menu utama.</p>
+<hr />
+<h3 id="show_level_transition"><strong>show_level_transition</strong></h3>
+<div class="language-c highlight"><span class="filename">ui.h</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">show_level_transition</span><span class="p">(</span><span class="n">SDL_Renderer</span><span class="w"> </span><span class="o">*</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stage</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">level</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>show_level_transition</code> menampilkan layar transisi antar level. Fungsi ini menerima renderer SDL, nomor stage, dan nomor level berikutnya sebagai input. Fungsi ini akan menampilkan informasi tentang stage dan level yang akan datang.</p>
+<hr />
+<h3 id="show_stage_transition"><strong>show_stage_transition</strong></h3>
+<div class="language-c highlight"><span class="filename">ui.h</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">show_stage_transition</span><span class="p">(</span><span class="n">SDL_Renderer</span><span class="w"> </span><span class="o">*</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">stage</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>show_stage_transition</code> menampilkan layar transisi antar stage. Fungsi ini menerima renderer SDL dan nomor stage berikutnya sebagai input. Fungsi ini akan menampilkan informasi tentang stage yang akan datang.</p>
+<hr />
+<h3 id="show_congratulations_ui"><strong>show_congratulations_ui</strong></h3>
+<div class="language-c highlight"><span class="filename">ui.h</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">show_congratulations_ui</span><span class="p">(</span><span class="n">SDL_Renderer</span><span class="w"> </span><span class="o">*</span><span class="n">renderer</span><span class="p">,</span><span class="w"> </span><span class="n">GameStat</span><span class="w"> </span><span class="n">stat</span><span class="p">);</span>
+</span></code></pre></div>
+<p>Fungsi <code>show_congratulations_ui</code> menampilkan layar ucapan selamat ketika pemain telah menyelesaikan permainan. Fungsi ini menerima renderer SDL dan struktur <code>GameStat</code> sebagai input. Fungsi ini akan menampilkan teks "Congratulations" dan juga statistik akhir pemain.</p>
+<hr />
+<h3 id="clean_up_ui"><strong>clean_up_ui</strong></h3>
+<div class="language-c highlight"><span class="filename">ui.h</span><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">clean_up_ui</span><span class="p">();</span>
+</span></code></pre></div>
+<p>Fungsi <code>clean_up_ui</code> bertugas untuk membersihkan semua sumber daya yang telah dialokasikan oleh modul UI. Ini termasuk menutup font yang telah dimuat dan menghentikan library SDL_ttf.</p>
+<div class="language-c highlight"><span class="filename">ui.c</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">clean_up_ui</span><span class="p">()</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="p">{</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="n">TTF_CloseFont</span><span class="p">(</span><span class="n">sixtyfourconvergence_font</span><span class="p">);</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="n">TTF_CloseFont</span><span class="p">(</span><span class="n">pixelify_font</span><span class="p">);</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="n">TTF_Quit</span><span class="p">();</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="interaksi-dengan-modul-lain">Interaksi dengan modul lain</h2>
+<p>Modul <code>ui</code> berinteraksi dengan beberapa modul lain dalam game:</p>
+<ul>
+<li>
+<p><strong>Membuat Tampilan Menu dan Membuat Teks</strong></p>
+<p>Fungsi <code>render_text</code> digunakan untuk menampilkan teks pada tampilan game. Selain itu, <code>render_text</code> juga digunakan untuk menampilkan teks pada UI menu.</p>
+</li>
+<li>
+<p><strong>Stage state</strong></p>
+<p>Memanggil fungsi <code>show_stage_transition</code> dan <code>show_level_transition</code> untuk menampilkan UI transisi antar stage dan level. Selain itu,  fungsi <code>render_game_ui</code> juga digunakan untuk menampilkan UI game.</p>
+</li>
+<li>
+<p><strong>Modul game_stat</strong></p>
+<p>Digunakan untuk mendapatkan informasi statistik game yang akan ditampilkan oleh UI (misalnya, skor).</p>
+</li>
+<li>
+<p><strong>Modul level</strong></p>
+<p>Digunakan untuk mendapatkan informasi tentang level atau stage saat ini yang akan ditampilkan pada UI transisi.</p>
+</li>
+<li>
+<p><strong>Modul SFX</strong></p>
+<p>Digunakan untuk memutar musik kemenangan pada tampilan pause, game over dan congratulations.</p>
+</li>
+<li>
+<p><strong>Main program <code>main.c</code></strong></p>
+<p>Digunakan untuk memuat dan memuat font yang digunakan dalam UI dan juga membersihkan resource yang digunakan oleh UI saat program berakhir.</p>
+</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
