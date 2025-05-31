@@ -353,7 +353,7 @@ void show_pause_ui(SDL_Renderer *renderer)
     }
 }
 
-void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current)
+void show_level_transition(SDL_Renderer *renderer, LevelNode *current)
 {
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 1500; // ms
@@ -374,17 +374,6 @@ void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current
 
     skip_physics_frame();
 
-    switch (stage)
-    {
-    case 0:
-        text_color = (SDL_Color){255, 255, 255, 255};
-        SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
-        break;
-    case 1:
-        text_color = (SDL_Color){255, 255, 255, 255};
-        SDL_SetRenderDrawColor(renderer, 52, 54, 77, 255);
-        break;
-    }
 
     while (SDL_GetTicks() - start < max_time)
     {
@@ -418,7 +407,7 @@ void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current
     }
 }
 
-void show_stage_transition(SDL_Renderer *renderer, int stage)
+void show_stage_transition(SDL_Renderer *renderer)
 {
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 1500; // ms
@@ -430,31 +419,12 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
 
     skip_physics_frame();
 
-    snprintf(title_text, sizeof(title_text), "Stage %d", stage);
+    snprintf(title_text, sizeof(title_text), "Stage 0");
 
     while (elapsed < max_time)
     {
         elapsed = SDL_GetTicks() - start;
 
-        switch (stage)
-        {
-        case 0:
-            text_color = (SDL_Color){245, 255, 245, 255};
-
-            // stage 0 bg color
-            SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
-            break;
-        case 1:
-            text_color = (SDL_Color){255, 255, 220, 255};
-
-            // stage 0 bg color
-            SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
-            SDL_RenderClear(renderer);
-
-            // stage 1 bg color
-            SDL_SetRenderDrawColor(renderer, 52, 54, 77, 255);
-            break;
-        }
 
         // Update lebar rect (efek swipe)
         rect_width = (elapsed * SCREEN_WIDTH) / max_time;
