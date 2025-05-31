@@ -78,4 +78,7 @@ void render_level(SDL_Renderer *renderer);
 // bersihkan semua level, dipanggil saat game selesai/exit
 void clear_level();
 
+// hitung jumlah koin di level saat ini
+int count_level_coins();
+
 #endif
