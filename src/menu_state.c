@@ -2,6 +2,7 @@
 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_ttf.h>
+#include <SDL3/SDL_image.h>
 
 #include "menu_state.h"
 #include "stage0_state.h"
@@ -24,9 +25,9 @@ typedef enum
 
 // Variabel untuk melacak pilihan menu
 static MenuOption current_selection = MENU_START;
-static SDL_FRect start_button = {(SCREEN_WIDTH / 2) - (300 / 2), 220, 300, 60};
-static SDL_FRect leaderboard_button = {(SCREEN_WIDTH / 2) - (300 / 2), 300, 300, 60};
-static SDL_FRect exit_button = {(SCREEN_WIDTH / 2) - (300 / 2), 380, 300, 60};
+static SDL_FRect start_button = {(SCREEN_WIDTH / 2), 320, 300, 60};
+static SDL_FRect leaderboard_button = {(SCREEN_WIDTH / 2), 390, 300, 60};
+static SDL_FRect exit_button = {(SCREEN_WIDTH / 2), 460, 300, 60};
 
 // Definisi state menu
 GameState menu_state = {
@@ -37,12 +38,17 @@ GameState menu_state = {
     .cleanup = menu_cleanup,
 };
 
+SDL_Texture *bg_texture = NULL;
+
 void menu_init()
 {
     SDL_Log("Menu State: Initialized");
     play_music(menu_bgm, INT32_MAX);
 
     player = create_player((Transform){120, 416, 32, 32}, 0, 0, 0);
+
+    SDL_Renderer *renderer = get_game_instance()->renderer;
+    bg_texture = IMG_LoadTexture(renderer, "assets/images/bgmenu.png");
 
     change_level();
 }
@@ -140,12 +146,10 @@ void menu_update(double delta_time) {}
 
 void menu_render(SDL_Renderer *renderer)
 {
-    SDL_Color bg_color = {124, 162, 142, 255};
-    SDL_Color title_text_color = {124, 162, 142, 255};
     SDL_Color text_color = {10, 55, 58, 255};
     SDL_Color selected_text_color = {255, 255, 255, 255};
-    SDL_Color btn_color = {124, 162, 142, 255};
-    SDL_Color selected_btn_color = {124, 162, 142, 255};
+    SDL_Color btn_color = {140, 104, 26, 255};
+    SDL_Color selected_btn_color = {180, 130, 40, 255};
 
     // Warna tombol diperbaiki agar sesuai dengan current_selection
     SDL_Color start_button_color = (current_selection == MENU_START) ? selected_btn_color : btn_color;
@@ -156,18 +160,15 @@ void menu_render(SDL_Renderer *renderer)
     SDL_Color leaderboard_text_color = (current_selection == MENU_LEADERBOARD) ? selected_text_color : text_color;
     SDL_Color exit_text_color = (current_selection == MENU_EXIT) ? selected_text_color : text_color;
 
-    SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
     SDL_RenderClear(renderer);
+    SDL_RenderTexture(renderer, bg_texture, NULL, NULL);
 
     // level as background
-    render_level(renderer);
     render_player(renderer, player);
 
     // overlay
     SDL_SetRenderDrawColor(renderer, 30, 30, 30, 120);
     SDL_RenderFillRect(renderer, &(SDL_FRect){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
-
-    render_text(renderer, sixtyfourconvergence_font, "JUMP & SURVIVE", 100, 80, 1.4, title_text_color);
 
     // Start button
     SDL_SetRenderDrawColor(renderer, start_button_color.r, start_button_color.g, start_button_color.b, 255);
