@@ -2,13 +2,13 @@
   // CONTOH UNTUK LEVEL 10
   // nama level
   // tipe string
-  "name": "level-10", 
+  "name": "Level 10", 
 
   // nama level sebelumnya
-  "prev": "level-9",
+  "prev": "Level 9",
   
   // nama level selanjutnya
-  "next": "level-11",
+  "next": "Level 11",
 
   // posisi player [y, x]
   // dari stage0/1_state.c -> stage0/1_update() -> initiate_player()
@@ -25,6 +25,9 @@
 
   // background: string
   "background_image": "",
+
+  // bgm: string
+  "background_music": "",
   
   // tipe: array of objek
   // cek level.c -> change_level()

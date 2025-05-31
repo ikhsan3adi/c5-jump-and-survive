@@ -31,6 +31,10 @@ void stop_music();
 
 void stop_sound(int channel);
 
+void pause_music();
+
+void resume_music();
+
 // Membersihkan audio
 void cleanup_audio(); 
 

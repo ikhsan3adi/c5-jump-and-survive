@@ -2,11 +2,14 @@
 #include "ui.h"
 #include "game.h"
 #include "SFX.h"
-#include "leaderboard.h"
+
 #include <stdio.h>
+
 #define SCORE_PER_COIN 10
 
 GameStat game_stat; // Deklarasi variabel global
+
+int current_level_earned_coins = 0;
 
 // Inisialisasi GameStat dengan jumlah nyawa awal dan waktu maksimal per level
 void init_game_stat(GameStat *stat)
@@ -44,13 +47,30 @@ void add_elapsed_time(GameStat *stat, Uint32 time)
 void add_score(GameStat *stat)
 {
     stat->score += SCORE_PER_COIN;
-    // base score perlu g c?
+    current_level_earned_coins++;
+}
+
+void sub_score(GameStat *stat, int pts)
+{
+    if (stat->score >= pts)
+    {
+        stat->score -= (pts * SCORE_PER_COIN);
+    }
+    else
+    {
+        stat->score = 0; // cegah  negatif
+    }
 }
 
 // Mereset skor ke nol
 void reset_score(GameStat *stat)
 {
     stat->score = 0;
+}
+
+void reset_earned_coins()
+{
+    current_level_earned_coins = 0;
 }
 
 // Menambah satu nyawa (dengan batas maksimum)
@@ -77,12 +97,6 @@ bool sub_life(GameStat *stat)
             stop_music();
             SDL_Renderer *renderer = get_game_instance()->renderer;
 
-            if (leaderboard_head == NULL)
-            {
-                leaderboard_head = load_leaderboard("leaderboard.dat");
-            }
-            insert_leaderboard(&leaderboard_head, *stat);
-            save_leaderboard("leaderboard.dat", leaderboard_head);
             show_game_over_ui(renderer, *stat);
             return false;
         }

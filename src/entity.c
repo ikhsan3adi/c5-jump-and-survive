@@ -14,16 +14,12 @@ int solid_tiles[] = {
     PLATFORM,
     SOLID_OBSTACLE,
     BUTTON,
-    SWITCH
-    // tambahin kalo ada
-};
+    SWITCH};
 
 int destruct_tiles[] = {
     SAWS,
     SPIKE,
-    FAKE_COINS
-    // tambahin kalo ada
-};
+    FAKE_COINS};
 
 Vector gate_tiles[10];
 int num_gate_tiles = 0;
@@ -86,39 +82,6 @@ void apply_entity_movement(Entity *entity, float delta_time, Entity *objects[], 
   {
     interaction_buttons_obstacles_switch(entity, current_switch_obstacles[i]);
   }
-  // switch (current_level)
-  // {
-  // case 1:
-  //   interaction_buttons_switch(entity, buttonL1);
-  //   break;
-
-  // case 5:
-  //   interaction_buttons_switch(entity, buttonL51);
-  //   interaction_buttons_switch(entity, buttonL52);
-  //   break;
-  // case 6:
-  //   interaction_buttons_switch(entity, buttonL61);
-  //   interaction_buttons_switch(entity, buttonL62);
-  //   break;
-  // case 7:
-  //   interaction_buttons_obstacles_switch(entity, buttonL7);
-  //   break;
-  // case 8:
-  //   interaction_buttons_obstacles_switch(entity, buttonL81);
-  //   interaction_buttons_switch(entity, buttonL82);
-  //   break;
-  // case 9:
-  //   interaction_buttons_obstacles_switch(entity, buttonL91);
-  //   interaction_buttons_obstacles_switch(entity, buttonL92);
-  //   break;
-  // case 10:
-  //   interaction_buttons_obstacles_switch(entity, buttonL101);
-  //   interaction_buttons_switch(entity, buttonL102);
-  //   interaction_buttons_obstacles_switch(entity, buttonL103);
-  //   break;
-  // default:
-  //   break;
-  // }
 
   bool coin_status = has_coin_tiles();
   if (!coin_status)
@@ -204,7 +167,6 @@ bool is_exit(Transform *transform)
       }
       if (current_level_map[y][x] == EXIT_GATE)
       {
-        play_sound(gate_sfx, 3, 0);
         return true;
       }
     }

@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <SDL3/SDL.h>
 
 #include "game.h"
@@ -82,11 +83,9 @@ int main()
   /** ========== QUIT ========== */
   SDL_Log("Exiting game...");
 
-  // membersihkan resource
   current_state->cleanup();
-  clean_up_ui();
-  cleanup_audio();
-  SDL_Quit();
+
+  exit_game(EXIT_SUCCESS);
 
   return 0;
 }

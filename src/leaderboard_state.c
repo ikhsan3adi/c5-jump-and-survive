@@ -6,9 +6,6 @@
 #include "ui.h"
 #include "leaderboard.h"
 
-
-const char *LEADERBOARD_FILE = "leaderboard.dat";
-
 GameState leaderboard_state = {
     .init = leaderboard_init,
     .handle_input = leaderboard_handle_input,

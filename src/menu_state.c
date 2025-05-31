@@ -45,12 +45,13 @@ void menu_init()
     SDL_Log("Menu State: Initialized");
     play_music(menu_bgm, INT32_MAX);
 
-    player = create_player((Transform){120, 416, 32, 32}, 0, 0, 0);
+    player = create_player((Transform){0, 0, TILE_SIZE, TILE_SIZE}, 0, 0, 0);
 
     SDL_Renderer *renderer = get_game_instance()->renderer;
     bg_texture = IMG_LoadTexture(renderer, "assets/images/bgmenu.png");
 
     change_level();
+    reinitiate_player(player, current_level->player_spawn);
 }
 
 void menu_handle_input(SDL_Event *event)
@@ -83,15 +84,13 @@ void menu_handle_input(SDL_Event *event)
             {
                 SDL_Log("Exit Game Triggered!");
                 menu_cleanup();
-                SDL_Quit();
-                exit(0);
+                exit_game(EXIT_SUCCESS);
             }
             break;
         case SDLK_ESCAPE:
             SDL_Log("Escape Key Pressed! Exiting Game...");
             menu_cleanup();
-            SDL_Quit();
-            exit(0);
+            exit_game(EXIT_SUCCESS);
         }
     }
     else if (event->type == SDL_EVENT_MOUSE_MOTION)
@@ -136,8 +135,7 @@ void menu_handle_input(SDL_Event *event)
         {
             SDL_Log("Exit Game Clicked!");
             menu_cleanup();
-            SDL_Quit();
-            exit(0);
+            exit_game(EXIT_SUCCESS);
         }
     }
 }

@@ -13,7 +13,6 @@
 
 extern TTF_Font *sixtyfourconvergence_font;
 extern TTF_Font *pixelify_font;
-extern SDL_Window *window;
 
 void init_font();
 
@@ -21,19 +20,15 @@ void render_text(SDL_Renderer *renderer, TTF_Font *font, const char *text, int x
 
 void render_game_ui(SDL_Renderer *renderer, GameStat *stat);
 
-bool show_input_player_name(SDL_Window *window,SDL_Renderer *renderer, TTF_Font *font, GameStat *stat);
+bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font *font, GameStat *stat);
 
 void show_game_over_ui(SDL_Renderer *renderer, GameStat stat);
 
 void show_pause_ui(SDL_Renderer *renderer);
 
-/**
- * @param stage next level's stage
- * @param level next level
- */
-void show_level_transition(SDL_Renderer *renderer, int stage, LevelNode *current);
+void show_level_transition(SDL_Renderer *renderer, LevelNode *current);
 
-void show_stage_transition(SDL_Renderer *renderer, int stage);
+void show_stage_transition(SDL_Renderer *renderer);
 
 void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head);
 

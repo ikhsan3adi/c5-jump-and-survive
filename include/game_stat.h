@@ -20,6 +20,9 @@ typedef struct
 
 extern GameStat game_stat; // Variabel global untuk status game
 
+// Jumlah koin yang didapat di level saat ini
+extern int current_level_earned_coins;
+
 // Inisialisasi GameStat dengan jumlah nyawa awal dan waktu maksimal per level
 void init_game_stat(GameStat *stat);
 
@@ -37,12 +40,16 @@ void add_elapsed_time(GameStat *stat, Uint32 time);
 // Menambah skor berdasarkan nilai tertentu
 void add_score(GameStat *stat);
 
+// Mengurangi skor berdasarkan nilai tertentu
+void sub_score(GameStat *stat, int pts);
+
 // Mereset skor ke nol
 void reset_score(GameStat *stat);
 
+void reset_earned_coins();
+
 // Menambah satu nyawa (dengan batas maksimum)
 void add_life(GameStat *stat);
-
 
 // Mengurangi satu nyawa (return false jika nyawa abis)
 bool sub_life(GameStat *stat);

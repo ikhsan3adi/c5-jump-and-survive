@@ -1,6 +1,9 @@
 #include <stdlib.h>
+#include <SDL3/SDL_image.h>
 
 #include "game.h"
+#include "ui.h"
+#include "SFX.h"
 
 // main game instance
 static Game game;
@@ -9,7 +12,7 @@ void initialize(const char *appname, const char *appversion, const char *appiden
 {
   SDL_SetAppMetadata(appname, appversion, appidentifier);
 
-  if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
+  if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO ))
   {
     SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
     exit(2);
@@ -49,4 +52,23 @@ void skip_physics_frame()
 void resume_physics()
 {
   game.is_physics_paused = false;
+}
+
+void exit_game(int code)
+{
+  clean_up_ui();
+  cleanup_audio();
+
+  clear_level();
+
+  SDL_DestroyWindow(game.window);
+  SDL_DestroyRenderer(game.renderer);
+  free(game.event);
+
+  game.window = NULL;
+  game.renderer = NULL;
+  game.event = NULL;
+
+  SDL_Quit();
+  exit(code);
 }
