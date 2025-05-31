@@ -11,6 +11,8 @@ Mix_Chunk *coin_sfx;
 Mix_Chunk *dead_sfx;
 Mix_Chunk *gameover_sfx;
 
+Mix_Music *current_bgm = NULL;
+
 void init_audio()
 {
     SDL_AudioSpec spec = {
@@ -71,6 +73,16 @@ void play_music(Mix_Music *sound, int loops)
     {
         Mix_PlayMusic(sound, loops);
     }
+}
+
+void pause_music()
+{
+    Mix_PauseMusic();
+}
+
+void resume_music()
+{
+    Mix_ResumeMusic();
 }
 
 void stop_music()

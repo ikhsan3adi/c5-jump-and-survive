@@ -38,6 +38,20 @@ void set_current_level_name(const char *name)
   strcpy(current_level_name, name);
 }
 
+void check_previous_level()
+{
+  if (current_level->next == NULL) // is last level
+  {
+    return; // no previous level to check
+  }
+  if (strcmp(current_level_name, current_level->next->name) == 0) // is prev
+  {
+    // coins previous level + coins current level
+    int earned_coins = count_level_coins() + current_level_earned_coins;
+    sub_score(&game_stat, earned_coins);
+  }
+}
+
 void stage0_init()
 {
   SDL_Log("Stage 0 State: Initialized");
@@ -53,7 +67,7 @@ void stage0_init()
   show_stage_transition(renderer);
 
   // Memainkan musik latar belakang
-  play_music(stage0_bgm, INT32_MAX);
+  play_music(current_bgm, INT32_MAX);
 
   init_game_stat(&game_stat);
   start_timer(&game_stat);
@@ -72,21 +86,31 @@ void stage0_handle_input(SDL_Event *event)
 
     if (event->key.scancode == SDL_SCANCODE_ESCAPE)
     {
-      stop_music();
+      pause_music();
       SDL_Renderer *renderer = get_game_instance()->renderer;
       show_pause_ui(renderer);
 
       if (current_state == &stage0_state &&
           strcmp(current_level_name, current_level->name) != 0)
       {
+        check_previous_level();
         // Jika level berubah, reset player dan saws
         set_current_level_name(current_level->name);
         cleanup_saw_manager(&saw_manager);
         reinitiate_player(player, current_level->player_spawn);
         setup_level_saws();
+        play_music(current_bgm, INT32_MAX);
       }
 
-      play_music(stage0_bgm, INT32_MAX);
+      resume_music();
+    }
+    else if (event->key.scancode == SDL_SCANCODE_F1)
+    {
+      stop_music();
+      goto_next_level();
+      reinitiate_player(player, current_level->player_spawn);
+      setup_level_saws();
+      reset_earned_coins();
     }
   }
 }
@@ -95,7 +119,7 @@ void stage0_update(double delta_time)
 {
   update_entity(player, delta_time, NULL, 0);
 
-  add_elapsed_time(&game_stat, round(delta_time * 1000));
+  add_elapsed_time(&game_stat, round(delta_time * 1000)); // convert delta_time to milliseconds
 
   update_all_saws(&saw_manager, delta_time);
 
@@ -109,6 +133,7 @@ void stage0_update(double delta_time)
   {
     SDL_Renderer *renderer = get_game_instance()->renderer;
     cleanup_saw_manager(&saw_manager);
+    stop_music();
     if (current_level->next == NULL)
     {
       show_congratulations_ui(renderer, game_stat);
@@ -117,14 +142,17 @@ void stage0_update(double delta_time)
     {
       show_level_transition(renderer, current_level);
       goto_next_level();
-      set_current_level_name(current_level->name);
     }
 
     if (current_state == &stage0_state) // not exited after congrats
     {
+      check_previous_level();
+      set_current_level_name(current_level->name);
       change_level(); // restore current_level (coins, switches, etc.)
       reinitiate_player(player, current_level->player_spawn);
       setup_level_saws();
+      play_music(current_bgm, INT32_MAX);
+      reset_earned_coins();
     }
   }
 }
@@ -138,7 +166,6 @@ void stage0_render(SDL_Renderer *renderer)
   render_level(renderer);
 
   // Render Saws
-
   render_all_saws(renderer, &saw_manager);
 
   // Render player

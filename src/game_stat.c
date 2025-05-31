@@ -9,6 +9,8 @@
 
 GameStat game_stat; // Deklarasi variabel global
 
+int current_level_earned_coins = 0;
+
 // Inisialisasi GameStat dengan jumlah nyawa awal dan waktu maksimal per level
 void init_game_stat(GameStat *stat)
 {
@@ -45,13 +47,30 @@ void add_elapsed_time(GameStat *stat, Uint32 time)
 void add_score(GameStat *stat)
 {
     stat->score += SCORE_PER_COIN;
-    // base score perlu g c?
+    current_level_earned_coins++;
+}
+
+void sub_score(GameStat *stat, int pts)
+{
+    if (stat->score >= pts)
+    {
+        stat->score -= (pts * SCORE_PER_COIN);
+    }
+    else
+    {
+        stat->score = 0; // cegah  negatif
+    }
 }
 
 // Mereset skor ke nol
 void reset_score(GameStat *stat)
 {
     stat->score = 0;
+}
+
+void reset_earned_coins()
+{
+    current_level_earned_coins = 0;
 }
 
 // Menambah satu nyawa (dengan batas maksimum)

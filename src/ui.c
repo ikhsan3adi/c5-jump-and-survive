@@ -189,10 +189,10 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 
     if (leaderboard_head == NULL)
     {
-        leaderboard_head = load_leaderboard("leaderboard.dat");
+        leaderboard_head = load_leaderboard(LEADERBOARD_FILE);
     }
     insert_leaderboard(&leaderboard_head, stat);
-    save_leaderboard("leaderboard.dat", leaderboard_head);
+    save_leaderboard(LEADERBOARD_FILE, leaderboard_head);
 
     bool is_exit = false;
     SDL_Event event;
@@ -512,10 +512,10 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
 
     if (leaderboard_head == NULL)
     {
-        leaderboard_head = load_leaderboard("leaderboard.dat");
+        leaderboard_head = load_leaderboard(LEADERBOARD_FILE);
     }
     insert_leaderboard(&leaderboard_head, stat);
-    save_leaderboard("leaderboard.dat", leaderboard_head);
+    save_leaderboard(LEADERBOARD_FILE, leaderboard_head);
 
     start = SDL_GetTicks();
 
@@ -597,7 +597,6 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
         // Delay untuk smooth animation
         SDL_Delay(16);
     }
-    stop_music();
 }
 
 void clean_up_ui()

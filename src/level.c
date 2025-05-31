@@ -6,6 +6,11 @@
 #include "player.h"
 #include "obstacles.h"
 #include "game.h"
+#include "SFX.h"
+
+#include <SDL3/SDL_image.h>
+#include <SDL3/SDL_mixer.h>
+#include <stdlib.h>
 
 LevelNode *level_head = NULL;
 LevelNode *current_level = NULL;
@@ -15,6 +20,8 @@ int current_switches_count = 0;
 int current_switch_obstacles_count = 0;
 
 short current_level_map[MAP_HEIGHT][MAP_WIDTH];
+
+SDL_Texture *current_bg_texture = NULL;
 
 void load_levels(const char *dir)
 {
@@ -43,6 +50,20 @@ void change_level()
     return;
   }
 
+  // bg image
+  char dir[] = "assets/images/";
+  char *img_path = malloc(sizeof(char) * (strlen(current_level->bg_image) + strlen(dir) + 1));
+  strcpy(img_path, dir);
+  strcat(img_path, current_level->bg_image);
+  current_bg_texture = IMG_LoadTexture(get_game_instance()->renderer, img_path);
+
+  // bg music
+  char audio_dir[] = "assets/SFX/";
+  char *audio_path = malloc(sizeof(char) * (strlen(current_level->bg_music) + strlen(audio_dir) + 1));
+  strcpy(audio_path, audio_dir);
+  strcat(audio_path, current_level->bg_music);
+  current_bgm = load_music(audio_path);
+
   memcpy(current_level_map, current_level->map, sizeof(current_level->map));
   memcpy(current_switches, current_level->switches, sizeof(Switch) * current_level->switches_count);
   memcpy(current_switch_obstacles, current_level->switch_obstacles, sizeof(Switch_Obstacles) * current_level->switch_obstacles_count);
@@ -57,6 +78,9 @@ void change_level()
 void render_level(SDL_Renderer *renderer)
 {
   bool gate_found = false;
+
+  SDL_RenderTexture(renderer, current_bg_texture, NULL, NULL);
+
   for (int y = 0; y < MAP_HEIGHT; y++)
   {
     for (int x = 0; x < MAP_WIDTH; x++)
@@ -177,6 +201,11 @@ void goto_level_by_name(LevelNode *head, const char *name)
 
 void goto_next_level()
 {
+  if (current_level->next == NULL)
+  {
+    SDL_Log("Already at the last level.");
+    return;
+  }
   current_level = current_level->next;
   change_level();
 }
@@ -219,4 +248,20 @@ void clear_level()
   current_level = NULL;
 
   SDL_Log("All levels cleared.");
+}
+
+int count_level_coins()
+{
+  int count = 0;
+  for (int y = 0; y < MAP_HEIGHT; y++)
+  {
+    for (int x = 0; x < MAP_WIDTH; x++)
+    {
+      if (current_level_map[y][x] == COINS)
+      {
+        count++;
+      }
+    }
+  }
+  return count;
 }

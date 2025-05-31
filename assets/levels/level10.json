@@ -1,17 +1,19 @@
 {
-    "name": "Level-10",
+    "name": "Level 10",
     
-    "prev": "level-9",
+    "prev": "Level 9",
 
     "next": "",
     
     "player_spawn": [2, 2],
 
-    "foreground_color": [52, 54, 77, 255],
+    "foreground_color": [186, 18, 39, 255],
 
     "background_color": [93, 94, 114, 255],
 
     "background_image" : "bg4.png",
+
+    "background_music": "bg-music2.mp3",
 
     "switches": [
         {
