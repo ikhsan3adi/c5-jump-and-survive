@@ -94,7 +94,7 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
     char input_text[MAX_NAME] = "";                 // Buffer untuk input nama
     bool done = false;                              // Status input selesai
     SDL_Color text_color = {255, 255, 255, 255};    // Warna teks putih
-    SDL_Color bg_color = {123, 168, 147, 255};      // Warna latar seperti leaderboard
+    SDL_Color bg_color = {50, 50, 80, 200};         // Warna dark blue
     SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, 0}; // Untuk efek swipe
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 1000; // 1 detik untuk animasi swipe
@@ -158,7 +158,7 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
 
         // Render efek swipe
         swipe_rect.h = rect_height;
-        SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255); // Warna merah seperti game over
+        SDL_SetRenderDrawColor(renderer, 30, 30, 60, 255);
         SDL_RenderFillRect(renderer, &swipe_rect);
 
         // Render teks petunjuk dan input
@@ -228,7 +228,7 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
         rect_height = (elapsed * SCREEN_HEIGHT) / max_time;
 
         // Draw swipe effect (rectangle)
-        SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255);
+        SDL_SetRenderDrawColor(renderer, 46, 139, 87, 255);
         SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, rect_height};
         SDL_RenderFillRect(renderer, &swipe_rect);
 
@@ -479,8 +479,8 @@ void show_stage_transition(SDL_Renderer *renderer, int stage)
 
 void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
 {
-    // Set background color (Hijau Tua)
-    SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255);
+    // Set background color (soft dark blue for better contrast)
+    SDL_SetRenderDrawColor(renderer, 30, 30, 60, 255);
     SDL_RenderClear(renderer);
 
     // Define colors
@@ -490,7 +490,7 @@ void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
     SDL_Color instruction_color = {200, 200, 200, 255}; // Light gray for instructions
 
     // Draw semi-transparent background rectangle for leaderboard table
-    SDL_SetRenderDrawColor(renderer, 25, 94, 99, 128); // Hijau agak Muda, semi-transparent
+    SDL_SetRenderDrawColor(renderer, 50, 50, 80, 200); // Darker blue, semi-transparent
     SDL_FRect table_bg = {40, 100, 880, 500};          // Scaled table size
     SDL_RenderFillRect(renderer, &table_bg);
 
