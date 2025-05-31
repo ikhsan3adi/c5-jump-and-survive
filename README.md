@@ -2,7 +2,7 @@
 
 ## Proyek 2: Pengembangan Aplikasi Berbasis Library
 
-![Preview](https://github.com/ikhsan3adi/c5-jump-and-survive/blob/docs/docs/image/how-to-play/1748676525_grim.png?raw=true)
+![Preview](https://github.com/ikhsan3adi/c5-jump-and-survive/blob/docs/docs/image/how-to-play/menu.png?raw=true)
 
 Jump & Survive adalah game 2D platformer sederhana yang dibuat menggunakan bahasa pemrograman C dan library SDL3. Dalam game ini, pemain mengendalikan karakter utama yang harus melompat dan menghindari rintangan untuk mencapai tujuan akhir.
 
