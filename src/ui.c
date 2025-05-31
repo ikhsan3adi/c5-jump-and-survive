@@ -15,7 +15,6 @@
 
 TTF_Font *sixtyfourconvergence_font;
 TTF_Font *pixelify_font;
-SDL_Renderer *renderer = NULL;
 
 SDL_Surface *text_surface = NULL;
 SDL_Texture *text_texture = NULL;
@@ -25,20 +24,20 @@ void init_font()
     if (!TTF_Init())
     {
         SDL_Log("Failed to initialize SDL_ttf: %s", SDL_GetError());
-        exit(1);
+        exit_game(EXIT_FAILURE);
     }
     sixtyfourconvergence_font = TTF_OpenFont(SIXTYFOURCONVERGENCE_FONT, 36);
     if (!sixtyfourconvergence_font)
     {
         SDL_Log("Failed to load title font: %s", SDL_GetError());
-        exit(1);
+        exit_game(EXIT_FAILURE);
     }
 
     pixelify_font = TTF_OpenFont(PIXELIFYSANS_FONT, 36);
     if (!pixelify_font)
     {
         SDL_Log("Failed to load menu font: %s", SDL_GetError());
-        exit(1);
+        exit_game(EXIT_FAILURE);
     }
 }
 
@@ -94,7 +93,6 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
     char input_text[MAX_NAME] = "";                 // Buffer untuk input nama
     bool done = false;                              // Status input selesai
     SDL_Color text_color = {255, 255, 255, 255};    // Warna teks putih
-    SDL_Color bg_color = {50, 50, 80, 200};         // Warna dark blue
     SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, 0}; // Untuk efek swipe
     Uint64 start = SDL_GetTicks();
     Uint64 max_time = 1000; // 1 detik untuk animasi swipe
@@ -119,7 +117,7 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
             {
             case SDL_EVENT_QUIT:
                 SDL_StopTextInput(window);
-                exit(1);
+                exit_game(EXIT_FAILURE);
             case SDL_EVENT_KEY_DOWN:
                 if (event.key.scancode == SDL_SCANCODE_RETURN)
                 {
@@ -130,8 +128,7 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
                     }
                     else
                     {
-                        // nama default
-                        strncpy(stat->nickname, "Tanpa Nama", MAX_NAME - 1);
+                        return false; // Jika tidak ada input, anggap gagal
                     }
                     stat->nickname[MAX_NAME - 1] = '\0'; // Pastikan null-terminated
                     done = true;
@@ -149,16 +146,15 @@ bool show_input_player_name(SDL_Window *window, SDL_Renderer *renderer, TTF_Font
                     strcat(input_text, event.text.text);
                 }
                 break;
+            case SDL_EVENT_KEY_UP:
+                key_state[event.key.scancode] = false;
+                break;
             }
         }
 
-        // Bersihkan layar
-        SDL_SetRenderDrawColor(renderer, bg_color.r, bg_color.g, bg_color.b, bg_color.a);
-        SDL_RenderClear(renderer);
-
         // Render efek swipe
         swipe_rect.h = rect_height;
-        SDL_SetRenderDrawColor(renderer, 30, 30, 60, 255);
+        SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255); // Warna latar seperti leaderboard
         SDL_RenderFillRect(renderer, &swipe_rect);
 
         // Render teks petunjuk dan input
@@ -193,10 +189,10 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
 
     if (leaderboard_head == NULL)
     {
-        leaderboard_head = load_leaderboard("leaderboard.dat");
+        leaderboard_head = load_leaderboard(LEADERBOARD_FILE);
     }
     insert_leaderboard(&leaderboard_head, stat);
-    save_leaderboard("leaderboard.dat", leaderboard_head);
+    save_leaderboard(LEADERBOARD_FILE, leaderboard_head);
 
     bool is_exit = false;
     SDL_Event event;
@@ -228,7 +224,7 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
         rect_height = (elapsed * SCREEN_HEIGHT) / max_time;
 
         // Draw swipe effect (rectangle)
-        SDL_SetRenderDrawColor(renderer, 46, 139, 87, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 18, 53, 255);
         SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, rect_height};
         SDL_RenderFillRect(renderer, &swipe_rect);
 
@@ -253,7 +249,7 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
         SDL_PollEvent(&event);
 
         if (event.type == SDL_EVENT_QUIT)
-            exit(0);
+            exit_game(EXIT_SUCCESS);
 
         if (event.type == SDL_EVENT_KEY_DOWN)
         {
@@ -261,6 +257,10 @@ void show_game_over_ui(SDL_Renderer *renderer, GameStat stat)
             {
                 is_exit = true;
             }
+        }
+        else if (event.type == SDL_EVENT_KEY_UP)
+        {
+            key_state[event.key.scancode] = false;
         }
 
         // Delay untuk smooth animation
@@ -278,13 +278,6 @@ void show_pause_ui(SDL_Renderer *renderer)
     SDL_Color text_color = {255, 255, 0, 255};
     SDL_FRect overlay_rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
-    // Define colors consistent with other UI elements for button prev
-    SDL_Color button_bg_color = {50, 50, 80, 200};      // Darker blue, semi-transparent (matches leaderboard table)
-    SDL_Color button_border_color = {255, 215, 0, 255}; // Gold border (matches leaderboard)
-
-    // Define button dimensions and position (adjustable based on your UI layout)
-    SDL_FRect button_rect = {SCREEN_WIDTH / 2 - 230, SCREEN_HEIGHT / 2 + 180, 500, 60}; // Centered, below other UI elements
-
     skip_physics_frame();
 
     while (!is_exit)
@@ -295,14 +288,6 @@ void show_pause_ui(SDL_Renderer *renderer)
         // render overlay
         SDL_SetRenderDrawColor(renderer, 30, 15, 20, 180);
         SDL_RenderFillRect(renderer, &overlay_rect);
-
-        // Draw button background
-        SDL_SetRenderDrawColor(renderer, button_bg_color.r, button_bg_color.g, button_bg_color.b, button_bg_color.a);
-        SDL_RenderFillRect(renderer, &button_rect);
-
-        // Draw button border
-        SDL_SetRenderDrawColor(renderer, button_border_color.r, button_border_color.g, button_border_color.b, button_border_color.a);
-        SDL_RenderRect(renderer, &button_rect);
 
         // Render text
         render_text(renderer, sixtyfourconvergence_font, "PAUSED",
@@ -327,7 +312,7 @@ void show_pause_ui(SDL_Renderer *renderer)
         if (SDL_PollEvent(&event))
         {
             if (event.type == SDL_EVENT_QUIT)
-                exit(0);
+                exit_game(EXIT_SUCCESS);
 
             if (event.type == SDL_EVENT_KEY_DOWN)
             {
@@ -343,11 +328,12 @@ void show_pause_ui(SDL_Renderer *renderer)
                 if (event.key.scancode == SDL_SCANCODE_P) // untuk tombol
                 {
                     is_exit = true;
+                    goto_prev_level();
                 }
-                else if (event.type == SDL_EVENT_KEY_UP)
-                {
-                    key_state[event.key.scancode] = false;
-                }
+            }
+            else if (event.type == SDL_EVENT_KEY_UP)
+            {
+                key_state[event.key.scancode] = false;
             }
         }
     }
@@ -374,6 +360,8 @@ void show_level_transition(SDL_Renderer *renderer, LevelNode *current)
 
     skip_physics_frame();
 
+    text_color = (SDL_Color){255, 255, 255, 255};
+    SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
 
     while (SDL_GetTicks() - start < max_time)
     {
@@ -415,16 +403,18 @@ void show_stage_transition(SDL_Renderer *renderer)
     SDL_FRect swipe_rect;
     SDL_Color text_color;
     int rect_width = 0;
-    char title_text[32];
+    char *title_text = "Are You Ready?";
 
     skip_physics_frame();
-
-    snprintf(title_text, sizeof(title_text), "Stage 0");
 
     while (elapsed < max_time)
     {
         elapsed = SDL_GetTicks() - start;
 
+        text_color = (SDL_Color){245, 255, 245, 255};
+
+        // stage 0 bg color
+        SDL_SetRenderDrawColor(renderer, 10, 55, 58, 255);
 
         // Update lebar rect (efek swipe)
         rect_width = (elapsed * SCREEN_WIDTH) / max_time;
@@ -435,7 +425,7 @@ void show_stage_transition(SDL_Renderer *renderer)
 
         // Render text
         render_text(renderer, sixtyfourconvergence_font, title_text,
-                    SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 - 150,
+                    SCREEN_WIDTH / 2 - 320, SCREEN_HEIGHT / 2 - 120,
                     1.2,
                     text_color);
 
@@ -444,13 +434,12 @@ void show_stage_transition(SDL_Renderer *renderer)
 
         SDL_Delay(16);
     }
-    stop_sound(5);
 }
 
 void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
 {
-    // Set background color (soft dark blue for better contrast)
-    SDL_SetRenderDrawColor(renderer, 30, 30, 60, 255);
+    // Set background color (Hijau Tua)
+    SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255);
     SDL_RenderClear(renderer);
 
     // Define colors
@@ -460,7 +449,7 @@ void show_leaderboard_ui(SDL_Renderer *renderer, LeaderboardNode *head)
     SDL_Color instruction_color = {200, 200, 200, 255}; // Light gray for instructions
 
     // Draw semi-transparent background rectangle for leaderboard table
-    SDL_SetRenderDrawColor(renderer, 50, 50, 80, 200); // Darker blue, semi-transparent
+    SDL_SetRenderDrawColor(renderer, 25, 94, 99, 128); // Hijau agak Muda, semi-transparent
     SDL_FRect table_bg = {40, 100, 880, 500};          // Scaled table size
     SDL_RenderFillRect(renderer, &table_bg);
 
@@ -508,18 +497,11 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
     bool is_exit = false;
 
     SDL_Event event;
-    Uint64 start = SDL_GetTicks();
+    Uint64 start;
     Uint64 max_time = 2000; // ms (for rectacngle swipe)
     SDL_Color text_color = {39, 39, 39, 255};
     char score_text[32];
     char timer_text[32];
-
-    // Define colors consistent with other UI elements for button prev
-    SDL_Color button_bg_color = {50, 50, 80, 200};      // Dark Blue, semi-transparent (matches leaderboard table)
-    SDL_Color button_border_color = {255, 215, 0, 255}; // Gold border (matches leaderboard)
-
-    // Define button dimensions and position (adjustable based on your UI layout)
-    SDL_FRect button_rect = {SCREEN_WIDTH / 2 - 230, SCREEN_HEIGHT / 2 + 180, 500, 60}; // Centered, below other UI elements
 
     if (!show_input_player_name(get_game_instance()->window, renderer, pixelify_font, &stat))
     {
@@ -530,10 +512,12 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
 
     if (leaderboard_head == NULL)
     {
-        leaderboard_head = load_leaderboard("leaderboard.dat");
+        leaderboard_head = load_leaderboard(LEADERBOARD_FILE);
     }
     insert_leaderboard(&leaderboard_head, stat);
-    save_leaderboard("leaderboard.dat", leaderboard_head);
+    save_leaderboard(LEADERBOARD_FILE, leaderboard_head);
+
+    start = SDL_GetTicks();
 
     sprintf(score_text, "Score: %d", stat.score);
     sprintf(timer_text, "Time: %s", get_time_string(game_stat.elapsed_time / 1000));
@@ -551,16 +535,8 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
         // Update lebar rect (efek swipe)
         rect_height = (elapsed * SCREEN_HEIGHT) / max_time;
 
-        // Draw button background
-        SDL_SetRenderDrawColor(renderer, button_bg_color.r, button_bg_color.g, button_bg_color.b, button_bg_color.a);
-        SDL_RenderFillRect(renderer, &button_rect);
-
-        // Draw button border
-        SDL_SetRenderDrawColor(renderer, button_border_color.r, button_border_color.g, button_border_color.b, button_border_color.a);
-        SDL_RenderRect(renderer, &button_rect);
-
         // Draw swipe effect (rectangle)
-        SDL_SetRenderDrawColor(renderer, 7, 60, 63, 255);
+        SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
         SDL_FRect swipe_rect = {0, 0, SCREEN_WIDTH, rect_height};
         SDL_RenderFillRect(renderer, &swipe_rect);
 
@@ -594,7 +570,7 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
         SDL_PollEvent(&event);
 
         if (event.type == SDL_EVENT_QUIT)
-            exit(0);
+            exit_game(EXIT_SUCCESS);
 
         if (event.type == SDL_EVENT_KEY_DOWN)
         {
@@ -606,24 +582,29 @@ void show_congratulations_ui(SDL_Renderer *renderer, GameStat stat)
             if (event.key.scancode == SDL_SCANCODE_P)
             {
                 is_exit = true;
+                goto_prev_level();
             }
             else if (event.key.scancode == SDL_SCANCODE_RETURN)
             {
                 is_exit = true;
             }
         }
+        else if (event.type == SDL_EVENT_KEY_UP)
+        {
+            key_state[event.key.scancode] = false;
+        }
 
         // Delay untuk smooth animation
         SDL_Delay(16);
     }
-    stop_music();
 }
 
 void clean_up_ui()
 {
-    if (sixtyfourconvergence_font)
-        TTF_CloseFont(sixtyfourconvergence_font);
-    if (pixelify_font)
-        TTF_CloseFont(pixelify_font);
+    TTF_CloseFont(sixtyfourconvergence_font);
+    TTF_CloseFont(pixelify_font);
+    SDL_DestroyTexture(text_texture);
+    SDL_DestroySurface(text_surface);
+
     TTF_Quit();
 }

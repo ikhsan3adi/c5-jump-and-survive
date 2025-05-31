@@ -166,7 +166,6 @@ void stage0_render(SDL_Renderer *renderer)
   render_level(renderer);
 
   // Render Saws
-
   render_all_saws(renderer, &saw_manager);
 
   // Render player

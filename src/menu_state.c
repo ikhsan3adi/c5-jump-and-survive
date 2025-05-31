@@ -159,14 +159,9 @@ void menu_render(SDL_Renderer *renderer)
     SDL_Color exit_text_color = (current_selection == MENU_EXIT) ? selected_text_color : text_color;
 
     SDL_RenderClear(renderer);
+
+    //  background
     SDL_RenderTexture(renderer, bg_texture, NULL, NULL);
-
-    // level as background
-    render_player(renderer, player);
-
-    // overlay
-    SDL_SetRenderDrawColor(renderer, 30, 30, 30, 120);
-    SDL_RenderFillRect(renderer, &(SDL_FRect){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT});
 
     // Start button
     SDL_SetRenderDrawColor(renderer, start_button_color.r, start_button_color.g, start_button_color.b, 255);
