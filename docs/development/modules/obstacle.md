@@ -199,7 +199,7 @@ Fungsi `setup_level_saws` digunakan untuk mengatur posisi dan properti gergaji y
 Modul `obstacles` berinteraksi dengan modul lain sebagai berikut:
 
 * **Modul Vector:** Struktur `Switch` dan `Switch_Obstacles` menggunakan struct `Vector` dari modul `vector`.
-* **Modul `stage1_state`:** Modul `obstacles` berinteraksi dengan `stage1_state` melalui fungsi `setup_level_saws`. Fungsi ini dipanggil dari `stage1_init` dan `stage1_update` untuk mengatur gergaji yang sesuai untuk level saat ini di stage 1.
+* **Modul `stage0_state`:** Modul `obstacles` berinteraksi dengan `stage0_state` melalui fungsi `setup_level_saws`. Fungsi ini dipanggil dari `stage0_init` dan `stage0_update` untuk mengatur gergaji yang sesuai untuk level saat ini di stage 1.
 * **Modul `level`:** Modul `obstacles` berinteraksi dengan `level` untuk mendapatkan informasi tentang level saat ini (`current_level`) dan ukuran tile (`TILE_SIZE`). Informasi ini digunakan dalam fungsi `setup_level_saws` untuk menentukan posisi dan konfigurasi gergaji. Selain itu, fungsi `draw_rotating_saw`, `draw_triangle`, `draw coin` dan `draw_gate` dari modul `obstacles` dipanggil oleh fungsi `render_level` dari modul `level` untuk menggambar gergaji pada level saat ini.
 
 ---

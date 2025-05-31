@@ -263,6 +263,7 @@ bool has_coin_tiles();
 ```
 
 Fungsi `has_coin_tiles` memeriksa apakah ada tile koin (`COINS`) yang tersisa di peta level saat ini. Fungsi ini melakukan iterasi melalui `current_level_map` dan mengembalikan `true` jika menemukan tile koin, dan `false` jika tidak
+
 ---
 
 ### **find_gate_tiles**

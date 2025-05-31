@@ -166,7 +166,7 @@ Fungsi `render_player` digunakan untuk menggambar representasi visual pemain ke 
 Modul `player` berinteraksi dengan modul lain sebagai berikut:
 
 * **Modul `entity`:** Modul `player` menggunakan struktur `Entity` yang didefinisikan dalam modul `entity` untuk merepresentasikan pemain. Ini termasuk penggunaan komponen `Transform` untuk posisi dan ukuran, serta `Physics` untuk pergerakan.
-* **Modul `stage0_state` dan `stage1_state`:** Modul player berinteraksi erat dengan state permainan (`stage0_state` dan `stage1_state`). Input pemain yang ditangani oleh `handle_player_input` akan mempengaruhi pergerakan dan aksi pemain dalam game loop yang berjalan di state-state ini.
+* **Modul `stage0_state`:** Modul player berinteraksi erat dengan state permainan (`stage0_state`). Input pemain yang ditangani oleh `handle_player_input` akan mempengaruhi pergerakan dan aksi pemain dalam game loop yang berjalan di state-state ini.
 * **Modul `ui`:** Modul `ui` menggunakan fungsi `render_player` untuk menampilkan visual pemain di berbagai layar UI dan layar congratulations. Tampilan player juga digunakan di menu state sebagai elemen visual latar belakang.
 * **Modul `level`:** Modul `level` berinteraksi dengan posisi pemain (`player->transform`) untuk deteksi tabrakan dengan tile map dan elemen-elemen level lainnya.
 * **Modul `SFX`:** Modul `SFX` digunakan untuk memutar efek suara yang terkait dengan aksi pemain, seperti melompat (dipanggil dari dalam `handle_player_input` atau logika update pemain).

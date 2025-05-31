@@ -94,11 +94,11 @@ Modul `game_state` ini memiliki interaksi dengan modul lain sebagai berikut:
 
 * **Implementasi State**
 
-    Struktur `GameState` diimplementasikan secara konkret dalam modul-modul state spesifik seperti `menu_state`, `stage0_state`, dan `stage1_state`. Setiap modul ini akan mendefinisikan fungsi `init`, `handle_input`, `update`, `render`, dan `cleanup` sesuai dengan logika state masing-masing.
+    Struktur `GameState` diimplementasikan secara konkret dalam modul-modul state spesifik seperti `menu_state`, `stage0_state`, dan `leaderboard_state`. Setiap modul ini akan mendefinisikan fungsi `init`, `handle_input`, `update`, `render`, dan `cleanup` sesuai dengan logika state masing-masing.
 
 * **Pemanggilan `change_game_state`**
 
-    Fungsi `change_game_state` dipanggil di `main.c` untuk mengatur state awal game (`menu_state`). Selain itu, fungsi ini juga dipanggil di dalam implementasi setiap state (`menu_state`, `stage0_state`, `stage1_state`) untuk melakukan transisi antar state berdasarkan kondisi tertentu dalam game.
+    Fungsi `change_game_state` dipanggil di `main.c` untuk mengatur state awal game (`menu_state`). Selain itu, fungsi ini juga dipanggil di dalam implementasi setiap state (`menu_state`, `stage0_state`, `leaderboard_state`) untuk melakukan transisi antar state berdasarkan kondisi tertentu dalam game.
 
     ```c title="main.c"
     change_game_state(&menu_state);

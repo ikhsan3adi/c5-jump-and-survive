@@ -2,7 +2,7 @@
 
 Selamat Datang di Jump & Survive Documentation!
 
-![1742751997051](image/index/1742751997051.png)
+![menu](image/index/menu.png)
 
 ## Deskripsi Singkat
 
@@ -18,11 +18,11 @@ Selamat Datang di Jump & Survive Documentation!
 2. **Rintangan dan Tantangan**  
    Berbagai jenis rintangan, termasuk jebakan, spike, serta elemen lainnya yang harus dihindari.
 
-3. **Level dengan Kesulitan yang Meningkat**  
-   Dua stage dengan sepuluh level dengan distribusi rintangan, dan penempatan objek yang berbeda-beda. Setiap level menawarkan tantangan baru dengan kesulitan yang meningkat.
+3. **Level berbasis JSON dengan Kesulitan yang Meningkat**  
+   Sebelas level dengan distribusi rintangan, dan penempatan objek yang berbeda-beda. Setiap level menawarkan tantangan baru dengan kesulitan yang meningkat. Pengguna dapat membuat level baru dengan format JSON yang telah ditentukan.
 
-4. **Statistik Permainan**  
-   Game Stats / Statistik pemain, seperti skor, nyawa, dan waktu permainan, dicatat dan ditampilkan melalui antarmuka pengguna (UI).
+4. **Statistik Permainan & Leaderboard**  
+   Game Stats / Statistik pemain, seperti skor, nyawa, dan waktu permainan, dicatat dan ditampilkan melalui antarmuka pengguna (UI). Pemain dapat melihat statistik mereka dan membandingkannya dengan pemain lain melalui leaderboard.
 
 5. **Sistem Tile Map Berbasis Array 2D**  
    Tile system menggunakan array 2D untuk merepresentasikan map secara grid.

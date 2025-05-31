@@ -40,23 +40,7 @@ Fungsi `stage0_init` dipanggil ketika game memasuki state `stage0_state`. Fungsi
 * Mengubah level game menjadi level 0 menggunakan fungsi `change_level` dari modul `level`.
 
 ```c title="stage0_state.c"
-void stage0_init()
-{
-  SDL_Log("Stage 0 State: Initialized");
-
-  player = create_player((Transform){120, 416, 32, 32}, 10000.0f, 1.0f, 1);
-  start_timer(&game_stat);
-
-  SDL_Renderer *renderer = get_game_instance()->renderer;
-  show_stage_transition(renderer, 0);
-
-  // Memainkan musik latar belakang
-  if (stage0_bgm)
-  {
-    play_music(stage0_bgm, INT32_MAX);
-  }
-  change_level(0);
-}
+void stage0_init();
 ```
 
 ---
@@ -71,24 +55,6 @@ Fungsi `stage0_handle_input` dipanggil setiap kali ada event input dari pengguna
 
 * Meneruskan event ke fungsi `handle_player_input` dari modul `player` untuk menangani input yang berkaitan dengan pemain.
 * Memeriksa apakah tombol ESC ditekan. Jika ya, fungsi ini akan menghentikan musik, mendapatkan renderer, menampilkan UI pause menggunakan fungsi `show_pause_ui` dari modul `ui`, dan kemudian melanjutkan kembali musik latar belakang.
-
-```c title="stage0_state.c"
-void stage0_handle_input(SDL_Event *event)
-{
-  handle_player_input(player, event);
-
-  if (event->type == SDL_EVENT_KEY_DOWN)
-  {
-    if (event->key.scancode == SDL_SCANCODE_ESCAPE)
-    {
-      stop_music();
-      SDL_Renderer *renderer = get_game_instance()->renderer;
-      show_pause_ui(renderer);
-      play_music(stage0_bgm, INT32_MAX);
-    }
-  }
-}
-```
 
 ---
 
@@ -125,19 +91,6 @@ Fungsi `stage0_render` dipanggil setiap frame untuk merender tampilan game dalam
 * Merender player menggunakan fungsi `render_player` dari modul `player`.
 * Memperbarui tampilan pada layar.
 
-```c title="stage0_state.c"
-void stage0_render(SDL_Renderer *renderer)
-{
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-  SDL_RenderClear(renderer);
-
-  render_level(renderer);
-  render_player(renderer, player);
-
-  SDL_RenderPresent(renderer);
-}
-```
-
 ---
 
 ### **stage0_cleanup**
@@ -161,9 +114,8 @@ void stage0_cleanup()
 
 Modul `stage0_state` berinteraksi dengan modul lain sebagai berikut:
 
-* **Modul `stage1_state`:** Modul `stage0_state` melakukan transisi ke `stage1_state` ketika semua level di stage 0 telah diselesaikan.
 * **Modul `game`:** Modul `stage0_state` menggunakan fungsi `get_game_instance()` untuk mendapatkan pointer ke struct `Game` dan mengakses renderer.
-* **Modul `game_state`:** Modul `stage0_state` menggunakan fungsi `change_game_state()` untuk mengubah state game ke state lain, seperti `stage1_state`.
+* **Modul `game_state`:** Modul `stage0_state` menggunakan fungsi `change_game_state()` untuk mengubah state game ke state lain, seperti `menu_state`.
 * **Modul `player`:** Modul `stage0_state` menggunakan fungsi `create_player` untuk membuat player, `handle_player_input` untuk menangani input player, `update_entity` untuk memperbarui status player, `render_player` untuk merender player, dan `initiate_player` serta `reinitiate_player` untuk mengatur posisi awal player.
 * **Modul `level`:** Modul `stage0_state` menggunakan fungsi `change_level` untuk mengubah level yang sedang dimainkan dan `render_level` untuk merender level.
 * **Modul `obstacles`:** Meskipun tidak ada interaksi eksplisit yang terlihat dalam snippet, ada interaksi melalui modul `level` dalam hal penanganan rintangan di dalam level.

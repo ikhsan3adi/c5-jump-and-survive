@@ -4,26 +4,47 @@
 
 **File:** `level.c` & `level.h`
 
-## Struktur `level`
+## Struktur `LevelNode`
 
-Modul `level` menggunakan struktur yang didefinisikan dalam file header lain:
-
-* **`Transform`**: Didefinisikan dalam `transform.h`, digunakan untuk merepresentasikan posisi dan ukuran tile dalam level.
-* **`Switch`** dan **`Switch_Obstacles`**: Didefinisikan dalam `obstacles.h`, digunakan untuk merepresentasikan elemen interaktif dalam level seperti tombol dan objek yang dipengaruhi oleh tombol.
+Struktur `LevelNode` menyimpan semua data yang diperlukan untuk mendefinisikan sebuah level dalam game.
 
 ```c title="level.h"
-#include <SDL3/SDL.h>
-#include "transform.h"
-#include "obstacles.h"
+typedef struct LevelNode LevelNode;
 
-// ... (definisi struct Switch dan Switch_Obstacles ada di obstacles.h)
+struct LevelNode
+{
+  char name[32];
+  char prev_name[32]; // name level sebelumnya
+  char next_name[32]; // name level selanjutnya
+
+  Vector player_spawn;
+
+  SDL_Color foreground_color;
+  SDL_Color background_color;
+
+  char bg_image[32];
+  char bg_music[32];
+
+  Switch *switches;
+  Switch_Obstacles *switch_obstacles;
+  Saw *saws;
+
+  int switches_count;
+  int switch_obstacles_count;
+  int saws_count;
+
+  short map[MAP_HEIGHT][MAP_WIDTH];
+
+  LevelNode *prev;
+  LevelNode *next;
+};
 ```
 
 ---
 
 ## Variabel dan Konstanta
 
-### **TILE_SIZE**
+### **TILE\_SIZE**
 
 ```c
 #define TILE_SIZE 32
@@ -31,7 +52,7 @@ Modul `level` menggunakan struktur yang didefinisikan dalam file header lain:
 
 Konstanta yang mendefinisikan ukuran (lebar dan tinggi) setiap tile dalam pixel.
 
-### **MAP_WIDTH**
+### **MAP\_WIDTH**
 
 ```c
 #define MAP_WIDTH 30
@@ -39,7 +60,7 @@ Konstanta yang mendefinisikan ukuran (lebar dan tinggi) setiap tile dalam pixel.
 
 Konstanta yang mendefinisikan lebar peta level dalam jumlah tile.
 
-### **MAP_HEIGHT**
+### **MAP\_HEIGHT**
 
 ```c
 #define MAP_HEIGHT 20
@@ -47,88 +68,138 @@ Konstanta yang mendefinisikan lebar peta level dalam jumlah tile.
 
 Konstanta yang mendefinisikan tinggi peta level dalam jumlah tile.
 
-### **level0_map` ... `level10_map**
+### **level\_head**
 
 ```c
-extern short level0_map[MAP_HEIGHT][MAP_WIDTH];
-extern short level1_map[MAP_HEIGHT][MAP_WIDTH];
-extern short level2_map[MAP_HEIGHT][MAP_WIDTH];
-extern short level3_map[MAP_HEIGHT][MAP_WIDTH];
-extern short level4_map[MAP_HEIGHT][MAP_WIDTH];
-...
-extern short level10_map[MAP_HEIGHT][MAP_WIDTH];
+extern LevelNode *level_head;
 ```
 
-Array 2D yang menyimpan data peta untuk masing-masing level (level 0 hingga level 10). Setiap elemen array merepresentasikan jenis tile pada posisi tertentu dalam peta.
+Pointer ke node level paling depan (head) dari linked list level. Pointer ini tidak boleh berubah selama game berjalan.
 
-### **current_level**
+### **current\_level**
 
 ```c
-extern int current_level;
+extern LevelNode *current_level;
 ```
 
-Variabel integer yang menyimpan nomor level saat ini yang sedang dimainkan.
+Pointer ke node level yang sedang dimuat atau dimainkan saat ini. Pointer ini dapat berubah saat berpindah level.
 
-### **buttonL1` ... `buttonL103**
+### **current\_switches**
 
 ```c
-extern Switch buttonL1;
-extern Switch buttonL51;
-extern Switch buttonL52;
-extern Switch buttonL61;
-extern Switch buttonL62;
-extern Switch_Obstacles buttonL7;
-extern Switch_Obstacles buttonL81;
-extern Switch buttonL82;
-extern Switch_Obstacles buttonL91;
-extern Switch_Obstacles buttonL92;
-extern Switch_Obstacles buttonL101;
-extern Switch buttonL102;
-extern Switch_Obstacles buttonL103;
+extern Switch *current_switches;
 ```
 
-Variabel-variabel global yang merupakan instance dari struct `Switch` dan `Switch_Obstacles`. Ini merepresentasikan status dan konfigurasi dari tombol-tombol dan objek terkait dalam berbagai level. Nama variabel menunjukkan level tempat tombol tersebut berada (misalnya, `buttonL1` untuk tombol di level 1).
+Pointer ke array of `Switch` yang mewakili semua switch di level saat ini.
 
-### **current_level_map**
+### **current\_switch\_obstacles**
+
+```c
+extern Switch_Obstacles *current_switch_obstacles;
+```
+
+Pointer ke array of `Switch_Obstacles` yang mewakili semua rintangan switch di level saat ini.
+
+### **current\_switches\_count**
+
+```c
+extern int current_switches_count;
+```
+
+Jumlah switch di level saat ini.
+
+### **current\_switch\_obstacles\_count**
+
+```c
+extern int current_switch_obstacles_count;
+```
+
+Jumlah rintangan switch di level saat ini.
+
+### **current\_level\_map**
 
 ```c
 extern short current_level_map[MAP_HEIGHT][MAP_WIDTH];
 ```
 
-Array 2D yang menyimpan data peta untuk level yang sedang aktif. Variabel ini akan menunjuk ke salah satu array peta level (`level0_map` hingga `level5_map`) berdasarkan nilai `current_level`.
+Array 2D yang menyimpan data peta untuk level yang sedang aktif.
 
----
+-----
 
 ## Penjelasan Setiap Fungsi
 
-### **change_level**
+### **load\_levels**
 
 ```c title="level.h"
-void change_level(int level);
+void load_levels(const char *dir);
 ```
 
-Fungsi `change_level` digunakan untuk mengganti level permainan saat ini. Fungsi ini menerima nomor level baru sebagai input. Berdasarkan nomor level yang diberikan, fungsi ini akan mengupdate variabel global `current_level` dan menyalin data peta dari array peta level yang sesuai (`level0_map` hingga `level5_map`) ke dalam array `current_level_map`. Fungsi ini juga melakukan inisialisasi ulang status tombol-tombol level.
+Fungsi ini memuat semua level dari file JSON di direktori yang ditentukan, membangun linked list level, dan mengatur level pertama sebagai level saat ini.
 
----
+### **build\_level\_list\_from\_array**
 
-### **render_level**
+```c title="level.h"
+void build_level_list_from_array(LevelNode **head, LevelNode *levels[], int count);
+```
+
+Fungsi ini membangun linked list level dari array `LevelNode` yang diberikan.
+
+### **goto\_level\_by\_name**
+
+```c title="level.h"
+void goto_level_by_name(LevelNode *head, const char *name);
+```
+
+Fungsi ini mengubah `current_level` ke level yang memiliki nama yang sesuai dengan `name`.
+
+### **goto\_next\_level**
+
+```c title="level.h"
+void goto_next_level();
+```
+
+Fungsi ini mengubah `current_level` ke level berikutnya dalam linked list.
+
+### **goto\_prev\_level**
+
+```c title="level.h"
+void goto_prev_level();
+```
+
+Fungsi ini mengubah `current_level` ke level sebelumnya dalam linked list.
+
+### **change\_level**
+
+```c title="level.h"
+void change_level();
+```
+
+Fungsi `change_level` digunakan untuk mengganti level permainan saat ini. Fungsi ini menyalin data peta, switch, dan obstacle dari `current_level` ke variabel global yang sesuai dan melakukan inisialisasi ulang status tombol-tombol level.
+
+### **render\_level**
 
 ```c title="level.h"
 void render_level(SDL_Renderer *renderer);
 ```
 
-Fungsi `render_level` bertanggung jawab untuk menggambar peta level saat ini ke layar. Fungsi ini menerima renderer SDL sebagai input. Fungsi ini akan melakukan iterasi melalui array `current_level_map` dan menggambar tile yang sesuai pada setiap posisi berdasarkan nilai dalam array. Fungsi ini juga akan memanggil fungsi-fungsi dari modul `obstacles` untuk menggambar elemen-elemen seperti koin, gerbang keluar, tombol, dan rintangan lainnya.
+Fungsi `render_level` bertanggung jawab untuk menggambar peta level saat ini ke layar. Fungsi ini akan melakukan iterasi melalui array `current_level_map` dan menggambar tile yang sesuai pada setiap posisi. Fungsi ini juga akan memanggil fungsi-fungsi dari modul `obstacles` untuk menggambar elemen-elemen seperti koin, gerbang keluar, tombol, dan rintangan lainnya.
 
----
+### **clear\_level**
+
+```c title="level.h"
+void clear_level();
+```
+
+Fungsi ini membersihkan semua memori yang dialokasikan untuk level, termasuk node level, switch, switch obstacles, dan saws. Fungsi ini dipanggil saat game selesai atau keluar.
+
+-----
 
 ## Interaksi dengan modul lain
 
 Modul `level` berinteraksi dengan modul lain sebagai berikut:
 
-* **Modul `stage0_state` dan `stage1_state`:** Modul `level` sangat erat berinteraksi dengan state permainan. Fungsi `change_level` dipanggil dari state-state ini untuk memuat level yang berbeda berdasarkan progres game. Fungsi `render_level` juga dipanggil setiap frame dari state permainan untuk menampilkan level saat ini.
-* **Modul `entity` (terutama `player`):** Modul `level` berinteraksi dengan entity pemain untuk:
-    * **Deteksi Tabrakan:** State permainan akan menggunakan data peta dari `current_level_map` untuk mendeteksi tabrakan antara pemain dan tile-tile di level (misalnya, lantai, dinding, rintangan).
-    * **Interaksi dengan Elemen Level:** State permainan akan memeriksa interaksi pemain dengan elemen-elemen level seperti koin (untuk menambah skor), gerbang keluar (untuk berpindah ke level berikutnya), dan tombol (untuk memicu perubahan pada level). Informasi tentang posisi dan jenis tile di `current_level_map` digunakan untuk menentukan interaksi ini.
-* **Modul `obstacles`:** Modul `level` menggunakan fungsi-fungsi dari modul `obstacles` (seperti `draw_coin`, `draw_gate`, `draw_switch`, `draw_spike`, `draw_rotating_saw`) untuk menggambar elemen-elemen interaktif dan rintangan dalam level saat `render_level` dipanggil.
-
----
+  * **Modul `level_parser`**: Modul `level` menggunakan fungsi `load_json_levels` dari `level_parser` untuk memuat data level dari file JSON.
+  * **Modul `entity` (terutama `player`):** Modul `level` berinteraksi dengan entity pemain untuk:
+      * **Deteksi Tabrakan:** State permainan akan menggunakan data peta dari `current_level_map` untuk mendeteksi tabrakan antara pemain dan tile-tile di level (misalnya, lantai, dinding, rintangan).
+      * **Interaksi dengan Elemen Level:** State permainan akan memeriksa interaksi pemain dengan elemen-elemen level seperti koin (untuk menambah skor), gerbang keluar (untuk berpindah ke level berikutnya), dan tombol (untuk memicu perubahan pada level). Informasi tentang posisi dan jenis tile di `current_level_map` digunakan untuk menentukan interaksi ini.
+  * **Modul `obstacles`:** Modul `level` menggunakan fungsi-fungsi dari modul `obstacles` (seperti `draw_coin`, `draw_gate`, `draw_switch`, `draw_spike`, `draw_rotating_saw`) untuk menggambar elemen-elemen interaktif dan rintangan dalam level saat `render_level` dipanggil.

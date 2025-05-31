@@ -1,7 +1,7 @@
 # Cara Memainkan
 
 * Pilih **Start Game** untuk memulai permainan.
-  ![1742750654165](image/how-to-play/1742750654165.png)
+  ![Start](image/how-to-play/menu.png)
 
 * Gunakan tombol **arah (Arrow Keys)** untuk bergerak ke kiri, kanan, dan melompat.
   ![1742750741426](image/how-to-play/1742750741426.png)  
@@ -27,10 +27,18 @@
       ![1742751075487](image/how-to-play/1742751075487.png)
 
 * Jika pemain berhasil melewati seluruh level dari **level 0 hingga level 10**, maka akan muncul tampilan **Congratulations**.
-  ![1742751605797](image/how-to-play/1742751605797.png)
+  ![Congrats](image/how-to-play/1748676721_grim.png)
 
 * Tekan tombol **ESC** saat berada di dalam game untuk memunculkan menu pause.
-  ![1742751686813](image/how-to-play/1742751686813.png)
+  ![Paused](image/how-to-play/1748676570_grim.png)
 
-* Tekan tombol **ENTER** untuk melanjutkan permainan (resume) dari menu pause.
-* Tekan tombol **ESC** sekali lagi saat berada di menu pause untuk kembali ke menu utama.
+    * Tekan tombol **ENTER** untuk melanjutkan permainan (resume) dari menu pause.
+    * Tekan tombol **ESC** sekali lagi saat berada di menu pause untuk kembali ke menu utama.
+    * Tekan tombol **P** untuk kembali ke level sebelumnya.
+
+* Jika permainan game over atau menang, pemain akan diminta untuk memasukkan nama untuk menyimpan statistik permainan ke leaderboard.
+  ![Input Name](image/how-to-play/1748676638_grim.png)
+
+* Pemain dapat melihat leaderboard setelah memilih pilihan 'Leaderboard' di menu.
+  ![Leaderboard](image/how-to-play/1748676661_grim.png)
+  

@@ -10,23 +10,23 @@ Halaman ini bertujuan untuk memberikan gambaran umum tentang pengembangan proyek
 
 1. [**Ikhsan Satriadi** (241511080)](https://github.com/ikhsan3adi)
 
-     Mengembangkan logika lifecycle game, seperti pengelolaan state, dan bertanggung jawab atas inisialisasi program menggunakan library SDL untuk membuat _window_ dan _renderer_. Ikut membantu dalam pengembangan  entity, level dan beberapa tampilan/ui. Selain itu, juga membuat dokumentasi teknis proyek.
+    Bertugas mengelola _Game State_ dan mengembangkan _Game Manager_ serta _Main Driver/Game Loop_ utama permainan. Ikhsan juga bertanggung jawab atas pembuatan dokumentasi web proyek, merancang struktur data untuk _node level_, dan mengimplementasikan mekanisme _parsing_ berkas level dari format JSON ke dalam struktur data tersebut.
 
 2. [**Muhamad Syahid** (241511081)](https://github.com/muhamadSyahid)
 
-     Bertanggung jawab pada pengelolaan entity, seperti player, dan objek dinamis lainnya. Tanggung jawab juga meliputi pengembangan logika fisika untuk entitas, termasuk implementasi sistem tabrakan / collision dengan tile map. Selain itu, juga membuat logika rintangan.
+    Fokus pada pengembangan logika _entity_, khususnya untuk _player_, serta menangani aspek fisika (_physics_) yang berlaku pada setiap entitas dalam game. Syahid juga mengembangkan logika untuk berbagai rintangan (_obstacles_) dan melakukan manajemen data level menggunakan struktur data _doubly linked list_.
 
 3. [**Hisyam Khaeru Umam** (241511078)](https://github.com/Umeem26)
 
-     Merancang dan mengimplementasikan level permainan, termasuk mendesain level-level dengan berbagai elemen seperti tata letak platform dan rintangan. Membuat dan mengatur logika audio dan sound effect. Selain itu, juga mendesain bentuk dan tampilan player.
+    Bertanggung jawab atas pembuatan _stage_ dan desain _level/map_ permainan secara keseluruhan. Hisyam juga mengerjakan aspek visual untuk karakter _player_, manajemen _audio_ dan _sound effects_ (SFX), serta pembuatan berkas-berkas level dalam format JSON.
 
 4. [**Helga Athifa Hidayat** (241511077)](https://github.com/helga1406)
 
-     Mengembangkan antarmuka pengguna (UI), mencakup perancangan menu utama dan elemen visual seperti indikator skor dan nyawa. Membuat antarmuka untuk menampilkan teks. Selain itu, juga mengatur asset font yang digunakan dalam permainan.
+    Mengembangkan berbagai antarmuka pengguna (UI), termasuk _menu interface_ dan _game interface_ yang interaktif. Helga juga bertugas melakukan manajemen _assets_ grafis yang digunakan dalam permainan dan merancang antarmuka untuk sistem _leaderboard_.
 
 5. [**Hanifidin Ibrahim** (241511076)](https://github.com/Hanif13579)
 
-     Mengelola sistem statistik permainan (_Game Stats_), termasuk mencatat dan menampilkan data seperti skor, jumlah nyawa yang tersisa, dan timer. Selain itu, juga membuat desain tampilan _obstacle_ dan _coin_.
+    Bertugas mengelola dan menampilkan statistik permainan (_Game Stats_) kepada pemain. Hanifidin juga merancang tampilan visual untuk rintangan (_visual obstacle_) dan mengimplementasikan fungsionalitas sistem _leaderboard_ dengan menggunakan struktur data _singly linked list_.
 
 ### Pembagian Branch
 
@@ -38,8 +38,12 @@ Halaman ini bertujuan untuk memberikan gambaran umum tentang pengembangan proyek
 - **`feat/main-menu`**: Berisi implementasi logika menu utama / start menu.
 - **`feat/entity-and-physics`**: Mengembangkan logika _entity_ (player) dan modul fisika.
 - **`feat/tile-system`**: Mengimplementasikan sistem tile untuk _level design_.
-- **`feat/game-stat`**: Berisi pengembangan fitur terkait statistik game, seperti skor dan waktu bermain.
+- **`feat/game-stat`**: Berisi pengembangan fitur terkait statistik game, seperti skor dan waktu bermain. Juga mengelola leaderboard.
 - **`feat/coins-and-other-obstacles`**: Mengembangkan fitur koin dan rintangan dalam permainan.
+- **`feat/Audio_SFX`**: Berisi pengembangan fitur audio dan efek suara (SFX) dalam permainan.
+- **`feat/parsing-level-json`**: Mengimplementasikan mekanisme parsing berkas level dari format JSON ke dalam struktur data yang digunakan dalam permainan.
+- **`feat/linked-list-map`**: Berisi pengembangan struktur data _doubly linked list_ untuk manajemen level dalam permainan.
+- **`integration`**: Branch untuk mengintegrasikan semua fitur yang telah dikembangkan ke dalam branch `main`.
 
 #### Branch dokumentasi
 
@@ -49,7 +53,7 @@ Halaman ini bertujuan untuk memberikan gambaran umum tentang pengembangan proyek
 ### Cara Kerja Pengembangan
 
 - Setiap fitur baru dikembangkan di branch terpisah untuk menjaga kebersihan branch `main`.
-- Setelah fitur selesai dan diuji, branch tersebut akan di-_merge_ ke `main` melalui pull request.
+- Setelah fitur selesai dan diuji, branch tersebut akan di-_merge_ ke `integration` melalui pull request. Setelah itu, branch `integration` akan diuji dan di-_merge_ ke `main`.
 - Komunikasi dilakukan secara rutin (melalui WhatsApp group, GitHub atau Trello) untuk memastikan semua anggota tetap sinkron.
 
 ---
@@ -58,7 +62,7 @@ Halaman ini bertujuan untuk memberikan gambaran umum tentang pengembangan proyek
 
 ### State Pattern untuk Lifecycle Game
 
-Logika siklus game ini dikelola melalui **state pattern**. Modul `game_state` bertindak sebagai antarmuka abstrak yang mengatur alur permainan melalui state konkrit, seperti `menu_state`, `stage0_state`, dan `stage1_state`. Dalam modul ini, fungsi-fungsi seperti inisialisasi (`init()`), pembaruan (`update()`), dan rendering (`render()`) didefinisikan sebagai kontrak yang harus diimplementasikan oleh state konkrit. State konkrit seperti `menu_state`, `stage0_state`, dan `stage1_state` masing-masing mengimplementasikan logika spesifik untuk menu utama, tahap pertama permainan, dan tahap lanjutan. Disediakan juga fungsi untuk berpindah state (`change_game_state`). Dengan pemisahan ini, setiap state dapat dikembangkan dan dimodifikasi secara independen tanpa memengaruhi alur logika state lainnya.
+Logika siklus game ini dikelola melalui **state pattern**. Modul `game_state` bertindak sebagai antarmuka abstrak yang mengatur alur permainan melalui state konkrit, seperti `menu_state`, `stage0_state`, dan `leadrboard_state`. Dalam modul ini, fungsi-fungsi seperti inisialisasi (`init()`), pembaruan (`update()`), dan rendering (`render()`) didefinisikan sebagai kontrak yang harus diimplementasikan oleh state konkrit. State konkrit seperti `menu_state`, `stage0_state`, dan `leadrboard_state` masing-masing mengimplementasikan logika spesifik untuk menu utama, tahap pertama permainan, dan tahap lanjutan. Disediakan juga fungsi untuk berpindah state (`change_game_state`). Dengan pemisahan ini, setiap state dapat dikembangkan dan dimodifikasi secara independen tanpa memengaruhi alur logika state lainnya.
 
 Definisi dan implementasi _game state_ dapat dilihat pada:
 
@@ -72,8 +76,15 @@ _Tile system_ digunakan untuk mendesain map, rintangan, dan mendukung deteksi ta
 Implementasi dan penggunaan _level_ dan _tile system_ dapat dilihat pada:
 
 - [Modul `level`](./modules/level.md)
-- [Modul `level_parser`](./modules/level_parser.md)
 - [Modul `stage0_state`](./modules/stage0_state.md)
+
+### Level Modular dengan JSON
+
+Level permainan didefinisikan dalam format JSON, yang memungkinkan desainer untuk membuat dan mengedit level dengan mudah tanpa perlu mengubah kode sumber. Modul `level_parser` bertanggung jawab untuk membaca berkas JSON, mem-parsing data, dan mengonversinya menjadi struktur data yang digunakan dalam permainan. Ini memungkinkan fleksibilitas dalam desain level dan memudahkan penambahan atau perubahan level di masa depan.
+Implementasi _level_ dan _parsing_ berkas JSON dapat dilihat pada:
+
+- [Modul `level`](./modules/level.md)
+- [Modul `level_parser`](./modules/level_parser.md)
 
 ### Entity System untuk Player dan Objek dinamis lainnya
 

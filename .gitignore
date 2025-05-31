@@ -1,3 +1,4 @@
 .vscode
 site
 build
+**.dat
