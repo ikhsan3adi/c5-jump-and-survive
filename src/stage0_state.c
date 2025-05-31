@@ -67,12 +67,12 @@ void stage0_init()
   show_stage_transition(renderer);
 
   // Memainkan musik latar belakang
-  play_music(stage0_bgm, INT32_MAX);
 
   init_game_stat(&game_stat);
   start_timer(&game_stat);
 
   setup_level_saws();
+  
   change_level();
   set_current_level_name(current_level->name);
 }

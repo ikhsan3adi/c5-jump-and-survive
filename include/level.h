@@ -2,7 +2,7 @@
 #define LEVEL_H
 
 #include <SDL3/SDL.h>
-
+#include <SFX.h>
 #include "transform.h"
 #include "obstacles.h"
 
@@ -50,6 +50,7 @@ extern Switch_Obstacles *current_switch_obstacles;
 extern int current_switches_count;
 extern int current_switch_obstacles_count;
 extern short current_level_map[MAP_HEIGHT][MAP_WIDTH];
+
 
 // load all levels from directory
 void load_levels(const char *dir);

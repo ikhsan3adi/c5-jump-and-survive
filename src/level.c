@@ -6,6 +6,7 @@
 #include "player.h"
 #include "obstacles.h"
 #include "game.h"
+#include "SFX.h"
 #include <SDL3/SDL_image.h>
 #include <stdlib.h>
 
@@ -46,7 +47,13 @@ void change_level()
     SDL_Log("Memory allocation failed for switches or switch obstacles.");
     return;
   }
-
+  
+  char audio_dir[] = "assets/SFX/";
+  char *audio_path = malloc(sizeof(char) * (strlen(current_level->bg_music) + strlen(audio_dir) + 1));
+  strcpy(audio_path, audio_dir);
+  strcat(audio_path, current_level->bg_music);
+  current_bgm = load_music(audio_path);
+  play_music(current_bgm, INT32_MAX);
   char dir[] = "assets/images/";
   char *img_path = malloc(sizeof(char) * (strlen(current_level->bg_image) + strlen(dir) + 1));
   strcpy(img_path, dir);

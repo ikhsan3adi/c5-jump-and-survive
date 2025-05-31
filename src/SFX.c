@@ -5,6 +5,7 @@ Mix_Music *stage0_bgm;
 Mix_Music *menu_bgm;
 Mix_Music *stage1_bgm;
 Mix_Music *win_bgm;
+Mix_Music *current_bgm;
 Mix_Chunk *jump_sfx;
 Mix_Chunk *gate_sfx;
 Mix_Chunk *coin_sfx;
