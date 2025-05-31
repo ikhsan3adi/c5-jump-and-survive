@@ -6,7 +6,10 @@
 #include "player.h"
 #include "obstacles.h"
 #include "game.h"
+#include "SFX.h"
+
 #include <SDL3/SDL_image.h>
+#include <SDL3/SDL_mixer.h>
 #include <stdlib.h>
 
 LevelNode *level_head = NULL;
@@ -47,11 +50,19 @@ void change_level()
     return;
   }
 
+  // bg image
   char dir[] = "assets/images/";
   char *img_path = malloc(sizeof(char) * (strlen(current_level->bg_image) + strlen(dir) + 1));
   strcpy(img_path, dir);
   strcat(img_path, current_level->bg_image);
   current_bg_texture = IMG_LoadTexture(get_game_instance()->renderer, img_path);
+
+  // bg music
+  char audio_dir[] = "assets/SFX/";
+  char *audio_path = malloc(sizeof(char) * (strlen(current_level->bg_music) + strlen(audio_dir) + 1));
+  strcpy(audio_path, audio_dir);
+  strcat(audio_path, current_level->bg_music);
+  current_bgm = load_music(audio_path);
 
   memcpy(current_level_map, current_level->map, sizeof(current_level->map));
   memcpy(current_switches, current_level->switches, sizeof(Switch) * current_level->switches_count);

@@ -11,6 +11,8 @@ Mix_Chunk *coin_sfx;
 Mix_Chunk *dead_sfx;
 Mix_Chunk *gameover_sfx;
 
+Mix_Music *current_bgm = NULL;
+
 void init_audio()
 {
     SDL_AudioSpec spec = {

@@ -13,6 +13,8 @@ extern Mix_Chunk *coin_sfx;
 extern Mix_Chunk *dead_sfx;
 extern Mix_Chunk *gameover_sfx;
 
+extern Mix_Music *current_bgm;
+
 // Inisialisasi audio
 void init_audio();
 
@@ -36,6 +38,6 @@ void pause_music();
 void resume_music();
 
 // Membersihkan audio
-void cleanup_audio(); 
+void cleanup_audio();
 
 #endif
